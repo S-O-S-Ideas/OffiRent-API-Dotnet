@@ -7,11 +7,10 @@ namespace Supermarket.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductTag> ProductTags { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<CountryCurrency> CountryCurrencies { get; set; }
+        
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -20,61 +19,54 @@ namespace Supermarket.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-            // Category Entity
-            builder.Entity<Category>().ToTable("Categories");
-            builder.Entity<Category>().HasKey(p => p.Id);
-            builder.Entity<Category>().Property(p => p.Id)
+            // Country Entity
+
+            builder.Entity<Country>().ToTable("Countries");
+            builder.Entity<Country>().HasKey(p => p.CountryId);
+            builder.Entity<Country>().Property(p => p.CountryId)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Category>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(30);
-            builder.Entity<Category>()
-                .HasMany(p => p.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
-            builder.Entity<Category>().HasData
-                (
-                new Category { Id = 100, Name = "Fruits and Vegetables" },
-                new Category { Id = 101, Name = "Dairy" }
-                );
+            builder.Entity<Country>().Property(p => p.Name)
+                 .IsRequired().HasMaxLength(30);
 
-            // Product Entity
-            builder.Entity<Product>().ToTable("Products");
-            builder.Entity<Product>().HasKey(p => p.Id);
-            builder.Entity<Product>().Property(p => p.Id)
+            builder.Entity<Country>()
+                 .HasMany(p => p.CountryCurrencies)
+                 .WithOne(p => p.Country);
+
+            builder.Entity<Country>()
+                .HasMany(p => p.Departaments)
+                .WithOne(p => p.Country);
+
+
+            // Currency Entity
+
+            builder.Entity<Currency>().ToTable("Currencies");
+            builder.Entity<Currency>().HasKey(p => p.CurrencyId);
+            builder.Entity<Currency>().Property(p => p.CurrencyId)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Product>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(50);
-            builder.Entity<Product>().Property(p => p.QuantityInPackage)
-                .IsRequired();
-            builder.Entity<Product>().Property(p => p.UnitOfMeasurement)
-                .IsRequired();
-            builder.Entity<Product>().HasData
-                (
-                new Product
-                { Id = 100, Name = "Apple", QuantityInPackage = 1, UnitOfMeasurement = EUnitOfMeasurement.Unity, CategoryId = 100},
-                new Product
-                { Id = 101, Name = "Milk", QuantityInPackage = 2, UnitOfMeasurement = EUnitOfMeasurement.Liter, CategoryId = 101}
-                );
+            builder.Entity<Currency>().Property(p => p.Name)
+                 .IsRequired().HasMaxLength(30);
+            builder.Entity<Currency>().Property(p => p.Symbol) //simbolo de la moneda
+                 .IsRequired().HasMaxLength(1);
 
-            // Tag Entity
-            builder.Entity<Tag>().ToTable("Tags");
-            builder.Entity<Tag>().HasKey(p => p.Id);
-            builder.Entity<Tag>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Tag>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            builder.Entity<Currency>()
+                 .HasMany(p => p.CountryCurrencies)
+                 .WithOne(p => p.Currency);
 
-            // ProductTag Entity
-            builder.Entity<ProductTag>().ToTable("ProductTags");
-            builder.Entity<ProductTag>().HasKey(pt => new { pt.ProductId, pt.TagId });
+            // CountryCurrency Entity
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Product)
-                .WithMany(p => p.ProductTags)
-                .HasForeignKey(pt => pt.ProductId);
+            builder.Entity<CountryCurrency>().ToTable("CountryCurrencies");
+            builder.Entity<CountryCurrency>().HasKey(p => p.Id);
+            builder.Entity<CountryCurrency>().Property(p => p.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Tag)
-                .WithMany(t => t.ProductTags)
-                .HasForeignKey(pt => pt.TagId);
+            builder.Entity<CountryCurrency>()
+                 .HasOne(p => p.Country)
+                 .WithMany(p => p.CountryCurrencies);
+
+            builder.Entity<CountryCurrency>()
+                 .HasOne(p => p.Currency)
+                 .WithMany(p => p.CountryCurrencies);
 
 
             // Naming convention Policy

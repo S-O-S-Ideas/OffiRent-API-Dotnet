@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\OffiRent.API",
+    "\\OffiRent.API\\Domain",
+    "\\OffiRent.API\\Domain\\Models",
+    "\\OffiRent.API\\Domain\\Repositories"
+  ],
+  "SelectedNode": "\\OffiRent.API\\Domain\\Models",
+  "PreviewInSolutionExplorer": false
+}
