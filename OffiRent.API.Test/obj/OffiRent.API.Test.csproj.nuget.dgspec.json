@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj": {}
+    "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj": {
+    "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj",
+        "projectUniqueName": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj",
         "projectName": "OffiRent.API.Test",
-        "projectPath": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj",
-        "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API.Test\\obj\\",
+        "projectPath": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API.Test\\OffiRent.API.Test.csproj",
+        "packagesPath": "C:\\Users\\Ernesto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API.Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ernesto\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj": {
-                "projectPath": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj"
+              "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj": {
+                "projectPath": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj"
               }
             }
           }
@@ -104,20 +104,20 @@
         }
       }
     },
-    "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj": {
+    "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj",
+        "projectUniqueName": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj",
         "projectName": "OffiRent.API",
-        "projectPath": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj",
-        "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Marcelo\\Desktop\\OffiRent-API-Dotnet\\OffiRent.API\\obj\\",
+        "projectPath": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\OffiRent.API.csproj",
+        "packagesPath": "C:\\Users\\Ernesto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ernesto\\Desktop\\Git_para Web\\OffiRent-API-Dotnet\\OffiRent.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ernesto\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

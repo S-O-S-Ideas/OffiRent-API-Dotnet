@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Supermarket.API.Resources
+namespace OffiRent.API.Resources
 {
-    public class SaveCategoryResource
+    public class SaveDepartamentResource
     {
         [Required]
         [MaxLength(30)]

@@ -1,16 +1,15 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Extensions;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Extensions;
 
-namespace Supermarket.API.Domain.Persistence.Contexts
+namespace OffiRent.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductTag> ProductTags { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Office> Offices { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Departament> Departaments { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -20,62 +19,64 @@ namespace Supermarket.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-            // Category Entity
-            builder.Entity<Category>().ToTable("Categories");
-            builder.Entity<Category>().HasKey(p => p.Id);
-            builder.Entity<Category>().Property(p => p.Id)
+            // Office Entity
+            builder.Entity<Office>().ToTable("Offices");
+            builder.Entity<Office>().HasKey(p => p.Id);
+            builder.Entity<Office>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Category>().Property(p => p.Name)
+            builder.Entity<Office>().Property(p => p.Address)
+                .IsRequired();
+            builder.Entity<Office>().Property(p => p.Floor)
+                .IsRequired().HasMaxLength(30); 
+            builder.Entity<Office>().Property(p => p.Capacity)
                 .IsRequired().HasMaxLength(30);
-            builder.Entity<Category>()
-                .HasMany(p => p.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
-            builder.Entity<Category>().HasData
-                (
-                new Category { Id = 100, Name = "Fruits and Vegetables" },
-                new Category { Id = 101, Name = "Dairy" }
-                );
+            builder.Entity<Office>().Property(p => p.AllowResource)
+                .IsRequired();
 
-            // Product Entity
-            builder.Entity<Product>().ToTable("Products");
-            builder.Entity<Product>().HasKey(p => p.Id);
-            builder.Entity<Product>().Property(p => p.Id)
+            builder.Entity<Office>()
+                .HasOne(p => p.District)
+                .WithMany(p => p.Offices);
+
+            builder.Entity<Office>()
+                .HasOne(p => p.Publication);   //en duda
+
+            builder.Entity<Office>()
+                .HasMany(p => p.Resources)
+                .WithOne(p => p.Office);
+
+
+            //District Entity
+            builder.Entity<District>().ToTable("Districts");
+            builder.Entity<District>().HasKey(p => p.Id);
+            builder.Entity<District>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Product>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(50);
-            builder.Entity<Product>().Property(p => p.QuantityInPackage)
-                .IsRequired();
-            builder.Entity<Product>().Property(p => p.UnitOfMeasurement)
-                .IsRequired();
-            builder.Entity<Product>().HasData
-                (
-                new Product
-                { Id = 100, Name = "Apple", QuantityInPackage = 1, UnitOfMeasurement = EUnitOfMeasurement.Unity, CategoryId = 100},
-                new Product
-                { Id = 101, Name = "Milk", QuantityInPackage = 2, UnitOfMeasurement = EUnitOfMeasurement.Liter, CategoryId = 101}
-                );
+            builder.Entity<District>().Property(p => p.Name)
+                .IsRequired().HasMaxLength(30);
 
-            // Tag Entity
-            builder.Entity<Tag>().ToTable("Tags");
-            builder.Entity<Tag>().HasKey(p => p.Id);
-            builder.Entity<Tag>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Tag>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            builder.Entity<District>()
+                .HasOne(p => p.Departament)
+                .WithMany(p => p.Districts);
 
-            // ProductTag Entity
-            builder.Entity<ProductTag>().ToTable("ProductTags");
-            builder.Entity<ProductTag>().HasKey(pt => new { pt.ProductId, pt.TagId });
+            builder.Entity<District>()
+                .HasMany(p => p.Offices)
+                .WithOne(p => p.District);
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Product)
-                .WithMany(p => p.ProductTags)
-                .HasForeignKey(pt => pt.ProductId);
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Tag)
-                .WithMany(t => t.ProductTags)
-                .HasForeignKey(pt => pt.TagId);
+            // Departament Entity
+            builder.Entity<Departament>().ToTable("Departaments");
+            builder.Entity<Departament>().HasKey(p => p.Id);
+            builder.Entity<Departament>().Property(p => p.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Departament>().Property(p => p.Name)
+                .IsRequired().HasMaxLength(30);
 
+            builder.Entity<Departament>()
+                .HasOne(p => p.Country)
+                .WithMany(p => p.Departaments);
+
+            builder.Entity<Departament>()
+                .HasMany(p => p.Districts)
+                .WithOne(p => p.Departament);
 
             // Naming convention Policy
             builder.ApplySnakeCaseNamingConvention();

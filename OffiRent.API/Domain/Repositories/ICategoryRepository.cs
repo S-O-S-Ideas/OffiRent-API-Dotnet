@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Supermarket.API.Domain.Models;
+using OffiRent.API.Domain.Models;
 
-namespace Supermarket.API.Domain.Repositories
+namespace OffiRent.API.Domain.Repositories
 {
     public interface ICategoryRepository
     {

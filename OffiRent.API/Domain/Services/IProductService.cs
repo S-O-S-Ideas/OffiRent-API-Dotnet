@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Supermarket.API.Domain.Models;
+using OffiRent.API.Domain.Models;
 
-namespace Supermarket.API.Domain.Services
+namespace OffiRent.API.Domain.Services
 {
     public interface IProductService
     {

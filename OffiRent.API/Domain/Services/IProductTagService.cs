@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Domain.Services.Communications;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Services.Communications;
 
-namespace Supermarket.API.Domain.Services
+namespace OffiRent.API.Domain.Services
 {
     public interface IProductTagService
     {

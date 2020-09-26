@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Supermarket.API.Resources
+namespace OffiRent.API.Resources
 {
-    public class SaveTagResource
+    public class SaveDistrictResource
     {
         [Required]
         [MaxLength(30)]

@@ -1,7 +1,7 @@
 ﻿using System;
-using Supermarket.API.Domain.Models;
+using OffiRent.API.Domain.Models;
 
-namespace Supermarket.API.Domain.Services.Communications
+namespace OffiRent.API.Domain.Services.Communications
 {
     public class ProductResponse : BaseResponse<Product>
     {
