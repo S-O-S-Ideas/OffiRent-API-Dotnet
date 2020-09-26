@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Supermarket.API.Domain.Services.Communications
+namespace OffiRent.API.Domain.Services.Communications
 {
     public abstract class BaseResponse<T>
     {
