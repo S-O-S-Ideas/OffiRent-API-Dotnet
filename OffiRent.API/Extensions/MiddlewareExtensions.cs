@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Supermarket.API.Extensions
+namespace OffiRent.API.Extensions
 {
     public static class MiddlewareExtensions
     {
