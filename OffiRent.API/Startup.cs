@@ -38,9 +38,10 @@ namespace OffiRent.API
             {
                 options.UseInMemoryDatabase("supermarket-api-in-memory");
             });
+            services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
 
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddAutoMapper(typeof(Startup));
         }
