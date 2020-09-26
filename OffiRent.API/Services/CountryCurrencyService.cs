@@ -1,14 +1,14 @@
-﻿using Supermarket.API.Domain.Models;
-using Supermarket.API.Domain.Repositories;
-using Supermarket.API.Domain.Services;
-using Supermarket.API.Domain.Services.Communications;
-using Supermarket.API.Extensions;
+﻿using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Repositories;
+using OffiRent.API.Domain.Services;
+using OffiRent.API.Domain.Services.Communications;
+using OffiRent.API.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Supermarket.API.Services
+namespace OffiRent.API.Services
 {
     public class CountryCurrencyService : ICountryCurrencyService
     {
