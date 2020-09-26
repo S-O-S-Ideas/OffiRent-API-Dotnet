@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Domain.Persistence.Contexts;
-using Supermarket.API.Domain.Repositories;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Persistence.Contexts;
+using OffiRent.API.Domain.Repositories;
 
-namespace Supermarket.API.Persistence.Repositories
+namespace OffiRent.API.Persistence.Repositories
 {
     public class CountryCurrencyRepository : BaseRepository, ICountryCurrencyRepository
     {
