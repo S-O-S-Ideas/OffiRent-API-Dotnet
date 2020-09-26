@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Domain.Services;
-using Supermarket.API.Extensions;
-using Supermarket.API.Resources;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Services;
+using OffiRent.API.Extensions;
+using OffiRent.API.Resources;
 
-namespace Supermarket.API.Controllers
+namespace OffiRent.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
