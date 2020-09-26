@@ -1,16 +1,15 @@
 ﻿using System;
 using AutoMapper;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Resources;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Resources;
 
-namespace Supermarket.API.Mapping
+namespace OffiRent.API.Mapping
 {
     public class ResourceToModelProfile : Profile
     {
         public ResourceToModelProfile()
         {
-            CreateMap<SaveCategoryResource, Category>();
-            CreateMap<SaveTagResource, Tag>();
+          CreateMap<SaveAccountResource, AccountResource>();
         }
     }
 }
