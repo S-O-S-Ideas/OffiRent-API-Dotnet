@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Supermarket.API.Extensions
+namespace OffiRent.API.Extensions
 {
     public static class EnumExtensions
     {
