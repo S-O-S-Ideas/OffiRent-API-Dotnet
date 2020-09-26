@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Domain.Services;
-using Supermarket.API.Resources;
-using Swashbuckle.AspNetCore.Annotations;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Services;
+using OffiRent.API.Resources;
+using OffiRent.AspNetCore.Annotations;
 
-namespace Supermarket.API.Controllers
+namespace OffiRent.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
