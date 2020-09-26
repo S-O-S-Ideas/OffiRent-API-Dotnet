@@ -1,16 +1,16 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Supermarket.API.Domain.Models;
-using Supermarket.API.Extensions;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Extensions;
 
-namespace Supermarket.API.Domain.Persistence.Contexts
+namespace OffiRent.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductTag> ProductTags { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<AccountPaymentMethod> AccountPaymentMethods { get; set; }
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -20,61 +20,67 @@ namespace Supermarket.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-            // Category Entity
-            builder.Entity<Category>().ToTable("Categories");
-            builder.Entity<Category>().HasKey(p => p.Id);
-            builder.Entity<Category>().Property(p => p.Id)
+            // Account Entity
+            builder.Entity<Account>().ToTable("Accounts");
+            builder.Entity<Account>().HasKey(a => a.Id);
+            builder.Entity<Account>().Property(a => a.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Category>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(30);
-            builder.Entity<Category>()
-                .HasMany(p => p.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId);
-            builder.Entity<Category>().HasData
-                (
-                new Category { Id = 100, Name = "Fruits and Vegetables" },
-                new Category { Id = 101, Name = "Dairy" }
-                );
-
-            // Product Entity
-            builder.Entity<Product>().ToTable("Products");
-            builder.Entity<Product>().HasKey(p => p.Id);
-            builder.Entity<Product>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Product>().Property(p => p.Name)
+            builder.Entity<Account>().Property(a => a.Email)
                 .IsRequired().HasMaxLength(50);
-            builder.Entity<Product>().Property(p => p.QuantityInPackage)
-                .IsRequired();
-            builder.Entity<Product>().Property(p => p.UnitOfMeasurement)
-                .IsRequired();
-            builder.Entity<Product>().HasData
+            builder.Entity<Account>().Property(a => a.Password)
+                .IsRequired().HasMaxLength(50);
+            builder.Entity<Account>().Property(a => a.Identification)
+                .HasMaxLength(50);
+            builder.Entity<Account>().Property(a => a.FirstName)
+                .IsRequired().HasMaxLength(50);
+            builder.Entity<Account>().Property(a => a.LastName)
+                .IsRequired().HasMaxLength(50);
+            builder.Entity<Account>().Property(a => a.PhoneNumber)
+                .HasMaxLength(50);
+
+            builder.Entity<Account>().HasData
                 (
-                new Product
-                { Id = 100, Name = "Apple", QuantityInPackage = 1, UnitOfMeasurement = EUnitOfMeasurement.Unity, CategoryId = 100},
-                new Product
-                { Id = 101, Name = "Milk", QuantityInPackage = 2, UnitOfMeasurement = EUnitOfMeasurement.Liter, CategoryId = 101}
+                new Account
+                {
+                    Id = 300,
+                    Email = "juan@gmail.com",
+                    Password = "1234",
+                    Identification = "72901831",
+                    Type = false,
+                    FirstName = "Pepe",
+                    LastName = "Cadena",
+                    PhoneNumber = "920837182"
+                }
                 );
 
-            // Tag Entity
-            builder.Entity<Tag>().ToTable("Tags");
-            builder.Entity<Tag>().HasKey(p => p.Id);
-            builder.Entity<Tag>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Tag>().Property(p => p.Name).IsRequired().HasMaxLength(30);
 
-            // ProductTag Entity
-            builder.Entity<ProductTag>().ToTable("ProductTags");
-            builder.Entity<ProductTag>().HasKey(pt => new { pt.ProductId, pt.TagId });
+            // PaymentMethod Entity
+            builder.Entity<PaymentMethod>().ToTable("PaymentMethods");
+            builder.Entity<PaymentMethod>().HasKey(p => p.Id);
+            builder.Entity<PaymentMethod>().Property(p => p.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<PaymentMethod>().Property(p => p.CardNumber)
+                .IsRequired().HasMaxLength(30);
+            builder.Entity<PaymentMethod>().Property(p => p.OwnerName)
+                .IsRequired().HasMaxLength(30);
+            builder.Entity<PaymentMethod>().Property(p => p.DueDate)
+                .IsRequired().HasMaxLength(30);
+            builder.Entity<PaymentMethod>().Property(p => p.CV)
+                .IsRequired().HasMaxLength(30);
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Product)
-                .WithMany(p => p.ProductTags)
-                .HasForeignKey(pt => pt.ProductId);
+            // AccountPaymentMethod Entity
+            builder.Entity<AccountPaymentMethod>().ToTable("AccountPaymentMethods");
+            builder.Entity<AccountPaymentMethod>().HasKey(ap => new { ap.AccountId, ap.PaymentMethodId });
 
-            builder.Entity<ProductTag>()
-                .HasOne(pt => pt.Tag)
-                .WithMany(t => t.ProductTags)
-                .HasForeignKey(pt => pt.TagId);
+            builder.Entity<AccountPaymentMethod>()
+                .HasOne(ap => ap.Account)
+                .WithMany(a => a.AccountPaymentMethods)
+                .HasForeignKey(ap => ap.AccountId);
+
+            builder.Entity<AccountPaymentMethod>()
+                .HasOne(ap => ap.PaymentMethod)
+                .WithMany(t => t.AccountPaymentMethods)
+                .HasForeignKey(ap => ap.PaymentMethodId);
 
 
             // Naming convention Policy

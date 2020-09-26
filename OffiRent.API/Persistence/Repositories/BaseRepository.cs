@@ -1,7 +1,7 @@
 ﻿using System;
-using Supermarket.API.Domain.Persistence.Contexts;
+using OffiRent.API.Domain.Persistence.Contexts;
 
-namespace Supermarket.API.Persistence.Repositories
+namespace OffiRent.API.Persistence.Repositories
 {
     public abstract class BaseRepository
     {

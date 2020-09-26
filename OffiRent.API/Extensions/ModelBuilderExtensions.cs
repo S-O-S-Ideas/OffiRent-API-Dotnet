@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace Supermarket.API.Extensions
+namespace OffiRent.API.Extensions
 {
     public static class ModelBuilderExtensions
     {

@@ -23,14 +23,14 @@ namespace OffiRent.API.Test
             // Arrange
             var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
             mockCategoryRepository.Setup(r => r.ListAsync())
-                .ReturnsAsync(new List<Category>());
+                .ReturnsAsync(new List<Account>());
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new CategoryService(
                 mockCategoryRepository.Object,
                 mockUnitOfWork.Object);
 
             // Act
-            List<Category> categories = (List<Category>) await service.ListAsync();
+            List<Account> categories = (List<Account>) await service.ListAsync();
             var categoriesCount = categories.Count;
 
             // Assert
@@ -44,7 +44,7 @@ namespace OffiRent.API.Test
             var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
             var categoryId = 1;
             mockCategoryRepository.Setup(r => r.FindById(categoryId))
-                .Returns(Task.FromResult<Category>(null));
+                .Returns(Task.FromResult<Account>(null));
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new CategoryService(
                 mockCategoryRepository.Object,
