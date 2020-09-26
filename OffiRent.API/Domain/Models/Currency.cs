@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Supermarket.API.Domain.Models
+namespace OffiRent.API.Domain.Models
 {
     public class Currency
     {
@@ -10,6 +10,6 @@ namespace Supermarket.API.Domain.Models
         public char Name { get; set; }
         public char Symbol { get; set; }
 
-        public List<CountryCurrency> CountryCurrencies { get; set; } 
+        public List<CountryCurrency> CountryCurrencies { get; set; } = new List <CountryCurrency> ();
     }
 }
