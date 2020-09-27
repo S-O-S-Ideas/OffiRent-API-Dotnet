@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Supermarket.API": {
+    "OffiRent.API": {
         "commandName": "Project",
         "launchBrowser": true,
         "launchUrl": "api-docs/v1",
