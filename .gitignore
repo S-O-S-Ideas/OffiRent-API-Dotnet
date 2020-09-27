@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 ./OffiRent.API/bin
 ./OffiRent.API/obj
 .vs/
 .DS_Store
 ./OffiRent.API.Test/bin
 ./OffiRent.API.Test/obj
+=======
+OffiRent.API/bin
+OffiRent.API/obj
+.vs/
+.DS_Store
+OffiRent.API.Test/bin
+OffiRent.API.Test/obj
+>>>>>>> feature/Departament-District-Office-models

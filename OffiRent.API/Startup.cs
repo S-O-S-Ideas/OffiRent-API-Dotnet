@@ -1,14 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+<<<<<<< HEAD
 using OffiRent.API.Domain.Persistence.Contexts;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Extensions;
+=======
+using Microsoft.Extensions.Logging;
+using OffiRent.API.Domain.Persistence.Contexts;
+using OffiRent.API.Domain.Repositories;
+using OffiRent.API.Domain.Services;
+>>>>>>> feature/Departament-District-Office-models
 using OffiRent.API.Persistence.Repositories;
 using OffiRent.API.Services;
 
@@ -30,12 +43,13 @@ namespace OffiRent.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                // options.UseInMemoryDatabase("supermarket-api-in-memory");
-                //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
-                options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
-
+                options.UseInMemoryDatabase("supermarket-api-in-memory");
             });
+            services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
 
+<<<<<<< HEAD
             // Repositories
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
@@ -50,10 +64,10 @@ namespace OffiRent.API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
             
+=======
+>>>>>>> feature/Departament-District-Office-models
 
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddCustomSwagger();
         }
 
 
@@ -75,8 +89,6 @@ namespace OffiRent.API
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCustomSwagger();
         }
     }
 }
