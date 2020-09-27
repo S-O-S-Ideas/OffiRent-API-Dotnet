@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-<<<<<<< HEAD
-
 
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -20,8 +18,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Domain\Services\Communications\" />
   </ItemGroup>
-=======
->>>>>>> feature/Departament-District-Office-models
+
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />
