@@ -7,16 +7,14 @@ namespace OffiRent.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-<<<<<<< HEAD
         public DbSet<Account> Accounts { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<AccountPaymentMethod> AccountPaymentMethods { get; set; }
-
-=======
         public DbSet<Office> Offices { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Departament> Departaments { get; set; }
->>>>>>> feature/Departament-District-Office-models
+        public DbSet<OffiUser> OffiUsers { get; set; }
+        public DbSet<OffiProvider> OffiProviders { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -26,7 +24,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-<<<<<<< HEAD
             // Account Entity
             builder.Entity<Account>().ToTable("Accounts");
             builder.Entity<Account>().HasKey(a => a.Id);
@@ -88,7 +85,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasOne(ap => ap.PaymentMethod)
                 .WithMany(t => t.AccountPaymentMethods)
                 .HasForeignKey(ap => ap.PaymentMethodId);
-=======
             // Office Entity
             builder.Entity<Office>().ToTable("Offices");
             builder.Entity<Office>().HasKey(p => p.Id);
@@ -102,7 +98,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .IsRequired().HasMaxLength(30);
             builder.Entity<Office>().Property(p => p.AllowResource)
                 .IsRequired();
->>>>>>> feature/Departament-District-Office-models
 
             builder.Entity<Office>()
                 .HasOne(p => p.District)
@@ -148,6 +143,50 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Departament>()
                 .HasMany(p => p.Districts)
                 .WithOne(p => p.Departament);
+            // OffiUser Entity
+
+            builder.Entity<OffiUser>().ToTable("OffiUsers");
+            builder.Entity<OffiUser>().HasKey(p => p.Id);
+            builder.Entity<OffiUser>().Property(p => p.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<OffiUser>().Property(p => p.UserPunctuation)
+                .IsRequired();
+            builder.Entity<OffiUser>().Property(p => p.HasDiscount)
+                 .IsRequired();
+
+            builder.Entity<OffiUser>()
+                 .HasOne(p => p.OffiUser)
+                 .WithMany(p => p.Reservations);
+
+            builder.Entity<OffiUser>()
+                .HasOne(p => p.OffiUser)
+                .WithMany(p => p.Discounts);
+
+            //la de herencia de offiuser 
+            //esta wbd facil esta mal si no es hasone withmany es hasmany.reservations withone.offiuser
+
+
+            // OffiProvider Entity
+
+            builder.Entity<OffiProvider>().ToTable("OffiProviders");
+            builder.Entity<OffiProvider>().HasKey(p => p.Id);
+            builder.Entity<OffiProvider>().Property(p => p.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<OffiProvider>().Property(p => p.PremiumStatus)
+                .IsRequired();
+            builder.Entity<OffiProvider>().Property(p => p.Punctuation)
+                 .IsRequired();
+            builder.Entity<OffiProvider>().Property(p => p.NumberOfPublication)
+                 .IsRequired();
+            builder.Entity<OffiProvider>().Property(p => p.NumberOfReservationCompleted)
+                 .IsRequired();
+
+            builder.Entity<OffiProvider>()
+                 .HasMany(p => p.Publications)
+                 .WithOne(p => p.OffiProvider);
+
+           
+            //la de herencia de offiprovider
 
             // Naming convention Policy
             builder.ApplySnakeCaseNamingConvention();
