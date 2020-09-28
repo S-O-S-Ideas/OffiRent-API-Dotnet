@@ -10,48 +10,47 @@ using OffiRent.API.Domain.Services;
 using OffiRent.API.Extensions;
 using OffiRent.API.Resources;
 
+
 namespace OffiRent.API.Controllers
 {
-    namespace OffiRent.API.Controllers
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OffiUserController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class OffiUserController : ControllerBase
+        private readonly IOffiUserService _offiUserService;
+
+        private readonly IMapper _mapper;
+
+        public OffiUserController(IOffiUserService offiUserService, IMapper mapper)
         {
-            private readonly IOffiUserService _offiUserService;
+            _offiUserService = offiUserService;
+            _mapper = mapper;
+        }
 
-            private readonly IMapper _mapper;
+        [HttpGet]
+        public async Task<IEnumerable<OffiUserResource>> GetAllAsync()
+        {
+            var offiUsers = await _offiUserService.ListAsync();
+            var resources = _mapper.Map<IEnumerable<OffiUser>, IEnumerable<OffiUserResource>>(offiUsers);
+            return resources;
+        }
 
-            public OffiUserController(IOffiUserService offiUserService, IMapper mapper)
-            {
-                _offiUserService = offiUserService;
-                _mapper = mapper;
-            }
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveOffiUserResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
 
-            [HttpGet]
-            public async Task<IEnumerable<OffiUserResource>> GetAllAsync()
-            {
-                var offiUsers = await _offiUserService.ListAsync();
-                var resources = _mapper.Map<IEnumerable<OffiUser>, IEnumerable<OffiUserResource>>(offiUsers);
-                return resources;
-            }
+            var offiUser = _mapper.Map<SaveOffiUserResource, OffiUser>(resource);
+            var result = await _offiUserService.SaveAsync(offiUser);
 
-            [HttpPost]
-            public async Task<IActionResult> PostAsync([FromBody] SaveOffiUserResource resource)
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState.GetErrorMessages());
+            if (!result.Success)
+                return BadRequest(result.Message);
 
-                var offiUser = _mapper.Map<SaveOffiUserResource, OffiUser>(resource);
-                var result = await _offiUserService.SaveAsync(offiUser);
+            var offiUserResource = _mapper.Map<OffiUser, OffiUserResource>(result.Resource);
 
-                if (!result.Success)
-                    return BadRequest(result.Message);
+            return Ok(offiUserResource);
 
-                var offiUserResource = _mapper.Map<OffiUser, OffiUserResource>(result.Resource);
-
-                return Ok(offiUserResource);
-
-            }
         }
     }
+}
