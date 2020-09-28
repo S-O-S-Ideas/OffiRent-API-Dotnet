@@ -19,9 +19,8 @@ using OffiRent.API.Domain.Services;
 using OffiRent.API.Extensions;
 
 using Microsoft.Extensions.Logging;
-using OffiRent.API.Domain.Persistence.Contexts;
-using OffiRent.API.Domain.Repositories;
-using OffiRent.API.Domain.Services;
+
+
 
 using OffiRent.API.Persistence.Repositories;
 using OffiRent.API.Services;
@@ -44,6 +43,7 @@ namespace OffiRent.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
+
                 options.UseInMemoryDatabase("supermarket-api-in-memory");
 
                 services.AddScoped<IDepartamentRepository, DepartamentRepository>();
@@ -55,13 +55,21 @@ namespace OffiRent.API
                 services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
                 // options.UseInMemoryDatabase("supermarket-api-in-memory");
+
                 //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
                 options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
 
                 services.AddScoped<IOffiUserRepository, OffiUserRepository>();
                 services.AddScoped<IOffiProviderRepository, OffiProviderRepository>();
 
+
                 services.AddRouting(options => options.LowercaseUrls = true);
+
+            // Repositories
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
+
 
                 // Unit Of Work
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -69,6 +77,12 @@ namespace OffiRent.API
                 // Services
                 services.AddScoped<IAccountService, AccountService>();
                 services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
+
+
+            // Services
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
+            
 
 
                 services.AddAutoMapper(typeof(Startup));

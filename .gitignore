@@ -1,6 +1,13 @@
 OffiRent.API/bin
 OffiRent.API/obj
+<<<<<<< HEAD
 OffiRent.API.Test/bin
 OffiRent.API.Test/obj
 .vs/
 .DS_Store
+=======
+.vs
+.DS_Store
+OffiRent.API.Test/bin
+OffiRent.API.Test/obj
+>>>>>>> feature/Currency-CountryCurrency-Country

@@ -23,16 +23,25 @@ namespace OffiRent.API.Test
             // Arrange
             var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
             mockCategoryRepository.Setup(r => r.ListAsync())
+<<<<<<< HEAD
                 .ReturnsAsync(new List<Account>())
                 .ReturnsAsync(new List<OffiUser>());
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new CategoryService(
+=======
+                .ReturnsAsync(new List<Country>());
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new CountryService(
+>>>>>>> feature/Currency-CountryCurrency-Country
                 mockCategoryRepository.Object,
                 mockUnitOfWork.Object);
 
             // Act
             List<Account> categories = (List<Account>) await service.ListAsync();
+<<<<<<< HEAD
             List<OffiUser> categories = (List<OffiUser>) await service.ListAsync();
+=======
+>>>>>>> feature/Currency-CountryCurrency-Country
             var categoriesCount = categories.Count;
 
             // Assert
@@ -46,10 +55,16 @@ namespace OffiRent.API.Test
             var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
             var categoryId = 1;
             mockCategoryRepository.Setup(r => r.FindById(categoryId))
+<<<<<<< HEAD
                 .Returns(Task.FromResult<Account>(null))
                 .Returns(Task.FromResult<OffiUser>(null));
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new CategoryService(
+=======
+                .Returns(Task.FromResult<Account>(null));
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new CountryService(
+>>>>>>> feature/Currency-CountryCurrency-Country
                 mockCategoryRepository.Object,
                 mockUnitOfWork.Object);
 
