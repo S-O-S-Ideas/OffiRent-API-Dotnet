@@ -20,6 +20,6 @@ namespace OffiRent.API.Domain.Models
         public int PublicationId { get; set; }
         public Publication Publication { get; set; }
         
-        public List<Resource> Resources { get; set; }
+        //public List<Resource> Resources { get; set; }
     }
 }

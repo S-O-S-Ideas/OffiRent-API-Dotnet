@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
-using Supermarket.API.Domain.Persistence.Contexts;
-using Supermarket.API.Persistence.Repositories;
+using OffiRent.API.Domain.Persistence.Contexts;
+using OffiRent.API.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

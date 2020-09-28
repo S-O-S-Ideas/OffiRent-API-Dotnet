@@ -1,5 +1,5 @@
 ﻿using OffiRent.API.Domain.Models;
-using Supermarket.API.Domain.Services.Communications;
+using OffiRent.API.Domain.Services.Communications;
 using System;
 using System.Collections.Generic;
 using System.Linq;

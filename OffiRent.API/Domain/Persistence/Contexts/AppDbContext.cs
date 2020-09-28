@@ -21,6 +21,8 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
+        public DbSet<Publication> Publications { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -114,9 +116,9 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>()
                 .HasOne(p => p.Publication);   //en duda
 
-            builder.Entity<Office>()
-                .HasMany(p => p.Resources)
-                .WithOne(p => p.Office);
+            //builder.Entity<Office>()
+            //    .HasMany(p => p.Resources)
+            //    .WithOne(p => p.Office);
 
 
             //District Entity
@@ -163,15 +165,14 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                  .IsRequired();
 
             builder.Entity<OffiUser>()
-                 .HasOne(p => p.OffiUser)
-                 .WithMany(p => p.Reservations);
+                .HasMany(r => r.Reservations)
+                .WithOne(r => r.OffiUser)
+                .HasForeignKey(r => r.OffiUserId);
 
-            builder.Entity<OffiUser>()
-                .HasOne(p => p.OffiUser)
-                .WithMany(p => p.Discounts);
+            //builder.Entity<OffiUser>()
+            //    .HasOne(p => p.OffiUser)
+            //    .WithMany(p => p.Discounts);
 
-            //la de herencia de offiuser 
-            //esta wbd facil esta mal si no es hasone withmany es hasmany.reservations withone.offiuser
 
 
             // OffiProvider Entity
@@ -210,16 +211,15 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 {
                     Id = 100,
                     Name = "Peru"
-                }
-                );
-
-            builder.Entity<Country>().HasData(
+                },
                 new Country
                 {
                     Id = 101,
                     Name = "Argentina"
                 }
                 );
+
+
 
             // Currency Entity
 
@@ -238,29 +238,27 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                    Id = 200,
                    Name = "Nuevo Sol",
                    Symbol = 'S'
-               }
-               );
-
-            builder.Entity<Currency>().HasData(
-                new Currency
-                {
-                    Id = 201,
+               },
+               new Currency
+               {
+                Id = 201,
                     Name = "Dolar",
                     Symbol = '$'
                 }
-                );
+               );
+
 
             // CountryCurrency Entity
 
             builder.Entity<CountryCurrency>().ToTable("CountryCurrencies");
             builder.Entity<CountryCurrency>()
-                .HasKey(p => new { p.Country, p.CurrencyId });
+                .HasKey(p => new { p.CountryId, p.CurrencyId });
 
 
             builder.Entity<CountryCurrency>()
-                 .HasOne(p => p.Country)
-                 .WithMany(d => d.CountryCurrencies)
-                 .HasForeignKey(p => p.CountryId);
+                 .HasOne(cc => cc.Country)
+                 .WithMany(c => c.CountryCurrencies)
+                 .HasForeignKey(cc => cc.CountryId);
 
             builder.Entity<CountryCurrency>()
                  .HasOne(p => p.Currency)

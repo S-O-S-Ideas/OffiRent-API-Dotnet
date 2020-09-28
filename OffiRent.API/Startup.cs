@@ -44,7 +44,6 @@ namespace OffiRent.API
             services.AddDbContext<AppDbContext>(options =>
             {
 
-                options.UseInMemoryDatabase("supermarket-api-in-memory");
 
                 services.AddScoped<IDepartamentRepository, DepartamentRepository>();
                 services.AddScoped<IDistrictRepository, DistrictRepository>();
@@ -54,10 +53,10 @@ namespace OffiRent.API
                 services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
                 services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
-                // options.UseInMemoryDatabase("supermarket-api-in-memory");
+                options.UseInMemoryDatabase("offirent-api-in-memory");
 
                 //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
-                options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
+                //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
 
                 services.AddScoped<IOffiUserRepository, OffiUserRepository>();
                 services.AddScoped<IOffiProviderRepository, OffiProviderRepository>();
@@ -65,10 +64,10 @@ namespace OffiRent.API
 
                 services.AddRouting(options => options.LowercaseUrls = true);
 
-            // Repositories
-            services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-            services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
+                // Repositories
+                services.AddScoped<ICountryRepository, CountryRepository>();
+                services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+                services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
 
 
                 // Unit Of Work
@@ -79,9 +78,9 @@ namespace OffiRent.API
                 services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 
 
-            // Services
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
+                // Services
+                services.AddScoped<ICountryService, CountryService>();
+                services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
             
 
 

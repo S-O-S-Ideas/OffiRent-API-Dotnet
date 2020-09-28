@@ -10,11 +10,11 @@ namespace OffiRent.API.Domain.Models
         public int Id { get; set; }
         public float UserPunctuation { get; set; }
         public bool HasDiscount { get; set; }
-        public int ReservationId { get; set; }
-        public Reservation Reservation { get; set; }
+        //public int ReservationId { get; set; }
+        //public Reservation Reservation { get; set; }
         public int DiscountId { get; set; }
-        public Discount Discount { get; set; }
-        public List<Reservation> Reservation { get; set; } = new List<Reservation>();
+        //public Discount Discount { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     }
 }

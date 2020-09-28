@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Domain.Services
 {
-    interface IReservationService
+    public interface IReservationService
     {
         Task<IEnumerable<Reservation>> ListAsync();
         Task<ReservationResponse> GetByIdAsync(int id);

@@ -7,7 +7,6 @@ namespace OffiRent.API.Domain.Models
 {
     public class CountryCurrency
     {
-        public int Id { get; set; }
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
         public int CountryId { get; set; }

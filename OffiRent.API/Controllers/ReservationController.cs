@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Resources;
-using Supermarket.API.Extensions;
+using OffiRent.API.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
