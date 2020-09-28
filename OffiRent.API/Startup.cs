@@ -30,7 +30,7 @@ namespace OffiRent.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                // options.UseInMemoryDatabase("supermarket-api-in-memory");
+                // options.UseInMemoryDatabase("offirent-api-in-memory");
                 //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
                 options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
 
