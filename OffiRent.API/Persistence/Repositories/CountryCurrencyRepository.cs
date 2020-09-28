@@ -19,12 +19,21 @@ namespace OffiRent.API.Persistence.Repositories
         {
             await _context.CountryCurrencies.AddAsync(countryCurrency);
         }
-
+      
         public async Task AssignCountryCurrency(int countryId, int currencyId)
         {
-            CountryCurrency countryCurrency = await _context.CountryCurrencies.FindAsync(countryId, currencyId);
-            if (countryCurrency != null)
+            CountryCurrency countryCurrency = await FindByCountryIdAndCurrencyId(countryId, 
+                currencyId);
+            if (countryCurrency == null)
+            {
+                countryCurrency = new CountryCurrency
+                {
+                    CountryId = countryId,
+                    CurrencyId = currencyId
+                };
                 await AddAsync(countryCurrency);
+            }
+
         }
 
         public async Task<CountryCurrency> FindByCountryIdAndCurrencyId(int countryId, int currencyId)
@@ -43,7 +52,8 @@ namespace OffiRent.API.Persistence.Repositories
         {
             return await _context.CountryCurrencies
                 .Where(p => p.CountryId == countryId)
-                .Include(p => p.CountryId)
+                .Include(p => p.Country)
+                .Include(p => p.Currency)
                 .ToListAsync();
         }
 
@@ -51,7 +61,8 @@ namespace OffiRent.API.Persistence.Repositories
         {
             return await _context.CountryCurrencies
                 .Where(p => p.CurrencyId == currencyId)
-                .Include(p => p.CurrencyId)
+                .Include(p => p.Country)
+                .Include(p => p.Currency)
                 .ToListAsync();
         }
 
@@ -62,16 +73,11 @@ namespace OffiRent.API.Persistence.Repositories
 
         public async void UnassignCountryCurrency(int countryId, int currencyId)
         {
-            CountryCurrency countryCurrency = await _context.CountryCurrencies.FindAsync(countryId, currencyId);
+            CountryCurrency countryCurrency = await FindByCountryIdAndCurrencyId(countryId, currencyId);
             if (countryCurrency != null)
             {
                 Remove(countryCurrency);
             }
-        }
-
-        public void Update(CountryCurrency countrycurrency)
-        {
-            _context.CountryCurrencies.Update(countrycurrency);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace OffiRent.API.Resources
     public class CurrencyResource
     {
         public int Id { get; set; }
-        public char Name { get; set; }
+        public string Name { get; set; }
         public char Symbol { get; set; }
     }
 }

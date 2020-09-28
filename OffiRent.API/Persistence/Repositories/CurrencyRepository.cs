@@ -15,12 +15,7 @@ namespace OffiRent.API.Persistence.Repositories
         {
 
         }
-        public async Task AddAsync(Currency currency)
-        {
-            await _context.Currencies.AddAsync(currency);
-        }
-
-        public async Task<Currency> FindById(int id)
+        public async Task<Currency> GetSingleByIdAsync(int id)
         {
             return await _context.Currencies.FindAsync(id);
         }
@@ -30,14 +25,9 @@ namespace OffiRent.API.Persistence.Repositories
             return await _context.Currencies.ToListAsync();
         }
 
-        public void Update(Currency currency)
-        {
-            _context.Currencies.Update(currency);
-        }
-
         public void Remove(Currency currency)
         {
-            _context.Currencies.Remove(currency);
+            _context.Remove(currency);
         }
     }
 }

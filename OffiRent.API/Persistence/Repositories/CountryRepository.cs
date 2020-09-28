@@ -20,7 +20,7 @@ namespace OffiRent.API.Persistence.Repositories
             await _context.Countries.AddAsync(country); 
         }
 
-       public async Task<Country> FindById(int id)
+       public async Task<Country> GetSingleByIdAsync(int id)
         {
             return await _context.Countries.FindAsync(id);
         }
@@ -30,14 +30,9 @@ namespace OffiRent.API.Persistence.Repositories
             return await _context.Countries.ToListAsync();
         }
 
-        public void Update(Country country)
-        {
-            _context.Countries.Update(country);
-        }
-
         public void Remove(Country country)
         {
-            _context.Countries.Remove(country);
+            _context.Remove(country);
         }
     }
 }

@@ -9,9 +9,7 @@ namespace OffiRent.API.Domain.Repositories
     public interface ICurrencyRepository
     {
         Task<IEnumerable<Currency>> ListAsync();
-        Task AddAsync(Currency currency);
-        Task<Currency> FindById(int id);
+        Task<Currency> GetSingleByIdAsync(int id);
         void Remove(Currency currency);
-        void Update(Currency currency);
     }
 }

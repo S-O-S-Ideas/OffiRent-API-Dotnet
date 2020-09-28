@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Supermarket.API.Domain.Persistence.Contexts;
-using Supermarket.API.Domain.Repositories;
-using Supermarket.API.Domain.Services;
-using Supermarket.API.Extensions;
-using Supermarket.API.Persistence.Repositories;
-using Supermarket.API.Services;
+using OffiRent.API.Domain.Persistence.Contexts;
+using OffiRent.API.Domain.Repositories;
+using OffiRent.API.Domain.Services;
+using OffiRent.API.Extensions;
+using OffiRent.API.Persistence.Repositories;
+using OffiRent.API.Services;
 
-namespace Supermarket.API
+namespace OffiRent.API
 {
     public class Startup
     {
@@ -37,10 +37,9 @@ namespace Supermarket.API
             });
 
             // Repositories
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductTagRepository, ProductTagRepository>();
-            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -48,10 +47,8 @@ namespace Supermarket.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Services
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductTagService, ProductTagService>();
-            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
             
 
             services.AddAutoMapper(typeof(Startup));

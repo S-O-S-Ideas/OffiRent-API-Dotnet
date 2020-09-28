@@ -12,17 +12,20 @@ namespace OffiRent.API.Services
     public class CountryService : ICountryService
     {
         private readonly ICountryRepository _countryRepository;
+        private readonly ICountryCurrencyRepository _countryCurrencyRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CountryService(ICountryRepository countryRepository, IUnitOfWork unitOfWork)
+        public CountryService(ICountryRepository countryRepository, ICountryCurrencyRepository countryCurrencyRepository,
+            IUnitOfWork unitOfWork)
         {
             _countryRepository = countryRepository;
+            _countryCurrencyRepository = countryCurrencyRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<CountryResponse> DeleteAsync(int id)
         {
-            var existingCountry = await _countryRepository.FindById(id);
+            var existingCountry = await _countryRepository.GetSingleByIdAsync(id);
 
             if (existingCountry == null)
                 return new CountryResponse("Country not found");
@@ -40,9 +43,9 @@ namespace OffiRent.API.Services
             }
         }
 
-        public async Task<CountryResponse> GetByIdAsync(int id)
+        public async Task<CountryResponse> GetBySingleIdAsync(int id)
         {
-            var existingCountry = await _countryRepository.FindById(id);
+            var existingCountry = await _countryRepository.GetSingleByIdAsync(id);
             if (existingCountry == null)
                 return new CountryResponse("Country not found");
             return new CountryResponse(existingCountry);
@@ -66,28 +69,6 @@ namespace OffiRent.API.Services
             {
                 return new CountryResponse(
                     $"An error ocurred while saving the Country: {ex.Message}");
-            }
-        }
-
-        public async Task<CountryResponse> UpdateAsync(int id, Country country)
-        {
-            var existingCountry = await _countryRepository.FindById(id);
-
-            if (existingCountry == null)
-                return new CountryResponse("Country not found");
-
-            existingCountry.Name = country.Name;
-
-            try
-            {
-                _countryRepository.Update(existingCountry);
-                await _unitOfWork.CompleteAsync();
-
-                return new CountryResponse(existingCountry);
-            }
-            catch (Exception ex)
-            {
-                return new CountryResponse($"An error ocurred while updating country: {ex.Message}");
             }
         }
     }

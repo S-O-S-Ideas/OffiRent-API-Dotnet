@@ -1,4 +1,6 @@
-Supermarket.API/bin
-Supermarket.API/obj
+OffiRent.API/bin
+OffiRent.API/obj
 .vs/
 .DS_Store
+OffiRent.API.Test/bin
+OffiRent.API.Test/obj

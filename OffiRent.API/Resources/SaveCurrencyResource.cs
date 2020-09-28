@@ -14,7 +14,7 @@ namespace OffiRent.API.Resources
         public char Name { get; set; }
 
         [Required]
-        [MaxLength(1)]
+        [MaxLength(3)]
         public char Symbol { get; set; }
     }
 }

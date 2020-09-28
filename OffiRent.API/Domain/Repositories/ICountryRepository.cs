@@ -10,9 +10,7 @@ namespace OffiRent.API.Domain.Repositories
     {
         Task<IEnumerable<Country>> ListAsync();
         Task AddAsync(Country country);
-        Task<Country> FindById(int id);
-        void Remove(Country country);
-        void Update(Country country);
-        
+        Task<Country> GetSingleByIdAsync(int id);
+        void Remove(Country country);   
     }
 }

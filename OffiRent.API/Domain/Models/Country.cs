@@ -7,8 +7,8 @@ namespace OffiRent.API.Domain.Models
 {
     public class Country
     {
-        public int CountryId { get; set; }
-        public char Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public List<CountryCurrency> CountryCurrencies { get; set; } = new List<CountryCurrency>();
 

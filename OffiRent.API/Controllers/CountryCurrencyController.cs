@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Resources;
-using OffiRent.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
@@ -29,9 +27,9 @@ namespace OffiRent.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<CountryResource>> GetAllByCountryIdAsync(int countryId)
         {
-            var country = await _countryService.ListByCountryIdAsync(countryId);
+            var country = await _countryService.GetBySingleIdAsync(countryId);
             var resources = _mapper
-                .Map<IEnumerable<Country>, IEnumerable<CountryResource>>(country);
+                .Map<IEnumerable<Country>, IEnumerable<CountryResource>>((IEnumerable<Country>)country);
             return resources;
         }
 
@@ -41,7 +39,7 @@ namespace OffiRent.API.Controllers
             var result = await _countryCurrencyService.AssignCountryCurrencyAsync(countryId, currencyId);
             if (!result.Success)
                 return BadRequest(result.Message);
-            Country country= _countryService.GetByIdAsync(countryId).Result.Resource;
+            Country country= _countryService.GetBySingleIdAsync(countryId).Result.Resource;
             var resource = _mapper.Map<Country, CountryResource>(country);
             return Ok(resource);
         }
