@@ -27,7 +27,8 @@ namespace OffiRent.API.Persistence.Repositories
 
         public async Task<IEnumerable<Office>> ListAsync()
         {
-            return await _context.Offices.Include(p =>p.District).Include(p=>p.Publication).ToListAsync();
+            //return await _context.Offices.Include(p =>p.District).Include(p=>p.Publication).ToListAsync();
+            return await _context.Offices.ToListAsync();
         }
 
         public async Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId)

@@ -18,6 +18,7 @@ namespace OffiRent.API.Mapping
 
             CreateMap <Account, AccountResource>();
             CreateMap <OffiUser, AccountResource>();
+            CreateMap <Office, OfficeResource>();
 
             CreateMap<Country, CountryResource>();
             CreateMap<Currency, CurrencyResource>();

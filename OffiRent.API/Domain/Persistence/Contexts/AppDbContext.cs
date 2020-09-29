@@ -23,7 +23,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -103,7 +103,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>().Property(p => p.Address)
                 .IsRequired();
             builder.Entity<Office>().Property(p => p.Floor)
-                .IsRequired().HasMaxLength(30); 
+                .IsRequired().HasMaxLength(30);
             builder.Entity<Office>().Property(p => p.Capacity)
                 .IsRequired().HasMaxLength(30);
             builder.Entity<Office>().Property(p => p.AllowResource)
@@ -116,97 +116,109 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>()
                 .HasOne(p => p.Publication);   //en duda
 
-            //builder.Entity<Office>()
-            //    .HasMany(p => p.Resources)
-            //    .WithOne(p => p.Office);
+            builder.Entity<Office>().HasData
+                (
+                new Office
+                {
+                    Id = 100,
+                    Address = "Centro de Lima",
+                    Floor = 3,
+                    Capacity = 15,
+                    AllowResource = true
+                }
+                );
+
+        //builder.Entity<Office>()
+        //    .HasMany(p => p.Resources)
+        //    .WithOne(p => p.Office);
 
 
-            //District Entity
-            builder.Entity<District>().ToTable("Districts");
-            builder.Entity<District>().HasKey(p => p.Id);
-            builder.Entity<District>().Property(p => p.Id)
+        //District Entity
+        builder.Entity<District>().ToTable("Districts");
+        builder.Entity<District>().HasKey(p => p.Id);
+        builder.Entity<District>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<District>().Property(p => p.Name)
+        builder.Entity<District>().Property(p => p.Name)
                 .IsRequired().HasMaxLength(30);
 
-            builder.Entity<District>()
+        builder.Entity<District>()
                 .HasOne(p => p.Departament)
                 .WithMany(p => p.Districts);
 
-            builder.Entity<District>()
+        builder.Entity<District>()
                 .HasMany(p => p.Offices)
                 .WithOne(p => p.District);
 
 
-            // Departament Entity
-            builder.Entity<Departament>().ToTable("Departaments");
-            builder.Entity<Departament>().HasKey(p => p.Id);
-            builder.Entity<Departament>().Property(p => p.Id)
+        // Departament Entity
+        builder.Entity<Departament>().ToTable("Departaments");
+        builder.Entity<Departament>().HasKey(p => p.Id);
+        builder.Entity<Departament>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Departament>().Property(p => p.Name)
+        builder.Entity<Departament>().Property(p => p.Name)
                 .IsRequired().HasMaxLength(30);
 
-            builder.Entity<Departament>()
+        builder.Entity<Departament>()
                 .HasOne(p => p.Country)
                 .WithMany(p => p.Departaments);
 
-            builder.Entity<Departament>()
+        builder.Entity<Departament>()
                 .HasMany(p => p.Districts)
                 .WithOne(p => p.Departament);
-            // OffiUser Entity
+        // OffiUser Entity
 
-            builder.Entity<OffiUser>().ToTable("OffiUsers");
-            builder.Entity<OffiUser>().HasKey(p => p.Id);
-            builder.Entity<OffiUser>().Property(p => p.Id)
+        builder.Entity<OffiUser>().ToTable("OffiUsers");
+        builder.Entity<OffiUser>().HasKey(p => p.Id);
+        builder.Entity<OffiUser>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<OffiUser>().Property(p => p.UserPunctuation)
+        builder.Entity<OffiUser>().Property(p => p.UserPunctuation)
                 .IsRequired();
-            builder.Entity<OffiUser>().Property(p => p.HasDiscount)
+        builder.Entity<OffiUser>().Property(p => p.HasDiscount)
                  .IsRequired();
 
-            builder.Entity<OffiUser>()
+        builder.Entity<OffiUser>()
                 .HasMany(r => r.Reservations)
                 .WithOne(r => r.OffiUser)
                 .HasForeignKey(r => r.OffiUserId);
 
-            //builder.Entity<OffiUser>()
-            //    .HasOne(p => p.OffiUser)
-            //    .WithMany(p => p.Discounts);
+        //builder.Entity<OffiUser>()
+        //    .HasOne(p => p.OffiUser)
+        //    .WithMany(p => p.Discounts);
 
 
 
-            // OffiProvider Entity
+        // OffiProvider Entity
 
-            builder.Entity<OffiProvider>().ToTable("OffiProviders");
-            builder.Entity<OffiProvider>().HasKey(p => p.Id);
-            builder.Entity<OffiProvider>().Property(p => p.Id)
+        builder.Entity<OffiProvider>().ToTable("OffiProviders");
+        builder.Entity<OffiProvider>().HasKey(p => p.Id);
+        builder.Entity<OffiProvider>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<OffiProvider>().Property(p => p.PremiumStatus)
+        builder.Entity<OffiProvider>().Property(p => p.PremiumStatus)
                 .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.Punctuation)
+        builder.Entity<OffiProvider>().Property(p => p.Punctuation)
                  .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.NumberOfPublication)
+        builder.Entity<OffiProvider>().Property(p => p.NumberOfPublication)
                  .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.NumberOfReservationCompleted)
+        builder.Entity<OffiProvider>().Property(p => p.NumberOfReservationCompleted)
                  .IsRequired();
 
-            builder.Entity<OffiProvider>()
+        builder.Entity<OffiProvider>()
                  .HasMany(p => p.Publications)
                  .WithOne(p => p.OffiProvider);
 
-           
-            //la de herencia de offiprovider
 
-            // Country Entity
+        //la de herencia de offiprovider
 
-            builder.Entity<Country>().ToTable("Countries");
-            builder.Entity<Country>().HasKey(p => p.Id);
-            builder.Entity<Country>().Property(p => p.Id)
+        // Country Entity
+
+        builder.Entity<Country>().ToTable("Countries");
+        builder.Entity<Country>().HasKey(p => p.Id);
+        builder.Entity<Country>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Country>().Property(p => p.Name)
+        builder.Entity<Country>().Property(p => p.Name)
                  .IsRequired().HasMaxLength(30);
 
-            builder.Entity<Country>().HasData(
+        builder.Entity<Country>().HasData(
                 new Country
                 {
                     Id = 100,
@@ -221,53 +233,53 @@ namespace OffiRent.API.Domain.Persistence.Contexts
 
 
 
-            // Currency Entity
+// Currency Entity
 
-            builder.Entity<Currency>().ToTable("Currencies");
-            builder.Entity<Currency>().HasKey(p => p.Id);
-            builder.Entity<Currency>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Currency>().Property(p => p.Name)
-                 .IsRequired().HasMaxLength(30);
-            builder.Entity<Currency>().Property(p => p.Symbol) //simbolo de la moneda
-                 .IsRequired().HasMaxLength(1);
+builder.Entity<Currency>().ToTable("Currencies");
+builder.Entity<Currency>().HasKey(p => p.Id);
+builder.Entity<Currency>().Property(p => p.Id)
+    .IsRequired().ValueGeneratedOnAdd();
+builder.Entity<Currency>().Property(p => p.Name)
+     .IsRequired().HasMaxLength(30);
+builder.Entity<Currency>().Property(p => p.Symbol) //simbolo de la moneda
+     .IsRequired().HasMaxLength(1);
 
-            builder.Entity<Currency>().HasData(
-               new Currency
-               {
-                   Id = 200,
-                   Name = "Nuevo Sol",
-                   Symbol = 'S'
-               },
-               new Currency
-               {
-                Id = 201,
-                    Name = "Dolar",
-                    Symbol = '$'
-                }
-               );
-
-
-            // CountryCurrency Entity
-
-            builder.Entity<CountryCurrency>().ToTable("CountryCurrencies");
-            builder.Entity<CountryCurrency>()
-                .HasKey(p => new { p.CountryId, p.CurrencyId });
+builder.Entity<Currency>().HasData(
+   new Currency
+   {
+       Id = 200,
+       Name = "Nuevo Sol",
+       Symbol = 'S'
+   },
+   new Currency
+   {
+       Id = 201,
+       Name = "Dolar",
+       Symbol = '$'
+   }
+   );
 
 
-            builder.Entity<CountryCurrency>()
-                 .HasOne(cc => cc.Country)
-                 .WithMany(c => c.CountryCurrencies)
-                 .HasForeignKey(cc => cc.CountryId);
+// CountryCurrency Entity
 
-            builder.Entity<CountryCurrency>()
-                 .HasOne(p => p.Currency)
-                 .WithMany(d => d.CountryCurrencies)
-                 .HasForeignKey(p => p.CurrencyId);
+builder.Entity<CountryCurrency>().ToTable("CountryCurrencies");
+builder.Entity<CountryCurrency>()
+    .HasKey(p => new { p.CountryId, p.CurrencyId });
 
 
-            // Naming convention Policy
-            builder.ApplySnakeCaseNamingConvention();
+builder.Entity<CountryCurrency>()
+     .HasOne(cc => cc.Country)
+     .WithMany(c => c.CountryCurrencies)
+     .HasForeignKey(cc => cc.CountryId);
+
+builder.Entity<CountryCurrency>()
+     .HasOne(p => p.Currency)
+     .WithMany(d => d.CountryCurrencies)
+     .HasForeignKey(p => p.CurrencyId);
+
+
+// Naming convention Policy
+builder.ApplySnakeCaseNamingConvention();
         }
     }
 }
