@@ -43,8 +43,8 @@ namespace OffiRent.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
-
-
+                options.UseInMemoryDatabase("offirent-api-in-memory");
+            });
                 services.AddScoped<IDepartamentRepository, DepartamentRepository>();
                 services.AddScoped<IDistrictRepository, DistrictRepository>();
                 services.AddScoped<IOfficeRepository, OfficeRepository>();
@@ -53,7 +53,7 @@ namespace OffiRent.API
                 services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
                 services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
-                options.UseInMemoryDatabase("offirent-api-in-memory");
+                
 
                 //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
                 //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
@@ -92,7 +92,7 @@ namespace OffiRent.API
                 services.AddAutoMapper(typeof(Startup));
 
                 services.AddCustomSwagger();
-            });
+            
 
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
