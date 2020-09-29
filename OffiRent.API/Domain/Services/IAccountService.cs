@@ -6,7 +6,7 @@ using OffiRent.API.Domain.Services.Communications;
 
 namespace OffiRent.API.Domain.Services
 {
-    public interface IAccountService
+    public interface IAccountService 
     {
 
         Task<IEnumerable<Account>> ListAsync();
@@ -14,7 +14,7 @@ namespace OffiRent.API.Domain.Services
         Task<AccountResponse> GetBySinglePhoneNumberAsync(string phoneNumber);
         Task<AccountResponse> GetBySingleEmailAsync(string email);
         Task<AccountResponse> SaveAsync(Account account);
-        //Task<AccountResponse> UpdateAsync(int id, Category category);
         Task<AccountResponse> DeleteAsync(int id);
+        Task<AccountResponse> UpdateSync(int id);
     }
 }

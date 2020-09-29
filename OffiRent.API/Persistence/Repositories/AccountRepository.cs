@@ -14,7 +14,6 @@ namespace OffiRent.API.Persistence.Repositories
         public AccountRepository(AppDbContext context) : base(context)
         {
         }
-
         public async Task AddAsync(Account account)
         {
             await _context.Accounts.AddAsync(account);
@@ -43,6 +42,11 @@ namespace OffiRent.API.Persistence.Repositories
         public void Remove(Account account)
         {
             _context.Remove(account);
+        }
+
+        public void Update(Account account)
+        {
+            _context.Update(account);
         }
     }
 }

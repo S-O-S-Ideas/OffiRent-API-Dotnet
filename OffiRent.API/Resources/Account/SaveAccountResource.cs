@@ -15,7 +15,7 @@ namespace OffiRent.API.Resources.Account
         [MaxLength(30)]
         public string Password { get; set; }
         public string Identification { get; set; }
-        public bool Type { get; set; }
+        public bool IsPremium { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }

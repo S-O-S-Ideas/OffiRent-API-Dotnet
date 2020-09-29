@@ -4,7 +4,6 @@ using OffiRent.API.Domain.Services;
 using OffiRent.API.Domain.Services.Communications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OffiRent.API.Services
@@ -37,7 +36,7 @@ namespace OffiRent.API.Services
             var existingCategory = await _reservationRepository.FindById(id);
 
             if (existingCategory == null)
-                return new ReservationResponse("Category not found");
+                return new ReservationResponse("Reservation not found");
 
             try
             {
@@ -48,14 +47,14 @@ namespace OffiRent.API.Services
             }
             catch (Exception ex)
             {
-                return new ReservationResponse($"An error ocurred while deleting category: {ex.Message}");
+                return new ReservationResponse($"An error ocurred while deleting reservation: {ex.Message}");
             }
         }
         public async Task<ReservationResponse> GetByIdAsync(int id)
         {
             var existingCategory = await _reservationRepository.FindById(id);
             if (existingCategory == null)
-                return new ReservationResponse("Category not found");
+                return new ReservationResponse("Reservation not found");
             return new ReservationResponse(existingCategory);
         }
 

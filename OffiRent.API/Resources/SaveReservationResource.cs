@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Resources
 {
-    public class SaveReservationResource
+    public class HttpDeleteAttribute
     {
         [Required]
         [MaxLength(30)]

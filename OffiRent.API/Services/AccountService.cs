@@ -8,7 +8,7 @@ using OffiRent.API.Domain.Services.Communications;
 
 namespace OffiRent.API.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService : IAccountService 
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IAccountPaymentMethodRepository _accountPaymentMethodRepository;
@@ -25,6 +25,31 @@ namespace OffiRent.API.Services
         {
             await _accountRepository.AddAsync(account);
         }
+
+        //premium status
+        public async Task<AccountResponse> UpdateSync(int id)
+        {
+                var existingAccount = await _accountRepository.GetSingleByIdAsync(id);
+
+                if (existingAccount == null)
+                    return new AccountResponse("Account not found");
+
+                existingAccount.IsPremium = true;
+
+                try
+                {
+                    _accountRepository.Update(existingAccount);
+                    await _unitOfWork.CompleteAsync();
+
+                    return new AccountResponse(existingAccount);
+                }
+                catch (Exception ex)
+                {
+                    return new AccountResponse($"An error ocurred while updating OffiProvider: {ex.Message}");
+                }
+            
+        }
+
 
         public async Task<AccountResponse> DeleteAsync(int id)
         {
@@ -91,5 +116,7 @@ namespace OffiRent.API.Services
                     $"An error ocurred while saving the account: {ex.Message}");
             }
         }
+
+       
     }
 }

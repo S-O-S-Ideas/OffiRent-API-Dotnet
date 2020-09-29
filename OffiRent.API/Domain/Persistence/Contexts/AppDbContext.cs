@@ -14,9 +14,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<Office> Offices { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Departament> Departaments { get; set; }
-        public DbSet<OffiUser> OffiUsers { get; set; }
-        public DbSet<OffiProvider> OffiProviders { get; set; }
-
 
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
@@ -32,6 +29,83 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Publication>().ToTable("publications");
+            builder.Entity<Publication>().HasKey(P => P.Id);
+            builder.Entity<Publication>().Property(P => P.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+
+            builder.Entity<Publication>().Property(p => p.Puntuation)
+                .IsRequired().HasMaxLength(10);
+            builder.Entity<Publication>().Property(p => p.Description)
+                .IsRequired().HasMaxLength(100);
+            builder.Entity<Publication>().Property(p => p.Price)
+                .IsRequired();
+            builder.Entity<Publication>().Property(p => p.Status)
+                .HasDefaultValue(true);
+            builder.Entity<Publication>().Property(p => p.Comment)
+                .HasMaxLength(100);
+            builder.Entity<Publication>()
+                .HasMany(p => p.Reservations)
+                .WithOne(p => p.Publication)
+                .HasForeignKey(p => p.PublicationId);
+            builder.Entity<Publication>().HasData(
+                new Publication
+                {
+                    Id = 100001,
+                    Puntuation = "Buena",
+                    Description = "new",
+                    Price = 200,
+                    Status = true,
+                    Comment = "Comentario 01 "
+                },
+                new Publication
+                {
+                    Id = 100002,
+                    Puntuation = "bad",
+                    Description = "new",
+                    Price = 300,
+                    Status = false,
+                    Comment = "Comentario 02"
+                }
+                );
+
+            //Reservation
+            builder.Entity<Reservation>().ToTable("reservation");
+            builder.Entity<Reservation>().HasKey(P => P.Id);
+            builder.Entity<Reservation>().Property(P => P.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Reservation>().Property(p => p.InitialDate)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.EndDate)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.InitialHour)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.EndHour)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.Status)
+                .HasDefaultValue(false);
+
+            builder.Entity<Reservation>().HasData(
+                new Reservation
+                {
+                    Id = 30000,
+                    InitialDate = 10,
+                    EndDate = 15,
+                    InitialHour = 8,
+                    EndHour = 16,
+                    Status = true
+                },
+                new Reservation
+                {
+                    Id = 30001,
+                    InitialDate = 8,
+                    EndDate = 22,
+                    InitialHour = 8,
+                    EndHour = 16,
+                    Status = false
+                }
+                );
 
 
             // Account Entity
@@ -51,21 +125,25 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .IsRequired().HasMaxLength(50);
             builder.Entity<Account>().Property(a => a.PhoneNumber)
                 .HasMaxLength(50);
+            builder.Entity<Account>().Property(p => p.IsPremium)
+               .IsRequired();
 
-            builder.Entity<Account>().HasData
-                (
+            builder.Entity<Account>().HasData(
                 new Account
                 {
                     Id = 300,
                     Email = "juan@gmail.com",
                     Password = "1234",
                     Identification = "72901831",
-                    Type = false,
                     FirstName = "Pepe",
                     LastName = "Cadena",
-                    PhoneNumber = "920837182"
-                }
-                );
+                    PhoneNumber = "920837182",
+                    IsPremium = false,
+
+                });
+            
+            
+          
 
 
             // PaymentMethod Entity
@@ -155,47 +233,12 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .WithOne(p => p.Departament);
             // OffiUser Entity
 
-            builder.Entity<OffiUser>().ToTable("OffiUsers");
-            builder.Entity<OffiUser>().HasKey(p => p.Id);
-            builder.Entity<OffiUser>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<OffiUser>().Property(p => p.UserPunctuation)
-                .IsRequired();
-            builder.Entity<OffiUser>().Property(p => p.HasDiscount)
-                 .IsRequired();
 
-            builder.Entity<OffiUser>()
+
+            builder.Entity<Account>()
                 .HasMany(r => r.Reservations)
-                .WithOne(r => r.OffiUser)
-                .HasForeignKey(r => r.OffiUserId);
-
-            //builder.Entity<OffiUser>()
-            //    .HasOne(p => p.OffiUser)
-            //    .WithMany(p => p.Discounts);
-
-
-
-            // OffiProvider Entity
-
-            builder.Entity<OffiProvider>().ToTable("OffiProviders");
-            builder.Entity<OffiProvider>().HasKey(p => p.Id);
-            builder.Entity<OffiProvider>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<OffiProvider>().Property(p => p.PremiumStatus)
-                .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.Punctuation)
-                 .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.NumberOfPublication)
-                 .IsRequired();
-            builder.Entity<OffiProvider>().Property(p => p.NumberOfReservationCompleted)
-                 .IsRequired();
-
-            builder.Entity<OffiProvider>()
-                 .HasMany(p => p.Publications)
-                 .WithOne(p => p.OffiProvider);
-
-           
-            //la de herencia de offiprovider
+                .WithOne(r => r.Account)
+                .HasForeignKey(r => r.Id);
 
             // Country Entity
 

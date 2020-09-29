@@ -43,57 +43,57 @@ namespace OffiRent.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
-
-
-                services.AddScoped<IDepartamentRepository, DepartamentRepository>();
-                services.AddScoped<IDistrictRepository, DistrictRepository>();
-                services.AddScoped<IOfficeRepository, OfficeRepository>();
-                // Repositories
-                services.AddScoped<IAccountRepository, AccountRepository>();
-                services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
-                services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
-
                 options.UseInMemoryDatabase("offirent-api-in-memory");
-
-                //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
-                //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
-
-                services.AddScoped<IOffiUserRepository, OffiUserRepository>();
-                services.AddScoped<IOffiProviderRepository, OffiProviderRepository>();
-
-
-                services.AddRouting(options => options.LowercaseUrls = true);
-
-                // Repositories
-                services.AddScoped<ICountryRepository, CountryRepository>();
-                services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-                services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
-
-
-                // Unit Of Work
-                services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-                // Services
-                services.AddScoped<IAccountService, AccountService>();
-                services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
-
-
-                // Services
-                services.AddScoped<ICountryService, CountryService>();
-                services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
-            
-
-
-                services.AddAutoMapper(typeof(Startup));
-                services.AddScoped<IOffiUserService, OffiUserService>();
-                services.AddScoped<IOffiProviderService, OffiProviderService>();
-
-
-                services.AddAutoMapper(typeof(Startup));
-
-                services.AddCustomSwagger();
             });
 
+
+            services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
+            // Repositories
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+            services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
+
+         
+
+            //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
+            //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
+
+
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            // Repositories
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
+
+
+            // Unit Of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Services
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
+
+            services.AddScoped<IPublicationRepository, PublicationRepository>();
+            services.AddScoped<IPublicationService, PublicationService>();
+
+
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IReservationService, ReservationService>();
+            // Services
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
+
+
+
+
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddCustomSwagger();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

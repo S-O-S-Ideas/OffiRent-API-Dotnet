@@ -13,8 +13,8 @@ namespace OffiRent.API.Domain.Models
         public int Price { get; set; }
         public bool Status { get; set; }
         public string Comment { get; set; }
-        public int OffiProviderId { get; set; }
-        public OffiProvider OffiProvider {get;set;}
+        public int AcountId { get; set; }
+        public Account Account {get;set;}
         public IList<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

@@ -13,5 +13,6 @@ namespace OffiRent.API.Domain.Repositories
         Task<Account> GetByEmailAsync(string email);
         Task AddAsync(Account account);
         void Remove(Account account);
+        void Update(Account account);
     }
 }
