@@ -22,6 +22,10 @@ namespace OffiRent.API.Mapping
             CreateMap<Country, CountryResource>();
             CreateMap<Currency, CurrencyResource>();
 
+            CreateMap<Departament, DepartamentResource>();
+            CreateMap<District, DistrictResource>();
+            CreateMap<Office, OfficeResource>();
+
         }
     }
 }

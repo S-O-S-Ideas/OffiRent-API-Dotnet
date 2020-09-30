@@ -14,13 +14,13 @@ namespace OffiRent.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DistrictController : ControllerBase
+    public class DistrictsController : ControllerBase
     {
         private readonly IDistrictService _districtService;
 
         private readonly IMapper _mapper;
 
-        public DistrictController(IDistrictService districtService, IMapper mapper)
+        public DistrictsController(IDistrictService districtService, IMapper mapper)
         {
             _districtService = districtService;
             _mapper = mapper;
@@ -33,6 +33,9 @@ namespace OffiRent.API.Controllers
             var resources = _mapper.Map<IEnumerable<District>, IEnumerable<DistrictResource>>(districts);
             return resources;
         }
+
+
+
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveDistrictResource resource)

@@ -8,7 +8,7 @@ namespace OffiRent.API.Domain.Models
     public class District
     {
         public int Id { get; set; }
-        public char Name { get; set; }
+        public string Name { get; set; }
 
         public int DepartamentId { get; set; }
         public Departament Departament { get; set; }

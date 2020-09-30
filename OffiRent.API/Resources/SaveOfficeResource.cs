@@ -10,13 +10,13 @@ namespace OffiRent.API.Resources
     {
         [Required]
         [MaxLength(30)]
-        public char Address { get; set; }
+        public string Address { get; set; }
 
         [Required]
         public int Floor { get; set; }
         [Required]
         [MaxLength(30)]
-        public char Capacity { get; set; }
+        public string Capacity { get; set; }
 
         [Required]
         public bool AllowResource { get; set; }

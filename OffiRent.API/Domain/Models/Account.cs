@@ -16,6 +16,7 @@ namespace OffiRent.API.Domain.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public List<AccountPaymentMethod> AccountPaymentMethods { get; set; } = new List<AccountPaymentMethod>();
+        public List<Office> Offices { get; set; }
 
     }
 }

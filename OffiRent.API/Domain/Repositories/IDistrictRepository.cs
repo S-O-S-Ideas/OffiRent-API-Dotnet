@@ -10,6 +10,7 @@ namespace OffiRent.API.Domain.Repositories
     {
         Task<IEnumerable<District>> ListAsync();
         Task<IEnumerable<District>> ListByDepartamentIdAsync(int departamentId);
+        //Task<IEnumerable<District>> ListByCountryIdAsync(int countryId);
         Task AddAsync(District district);
         Task<District> FindById(int id);
         void Update(District district);

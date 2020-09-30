@@ -58,9 +58,9 @@ namespace OffiRent.API.Services
             return await _officeRepository.ListByDistrictIdAsync(districtId);
         }
 
-        public async Task<IEnumerable<Office>> ListByPublicationIdAsync(int publicationId)
+        public async Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price)
         {
-            return await _officeRepository.ListByDistrictIdAsync(publicationId);
+            return await _officeRepository.ListByPriceEqualOrLowerThanAsync(price);
         }
 
         public async Task<OfficeResponse> SaveAsync(Office Office)

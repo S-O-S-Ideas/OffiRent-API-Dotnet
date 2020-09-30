@@ -74,6 +74,11 @@ namespace OffiRent.API
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
 
                 // Services
+                
+                services.AddScoped<IDepartamentService, DepartamentService>();
+                services.AddScoped<IDistrictService, DistrictService>();
+                services.AddScoped<IOfficeService, OfficeService>();
+
                 services.AddScoped<IAccountService, AccountService>();
                 services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 

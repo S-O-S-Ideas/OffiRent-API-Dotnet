@@ -11,7 +11,7 @@ using OffiRent.API.Services;
 namespace OffiRent.API.Test
 {
     public class CountryServiceTest
-    {
+    {/*
         [SetUp]
         public void Setup()
         {
@@ -68,6 +68,6 @@ namespace OffiRent.API.Test
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
         {
             return new Mock<IUnitOfWork>();
-        }
+        }*/
     }
 }
