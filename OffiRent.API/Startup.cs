@@ -7,21 +7,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using OffiRent.API.Domain.Persistence.Contexts;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Extensions;
-
 using Microsoft.Extensions.Logging;
-
-
-
 using OffiRent.API.Persistence.Repositories;
 using OffiRent.API.Services;
 
@@ -46,7 +40,6 @@ namespace OffiRent.API
                 options.UseInMemoryDatabase("offirent-api-in-memory");
             });
 
-
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();
             services.AddScoped<IDistrictRepository, DistrictRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();
@@ -65,12 +58,31 @@ namespace OffiRent.API
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
             services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
+
+            // Repositories
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
 
 
 
             //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
             //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
 
+
+
+            // Unit Of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Services
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
+
+
+            // Services
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
+            services.AddScoped<IOfficeService, OfficeService>();
 
 
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -80,6 +92,8 @@ namespace OffiRent.API
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICountryCurrencyRepository, CountryCurrencyRepository>();
 
+
+            services.AddAutoMapper(typeof(Startup));
 
             // Unit Of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -107,12 +121,8 @@ namespace OffiRent.API
             services.AddScoped<ICountryCurrencyService, CountryCurrencyService>();
 
 
-
-
-
-
-
             services.AddAutoMapper(typeof(Startup));
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddCustomSwagger();
         }

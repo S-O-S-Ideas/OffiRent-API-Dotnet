@@ -117,6 +117,34 @@ namespace OffiRent.API.Services
             }
         }
 
-       
+        public async Task<AccountResponse> UpdateAsync(int id, Account account)
+        {
+            var existingAccount = await _accountRepository.GetSingleByIdAsync(id);
+
+            if (existingAccount == null)
+                return new AccountResponse("Category not found");
+
+            existingAccount.FirstName = account.FirstName;
+            existingAccount.LastName = account.LastName;
+            existingAccount.Email = account.Email;
+            existingAccount.Password = account.Password;
+            existingAccount.Identification = account.Identification;
+            existingAccount.IsPremium = account.IsPremium;
+            existingAccount.PhoneNumber = account.PhoneNumber;
+
+            try
+            {
+                _accountRepository.Update(existingAccount);
+                await _unitOfWork.CompleteAsync();
+
+                return new AccountResponse(existingAccount);
+            }
+            catch (Exception ex)
+            {
+                return new AccountResponse($"An error ocurred while updating the account: {ex.Message}");
+            }
+        }
+
+
     }
 }

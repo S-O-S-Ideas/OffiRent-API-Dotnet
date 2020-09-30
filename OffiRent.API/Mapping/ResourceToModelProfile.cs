@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
+using OffiRent.API.Domain.Models;
 using OffiRent.API.Resources;
 
 using OffiRent.API.Resources.Account;
-
-
 
 
 namespace OffiRent.API.Mapping
@@ -12,17 +11,12 @@ namespace OffiRent.API.Mapping
     {
         public ResourceToModelProfile()
         {
-
-            CreateMap <SaveAccountResource, AccountResource>();
+            CreateMap<SaveAccountResource, Account>();
             CreateMap<SaveCountryResource, CountryResource>();
             CreateMap<SaveCurrencyResource, CurrencyResource>();
-
-
-
             CreateMap<SaveDepartamentResource, DepartamentResource>();
             CreateMap<SaveDistrictResource, DistrictResource>();
-            CreateMap<SaveOfficeResource, OfficeResource>();
-
+            CreateMap<SaveOfficeResource, Office>();
         }
     }
 }

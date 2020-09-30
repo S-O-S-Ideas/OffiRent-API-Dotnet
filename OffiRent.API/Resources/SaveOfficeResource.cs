@@ -15,10 +15,15 @@ namespace OffiRent.API.Resources
         [Required]
         public int Floor { get; set; }
         [Required]
-        [MaxLength(30)]
-        public string Capacity { get; set; }
+
+        public int Capacity { get; set; }
 
         [Required]
         public bool AllowResource { get; set; }
+        public float Score { get; set; }
+        public string Description { get; set; }
+        public float Price { get; set; }
+        public bool Status { get; set; }
+        public string Comment { get; set; }
     }
 }

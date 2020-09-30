@@ -20,7 +20,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -139,12 +139,9 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     LastName = "Cadena",
                     PhoneNumber = "920837182",
                     IsPremium = false,
-
                 });
             
             
-          
-
 
             // PaymentMethod Entity
             builder.Entity<PaymentMethod>().ToTable("PaymentMethods");
@@ -182,12 +179,12 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>().Property(p => p.Address)
                 .IsRequired();
             builder.Entity<Office>().Property(p => p.Floor)
-                .IsRequired().HasMaxLength(30); 
+                .IsRequired().HasMaxLength(30);
             builder.Entity<Office>().Property(p => p.Capacity)
                 .IsRequired().HasMaxLength(30);
             builder.Entity<Office>().Property(p => p.AllowResource)
                 .IsRequired();
-            builder.Entity<Office>().Property(p => p.Punctuation)
+            builder.Entity<Office>().Property(p => p.Score)
                 .IsRequired();
             builder.Entity<Office>().Property(p => p.Description)
                 .IsRequired();
@@ -202,10 +199,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasForeignKey(p => p.AccountId);
 
             builder.Entity<Office>().HasData(
-                new Office { Id=70, Address="calle Jerusalen", Floor=2, Capacity="4 personas", AllowResource=true, Punctuation = "85 puntos",Description="Oficina espaciosa con gran comodidad",Price = 100,Status=true, AccountId = 300, DistrictId = 80},
-                new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = "3 personas", AllowResource = true, Punctuation = "99 puntos", Description = "Oficina grande", Price = 80, Status = true, AccountId = 300,DistrictId = 80 },
-                new Office { Id = 72, Address = "calle Girasol", Floor = 1, Capacity = "5 personas", AllowResource = true, Punctuation = "12 puntos", Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
-                new Office { Id = 73, Address = "calle Caceres", Floor = 2, Capacity = "3 personas", AllowResource = true, Punctuation = "55 puntos", Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
+                new Office { Id=70, Address="calle Jerusalen", Floor=2, Capacity= 4, AllowResource=true, Score = 85,Description="Oficina espaciosa con gran comodidad",Price = 100,Status=true, AccountId = 300, DistrictId = 80},
+                new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300,DistrictId = 80 },
+                new Office { Id = 72, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
+                new Office { Id = 73, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
 
             //builder.Entity<Office>()
               //  .HasOne(p => p.Publication);   //en duda
@@ -214,18 +211,31 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             // Publication Entity
 
 
-            //builder.Entity<Office>()
-            //    .HasMany(p => p.Resources)
-            //    .WithOne(p => p.Office);
+            builder.Entity<Office>().HasData
+                (
+                new Office
+                {
+                    Id = 100,
+                    Address = "Centro de Lima",
+                    Floor = 3,
+                    Capacity = 15,
+                    AllowResource = true,
+                    Score = 20,
+                    Description = "Bonita oficina moderna",
+                    Status = true,
+                    Comment = "Mirada a las praderas en zona urbana",
+
+                }
+                );
 
 
             //District Entity
             builder.Entity<District>().ToTable("Districts");
             builder.Entity<District>().HasKey(p => p.Id);
             builder.Entity<District>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
+                    .IsRequired().ValueGeneratedOnAdd();
             builder.Entity<District>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(30);
+                    .IsRequired().HasMaxLength(30);
 
             builder.Entity<District>()
                 .HasMany(p => p.Offices)
@@ -239,19 +249,24 @@ namespace OffiRent.API.Domain.Persistence.Contexts
 
                 new District { Id = 82, Name = "Junin", DepartamentId = 92 },
                 new District { Id = 83, Name = "Mercedes", DepartamentId = 92 });
+                    
+
+            builder.Entity<District>()
+                    .HasOne(p => p.Departament)
+                    .WithMany(p => p.Districts);
 
 
             // Departament Entity
             builder.Entity<Departament>().ToTable("Departaments");
             builder.Entity<Departament>().HasKey(p => p.Id);
             builder.Entity<Departament>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
+                    .IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Departament>().Property(p => p.Name)
-                .IsRequired().HasMaxLength(30);
+                    .IsRequired().HasMaxLength(30);
 
             builder.Entity<Departament>()
-                .HasOne(p => p.Country)
-                .WithMany(p => p.Departaments);
+                    .HasOne(p => p.Country)
+                    .WithMany(p => p.Departaments);
 
             builder.Entity<Departament>()
                 .HasMany(p => p.Districts)
@@ -280,22 +295,22 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Country>().ToTable("Countries");
             builder.Entity<Country>().HasKey(p => p.Id);
             builder.Entity<Country>().Property(p => p.Id)
-                .IsRequired().ValueGeneratedOnAdd();
+                    .IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Country>().Property(p => p.Name)
-                 .IsRequired().HasMaxLength(30);
+                     .IsRequired().HasMaxLength(30);
 
             builder.Entity<Country>().HasData(
-                new Country
-                {
-                    Id = 100,
-                    Name = "Peru"
-                },
-                new Country
-                {
-                    Id = 101,
-                    Name = "Argentina"
-                }
-                );
+                    new Country
+                    {
+                        Id = 100,
+                        Name = "Peru"
+                    },
+                    new Country
+                    {
+                        Id = 101,
+                        Name = "Argentina"
+                    }
+                    );
 
 
 
@@ -319,10 +334,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                },
                new Currency
                {
-                Id = 201,
-                    Name = "Dolar",
-                    Symbol = '$'
-                }
+                   Id = 201,
+                   Name = "Dolar",
+                   Symbol = '$'
+               }
                );
 
 

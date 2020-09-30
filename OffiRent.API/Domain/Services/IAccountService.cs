@@ -8,7 +8,6 @@ namespace OffiRent.API.Domain.Services
 {
     public interface IAccountService 
     {
-
         Task<IEnumerable<Account>> ListAsync();
         Task<AccountResponse> GetBySingleIdAsync(int id);
         Task<AccountResponse> GetBySinglePhoneNumberAsync(string phoneNumber);
@@ -16,5 +15,6 @@ namespace OffiRent.API.Domain.Services
         Task<AccountResponse> SaveAsync(Account account);
         Task<AccountResponse> DeleteAsync(int id);
         Task<AccountResponse> UpdateSync(int id);
+        Task<AccountResponse> UpdateAsync(int id, Account account);
     }
 }

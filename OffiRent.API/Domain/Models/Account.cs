@@ -22,6 +22,7 @@ namespace OffiRent.API.Domain.Models
         public List<Publication> Publications { get; set; } = new List<Publication>();
         public List<AccountPaymentMethod> AccountPaymentMethods { get; set; } = new List<AccountPaymentMethod>();
         public List<Office> Offices { get; set; }
-
+        //public int DiscountId { get; set; }
+        //public Discount Discount { get; set; }
     }
 }

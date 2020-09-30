@@ -13,9 +13,9 @@ namespace OffiRent.API.Domain.Models
         public int InitialHour { get; set; }
         public int EndHour { get; set; }
         public bool Status { get; set; }
-        public int OffiUserId { get; set; }
+        public int AccountId { get; set; }
         public int PublicationId { get; set; }
-        public Account Account{get;set;}
+        public Account Account {get;set;}
         public Publication Publication { get; set; }
     }
 }
