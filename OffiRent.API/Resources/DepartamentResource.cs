@@ -8,6 +8,6 @@ namespace OffiRent.API.Resources
     public class DepartamentResource
     {
         public int Id { get; set; }
-        public char Name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Services;
+using OffiRent.API.Domain.Services.Communications;
 using OffiRent.API.Extensions;
 using OffiRent.API.Resources;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
@@ -25,6 +28,12 @@ namespace OffiRent.API.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "List of Offices",
+            Description = "List of Offices",
+            Tags = new[] { "Offices" }
+        )]
+        [SwaggerResponse(200, "List of  Offices", typeof(PublicationResource))]
         [HttpGet]
         public async Task<IEnumerable<OfficeResource>> GetAllAsync()
         {
@@ -32,6 +41,40 @@ namespace OffiRent.API.Controllers
             var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
             return resources;
         }
+
+
+
+        [SwaggerOperation(
+            Summary = "Details of the Office",
+            Description = "Details of the Office for entered officeId",
+            Tags = new[] { "Offices" }
+        )]
+        [SwaggerResponse(200, "Details of the Office", typeof(PublicationResource))]
+        [HttpGet("{officeId}")]
+        public async Task<IActionResult> GetByIdAsync(int officeId)
+        {
+            var result = await _officeService.GetByIdAsync(officeId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            return Ok(officeResource);
+        }
+
+        [SwaggerOperation(
+            Summary = "List of Offices by price",
+            Description = "List of Offices by price",
+            Tags = new[] { "Offices" }
+        )]
+        [SwaggerResponse(200, "List of  Offices with price equal or lower than entered price", typeof(PublicationResource))]
+        [HttpGet("price")]
+        public async Task<IEnumerable<OfficeResource>> ListByPriceEqualOrLowerThanAsync(int price)
+        {
+            var offices = await _officeService.ListByPriceEqualOrLowerThanAsync(price);
+            var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
+            return resources;
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOfficeResource resource)

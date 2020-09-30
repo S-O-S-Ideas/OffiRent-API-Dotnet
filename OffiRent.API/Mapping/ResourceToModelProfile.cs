@@ -19,6 +19,10 @@ namespace OffiRent.API.Mapping
 
 
 
+            CreateMap<SaveDepartamentResource, DepartamentResource>();
+            CreateMap<SaveDistrictResource, DistrictResource>();
+            CreateMap<SaveOfficeResource, OfficeResource>();
+
         }
     }
 }

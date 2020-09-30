@@ -57,6 +57,17 @@ namespace OffiRent.API
 
          
 
+                services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+                services.AddScoped<IDistrictRepository, DistrictRepository>();
+                services.AddScoped<IOfficeRepository, OfficeRepository>();
+                // Repositories
+                services.AddScoped<IAccountRepository, AccountRepository>();
+                services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+                services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
+
+                
+
+
             //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
             //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
 
@@ -72,10 +83,18 @@ namespace OffiRent.API
 
             // Unit Of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             // Services
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
+
+                // Services
+                
+                services.AddScoped<IDepartamentService, DepartamentService>();
+                services.AddScoped<IDistrictService, DistrictService>();
+                services.AddScoped<IOfficeService, OfficeService>();
+
+                services.AddScoped<IAccountService, AccountService>();
+                services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 
             services.AddScoped<IPublicationRepository, PublicationRepository>();
             services.AddScoped<IPublicationService, PublicationService>();
@@ -89,6 +108,9 @@ namespace OffiRent.API
 
 
 
+
+                services.AddCustomSwagger();
+            
 
 
             services.AddAutoMapper(typeof(Startup));

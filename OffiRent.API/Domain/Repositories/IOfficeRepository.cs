@@ -10,7 +10,7 @@ namespace OffiRent.API.Domain.Repositories
     {
         Task<IEnumerable<Office>> ListAsync();
         Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId);
-        Task<IEnumerable<Office>> ListByPublicationIdAsync(int publicationId);
+        Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price);
         Task AddAsync(Office office);
         Task<Office> FindById(int id);
         void Update(Office office);

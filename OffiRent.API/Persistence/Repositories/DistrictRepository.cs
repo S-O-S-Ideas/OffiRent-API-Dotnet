@@ -27,8 +27,22 @@ namespace OffiRent.API.Persistence.Repositories
 
         public async Task<IEnumerable<District>> ListAsync()
         {
-            return await _context.Districts.Include(p => p.Departament).ToListAsync();
+            return await _context.Districts.Include(d=>d.Offices).ToListAsync();
         }
+
+       /* public async Task<IEnumerable<District>> ListByCountryIdAsync(int countryId)
+        {
+            var departaments= await _context.Departaments
+                .Where(p => p.CountryId == countryId)
+                .Include(p => p.Country)
+                .ToListAsync();
+
+            var departamentsId = departaments.Select(d=>d.Id);
+
+            var districts = await _context.Districts
+                
+            //throw new NotImplementedException();
+        }*/
 
         public async Task<IEnumerable<District>> ListByDepartamentIdAsync(int departamentId)
         {

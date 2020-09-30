@@ -11,7 +11,7 @@ namespace OffiRent.API.Domain.Services
     {
         Task<IEnumerable<Office>> ListAsync();
         Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId);
-        Task<IEnumerable<Office>> ListByPublicationIdAsync(int publicationId);
+        Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price);
         Task<OfficeResponse> GetByIdAsync(int id);
         Task<OfficeResponse> SaveAsync(Office Office);
         Task<OfficeResponse> UpdateAsync(int id, Office Office);

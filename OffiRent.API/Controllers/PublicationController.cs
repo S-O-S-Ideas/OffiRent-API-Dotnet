@@ -38,6 +38,10 @@ namespace OffiRent.API.Controllers
             return resources;
         }
 
+
+
+
+
         [SwaggerOperation(
             Summary = "Create a Publication"
         )]
