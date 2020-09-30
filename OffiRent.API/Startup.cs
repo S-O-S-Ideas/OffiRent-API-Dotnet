@@ -55,17 +55,17 @@ namespace OffiRent.API
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
             services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
-         
 
-                services.AddScoped<IDepartamentRepository, DepartamentRepository>();
-                services.AddScoped<IDistrictRepository, DistrictRepository>();
-                services.AddScoped<IOfficeRepository, OfficeRepository>();
-                // Repositories
-                services.AddScoped<IAccountRepository, AccountRepository>();
-                services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
-                services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
-                
+            services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
+            // Repositories
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+            services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
+
+
 
 
             //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
@@ -87,14 +87,14 @@ namespace OffiRent.API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 
-                // Services
-                
-                services.AddScoped<IDepartamentService, DepartamentService>();
-                services.AddScoped<IDistrictService, DistrictService>();
-                services.AddScoped<IOfficeService, OfficeService>();
+            // Services
 
-                services.AddScoped<IAccountService, AccountService>();
-                services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
+            services.AddScoped<IDepartamentService, DepartamentService>();
+            services.AddScoped<IDistrictService, DistrictService>();
+            services.AddScoped<IOfficeService, OfficeService>();
+
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 
             services.AddScoped<IPublicationRepository, PublicationRepository>();
             services.AddScoped<IPublicationService, PublicationService>();
@@ -109,36 +109,35 @@ namespace OffiRent.API
 
 
 
-                services.AddCustomSwagger();
-            
+
 
 
             services.AddAutoMapper(typeof(Startup));
 
             services.AddCustomSwagger();
         }
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        { 
-                if (env.IsDevelopment())
-                {
-                    app.UseDeveloperExceptionPage();
-                }
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-                app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-                app.UseRouting();
+            app.UseRouting();
 
-                app.UseAuthorization();
+            app.UseAuthorization();
 
-                app.UseCustomSwagger();
+            app.UseCustomSwagger();
 
-                app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
-            
+
         }
     }
 }
