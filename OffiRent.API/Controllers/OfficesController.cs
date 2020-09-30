@@ -75,7 +75,10 @@ namespace OffiRent.API.Controllers
         //    return resources;
         //}
 
-
+        [SwaggerOperation(
+            Summary = "Add an office",
+            Description = "Add an office given its properties")]
+        [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOfficeResource resource)
         {
@@ -93,6 +96,9 @@ namespace OffiRent.API.Controllers
             return Ok(officeResource);
         }
 
+        [SwaggerOperation(
+            Summary = "Delete a reservation",
+            Description = "Remove a reservation given its id")]
         [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteAsync(int id)
