@@ -44,5 +44,9 @@ namespace OffiRent.API.Persistence.Repositories
         {
             _context.Remove(account);
         }
+        public void Update(Account account)
+        {
+            _context.Accounts.Update(account);
+        }
     }
 }

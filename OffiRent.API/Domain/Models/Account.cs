@@ -11,11 +11,15 @@ namespace OffiRent.API.Domain.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Identification { get; set; }
-        public bool Type { get; set; }
+        public bool IsPremium { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
+        //public int DiscountId { get; set; }
+        //public Discount Discount { get; set; }
         public List<AccountPaymentMethod> AccountPaymentMethods { get; set; } = new List<AccountPaymentMethod>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<Publication> Publications { get; set; } = new List<Publication>();
 
     }
 }

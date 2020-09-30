@@ -19,5 +19,10 @@ namespace OffiRent.API.Resources
 
         [Required]
         public bool AllowResource { get; set; }
+        public float Score { get; set; }
+        public string Description { get; set; }
+        public float Price { get; set; }
+        public bool Status { get; set; }
+        public string Comment { get; set; }
     }
 }

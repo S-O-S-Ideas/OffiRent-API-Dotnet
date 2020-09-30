@@ -13,8 +13,14 @@ namespace OffiRent.API.Resources
         public int Floor { get; set; }
         public int Capacity { get; set; }
         public bool AllowResource { get; set; }
-        public District District { get; set; }
-        public Publication Publication { get; set; }
+        public float Score { get; set; }
+        public string Description { get; set; }
+        public float Price { get; set; }
+        public bool Status { get; set; }
+        public string Comment { get; set; }
+
+        //public District District { get; set; }
+        //public Publication Publication { get; set; }
 
     }
 }

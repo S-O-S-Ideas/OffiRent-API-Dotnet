@@ -7,21 +7,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using OffiRent.API.Domain.Persistence.Contexts;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Extensions;
-
 using Microsoft.Extensions.Logging;
-
-
-
 using OffiRent.API.Persistence.Repositories;
 using OffiRent.API.Services;
 
@@ -53,16 +47,8 @@ namespace OffiRent.API
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
             services.AddScoped<IAccountPaymentMethodRepository, AccountPaymentMethodRepository>();
 
-
-
             //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
             //options.UseNpgsql("server=localhost;port=5432;database=suparmarket;uid=postgres;password=postgres");
-
-            services.AddScoped<IOffiUserRepository, OffiUserRepository>();
-            services.AddScoped<IOffiProviderRepository, OffiProviderRepository>();
-
-
-
 
             // Repositories
             services.AddScoped<ICountryRepository, CountryRepository>();
@@ -86,8 +72,6 @@ namespace OffiRent.API
 
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IOffiUserService, OffiUserService>();
-            services.AddScoped<IOffiProviderService, OffiProviderService>();
 
 
             services.AddAutoMapper(typeof(Startup));

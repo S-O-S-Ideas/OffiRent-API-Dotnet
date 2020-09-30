@@ -39,13 +39,6 @@ namespace OffiRent.API.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Office>> ListByPublicationIdAsync(int publicationId)
-        {
-            return await _context.Offices
-                .Where(p => p.PublicationId == publicationId)
-                .Include(p => p.Publication)
-                .ToListAsync();
-        }
 
         public void Remove(Office office)
         {
