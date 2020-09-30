@@ -18,7 +18,6 @@ namespace OffiRent.API.Mapping
 
             CreateMap <Account, AccountResource>();
           
-            CreateMap<Publication, PublicationResource>();
             CreateMap<Reservation, ReservationResource>();
 
             CreateMap<Country, CountryResource>();

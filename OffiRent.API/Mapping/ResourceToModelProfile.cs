@@ -12,11 +12,12 @@ namespace OffiRent.API.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveAccountResource, Account>();
-            CreateMap<SaveCountryResource, CountryResource>();
-            CreateMap<SaveCurrencyResource, CurrencyResource>();
-            CreateMap<SaveDepartamentResource, DepartamentResource>();
-            CreateMap<SaveDistrictResource, DistrictResource>();
+            CreateMap<SaveCountryResource, Country>();
+            CreateMap<SaveCurrencyResource, Currency>();
+            CreateMap<SaveDepartamentResource, Departament>();
+            CreateMap<SaveDistrictResource, District>();
             CreateMap<SaveOfficeResource, Office>();
+            CreateMap<SaveReservationResource, Reservation>();
         }
     }
 }

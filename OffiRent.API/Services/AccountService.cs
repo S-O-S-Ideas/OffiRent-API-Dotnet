@@ -122,7 +122,7 @@ namespace OffiRent.API.Services
             var existingAccount = await _accountRepository.GetSingleByIdAsync(id);
 
             if (existingAccount == null)
-                return new AccountResponse("Category not found");
+                return new AccountResponse("Account not found");
 
             existingAccount.FirstName = account.FirstName;
             existingAccount.LastName = account.LastName;

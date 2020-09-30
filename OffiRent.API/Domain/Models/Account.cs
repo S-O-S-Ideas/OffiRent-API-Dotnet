@@ -19,9 +19,8 @@ namespace OffiRent.API.Domain.Models
         public Reservation Reservation { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-        public List<Publication> Publications { get; set; } = new List<Publication>();
         public List<AccountPaymentMethod> AccountPaymentMethods { get; set; } = new List<AccountPaymentMethod>();
-        public List<Office> Offices { get; set; }
+        public List<Office> Offices { get; set; } = new List<Office>();
         //public int DiscountId { get; set; }
         //public Discount Discount { get; set; }
     }

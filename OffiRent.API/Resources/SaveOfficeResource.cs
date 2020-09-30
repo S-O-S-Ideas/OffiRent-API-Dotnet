@@ -25,5 +25,8 @@ namespace OffiRent.API.Resources
         public float Price { get; set; }
         public bool Status { get; set; }
         public string Comment { get; set; }
+        public int AccountId { get; set; }
+        public int DistrictId { get; set; }
+
     }
 }

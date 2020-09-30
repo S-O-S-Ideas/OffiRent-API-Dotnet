@@ -20,25 +20,25 @@ namespace OffiRent.API.Controllers
         private readonly IOfficeService _officeService;
         private readonly IMapper _mapper;
 
-        public OfficeDistrictController(IOfficeService publicationRepository, IMapper mapper)
+        public OfficeDistrictController(IOfficeService officeService, IMapper mapper)
         {
-            this._officeService = publicationRepository;
+            _officeService = officeService;
             _mapper = mapper;
         }
 
-        [SwaggerOperation(
-            Summary = "List of Offices by DistrictId",
-            Description = "List of Offices by DistrictId",
-            Tags =new[] {"Offices"}
-        )]
-        [SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(PublicationResource))]
-        [HttpGet("{districtId}")]
-        public async Task<IEnumerable<OfficeResource>> GetAllByDistrictId(int districtId)
-        {
-            var offices = await _officeService.ListByDistrictIdAsync(districtId);
-            var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
-            return resources;
-        }
+        //[SwaggerOperation(
+        //    Summary = "List of Offices by DistrictId",
+        //    Description = "List of Offices by DistrictId",
+        //    Tags =new[] {"Offices"}
+        //)]
+        //[SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(OfficeResource))]
+        //[HttpGet("{districtId}")]
+        //public async Task<IEnumerable<OfficeResource>> GetAllByDistrictId(int districtId)
+        //{
+        //    var offices = await _officeService.ListByDistrictIdAsync(districtId);
+        //    var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
+        //    return resources;
+        //}
 
 
 

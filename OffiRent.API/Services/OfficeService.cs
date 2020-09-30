@@ -79,16 +79,27 @@ namespace OffiRent.API.Services
             }
         }
 
-        public async Task<OfficeResponse> UpdateAsync(int id, Office Office)
+        public async Task<OfficeResponse> UpdateAsync(int id, Office office)
         {
             var existingOffice = await _officeRepository.FindById(id);
 
             if (existingOffice == null)
                 return new OfficeResponse("Office not found");
 
+            existingOffice.Address = office.Address;
+            existingOffice.Floor = office.Floor;
+            existingOffice.Capacity = office.Capacity;
+            existingOffice.AllowResource = office.AllowResource;
+            existingOffice.Score = office.Score;
+            existingOffice.Description = office.Description;
+            existingOffice.Price = office.Price;
+            existingOffice.Comment = office.Comment;
+            existingOffice.Status = office.Status;
+            existingOffice.DistrictId = office.DistrictId;
+
             try
             {
-                _officeRepository.Remove(existingOffice);
+                _officeRepository.Update(existingOffice);
                 await _unitOfWork.CompleteAsync();
 
                 return new OfficeResponse(existingOffice);

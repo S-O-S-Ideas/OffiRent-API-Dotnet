@@ -18,7 +18,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
-        public DbSet<Publication> Publications { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
 
 
@@ -30,45 +29,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Publication>().ToTable("publications");
-            builder.Entity<Publication>().HasKey(P => P.Id);
-            builder.Entity<Publication>().Property(P => P.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-
-            builder.Entity<Publication>().Property(p => p.Puntuation)
-                .IsRequired().HasMaxLength(10);
-            builder.Entity<Publication>().Property(p => p.Description)
-                .IsRequired().HasMaxLength(100);
-            builder.Entity<Publication>().Property(p => p.Price)
-                .IsRequired();
-            builder.Entity<Publication>().Property(p => p.Status)
-                .HasDefaultValue(true);
-            builder.Entity<Publication>().Property(p => p.Comment)
-                .HasMaxLength(100);
-            builder.Entity<Publication>()
-                .HasMany(p => p.Reservations)
-                .WithOne(p => p.Publication)
-                .HasForeignKey(p => p.PublicationId);
-            builder.Entity<Publication>().HasData(
-                new Publication
-                {
-                    Id = 100001,
-                    Puntuation = "Buena",
-                    Description = "new",
-                    Price = 200,
-                    Status = true,
-                    Comment = "Comentario 01 "
-                },
-                new Publication
-                {
-                    Id = 100002,
-                    Puntuation = "bad",
-                    Description = "new",
-                    Price = 300,
-                    Status = false,
-                    Comment = "Comentario 02"
-                }
-                );
 
             //Reservation
             builder.Entity<Reservation>().ToTable("reservation");
@@ -77,35 +37,50 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Reservation>().Property(p => p.InitialDate)
                 .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.EndDate)
-                .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.InitialHour)
-                .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.EndHour)
-                .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.EndDate)
+            //    .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.InitialHour)
+            //    .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.EndHour)
+            //    .IsRequired();
             builder.Entity<Reservation>().Property(p => p.Status)
                 .HasDefaultValue(false);
+            builder.Entity<Reservation>().Property(p => p.InitialDate)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.InitialDate)
+                .IsRequired();
 
             builder.Entity<Reservation>().HasData(
                 new Reservation
                 {
-                    Id = 30000,
-                    InitialDate = 10,
-                    EndDate = 15,
-                    InitialHour = 8,
-                    EndHour = 16,
-                    Status = true
-                },
-                new Reservation
-                {
-                    Id = 30001,
-                    InitialDate = 8,
-                    EndDate = 22,
-                    InitialHour = 8,
-                    EndHour = 16,
-                    Status = false
+                    Id = 100,
+                    InitialDate = "2021-03-15 12:49:23",
+                    FinishDate = "2021-23-15 12:49:23",
+                    Status = true,
+                    AccountId = 100,
+                    OfficeId = 100
                 }
                 );
+            //builder.Entity<Reservation>().HasData(
+            //    new Reservation
+            //    {
+            //        Id = 100,
+            //        InitialDate = 10,
+            //        EndDate = 15,
+            //        InitialHour = 8,
+            //        EndHour = 16,
+            //        Status = true
+            //    },
+            //    new Reservation
+            //    {
+            //        Id = 101,
+            //        InitialDate = 8,
+            //        EndDate = 22,
+            //        InitialHour = 8,
+            //        EndHour = 16,
+            //        Status = false
+            //    }
+            //    );
 
 
             // Account Entity
@@ -131,7 +106,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Account>().HasData(
                 new Account
                 {
-                    Id = 300,
+                    Id = 100,
                     Email = "juan@gmail.com",
                     Password = "1234",
                     Identification = "72901831",
@@ -140,8 +115,8 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     PhoneNumber = "920837182",
                     IsPremium = false,
                 });
-            
-            
+
+
 
             // PaymentMethod Entity
             builder.Entity<PaymentMethod>().ToTable("PaymentMethods");
@@ -199,34 +174,15 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasForeignKey(p => p.AccountId);
 
             builder.Entity<Office>().HasData(
-                new Office { Id=70, Address="calle Jerusalen", Floor=2, Capacity= 4, AllowResource=true, Score = 85,Description="Oficina espaciosa con gran comodidad",Price = 100,Status=true, AccountId = 300, DistrictId = 80},
-                new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300,DistrictId = 80 },
-                new Office { Id = 72, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
-                new Office { Id = 73, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
+                new Office { Id = 100, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 },
+                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
+                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
+                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
 
             //builder.Entity<Office>()
-              //  .HasOne(p => p.Publication);   //en duda
+            //  .HasOne(p => p.Publication);   //en duda
 
 
-            // Publication Entity
-
-
-            builder.Entity<Office>().HasData
-                (
-                new Office
-                {
-                    Id = 100,
-                    Address = "Centro de Lima",
-                    Floor = 3,
-                    Capacity = 15,
-                    AllowResource = true,
-                    Score = 20,
-                    Description = "Bonita oficina moderna",
-                    Status = true,
-                    Comment = "Mirada a las praderas en zona urbana",
-
-                }
-                );
 
 
             //District Entity
@@ -241,15 +197,14 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasMany(p => p.Offices)
                 .WithOne(p => p.District)
                 .HasForeignKey(p => p.DistrictId);
-                
+
 
             builder.Entity<District>().HasData(
-                new District { Id = 80, Name = "San Isidro", DepartamentId = 90 },
-                new District { Id = 81, Name = "Miraflores", DepartamentId = 90 },
+                new District { Id = 100, Name = "San Isidro", DepartamentId = 90 },
+                new District { Id = 101, Name = "Miraflores", DepartamentId = 90 },
+                new District { Id = 102, Name = "Junin", DepartamentId = 92 },
+                new District { Id = 103, Name = "Mercedes", DepartamentId = 92 });
 
-                new District { Id = 82, Name = "Junin", DepartamentId = 92 },
-                new District { Id = 83, Name = "Mercedes", DepartamentId = 92 });
-                    
 
             builder.Entity<District>()
                     .HasOne(p => p.Departament)
@@ -273,11 +228,11 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .WithOne(p => p.Departament);
 
             builder.Entity<Departament>().HasData(
-                new Departament { Id = 90, Name = "Lima", CountryId = 100},
-                new Departament { Id=91, Name="Arequipa", CountryId=100},
+                new Departament { Id = 100, Name = "Lima", CountryId = 100 },
+                new Departament { Id = 101, Name = "Arequipa", CountryId = 100 },
 
-                new Departament { Id=92, Name="Buenos Aires", CountryId=101},
-                new Departament {Id=93, Name="Córdoba",CountryId=101}
+                new Departament { Id = 102, Name = "Buenos Aires", CountryId = 101 },
+                new Departament { Id = 103, Name = "Córdoba", CountryId = 101 }
                 );
 
 
@@ -328,13 +283,13 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Currency>().HasData(
                new Currency
                {
-                   Id = 200,
+                   Id = 100,
                    Name = "Nuevo Sol",
                    Symbol = 'S'
                },
                new Currency
                {
-                   Id = 201,
+                   Id = 101,
                    Name = "Dolar",
                    Symbol = '$'
                }

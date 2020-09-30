@@ -110,8 +110,6 @@ namespace OffiRent.API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountPaymentMethodService, AccountPaymentMethodService>();
 
-            services.AddScoped<IPublicationRepository, PublicationRepository>();
-            services.AddScoped<IPublicationService, PublicationService>();
 
 
             services.AddScoped<IReservationRepository, ReservationRepository>();

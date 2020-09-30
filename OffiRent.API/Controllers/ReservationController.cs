@@ -29,7 +29,7 @@ namespace OffiRent.API.Controllers
            Summary = "Delete a Reservation" )]
 
         [SwaggerResponse(200, "Delete a reservation made by OffiUser ", typeof(ReservationResource))]
-        [Microsoft.AspNetCore.Mvc.HttpDelete("id")]
+        [HttpDelete("id")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
            var result = await _reservationService.DeleteAsync(id);
@@ -59,13 +59,13 @@ namespace OffiRent.API.Controllers
 
         )]
         [SwaggerResponse(200, "Reservation was created", typeof(ReservationResource))]
-        [HttpPost("id")]
-        public async Task<IActionResult> PostAsync([FromBody] Resources.HttpDeleteAttribute resource)
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveReservationResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var reservation = _mapper.Map<Resources.HttpDeleteAttribute, Reservation>(resource);
+            var reservation = _mapper.Map<SaveReservationResource, Reservation>(resource);
 
             var result = await _reservationService.SaveAsync(reservation);
 
@@ -84,9 +84,9 @@ namespace OffiRent.API.Controllers
         )]
         [SwaggerResponse(200, "Reservation was updated", typeof(ReservationResource))]
         [HttpPut("id")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] Resources.HttpDeleteAttribute resource)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveReservationResource resource)
         {
-            var reservation = _mapper.Map<Resources.HttpDeleteAttribute, Reservation>(resource);
+            var reservation = _mapper.Map<SaveReservationResource, Reservation>(resource);
             var result = await _reservationService.UpdateAsync(id, reservation);
 
             if (!result.Success)

@@ -26,7 +26,9 @@ namespace OffiRent.API.Controllers
         }
 
         [SwaggerOperation(
-           Summary = "Update Premium Status of Account"
+           Summary = "Update Premium Status of Account",
+           Tags = new[] { "Accounts" }
+
 
         )]
         [SwaggerResponse(200, "Change type of OffiProvider account to Premium", typeof(AccountResource))]
@@ -108,5 +110,21 @@ namespace OffiRent.API.Controllers
             return Ok(accountResource);
         }
 
+        [SwaggerOperation(
+           Summary = "Delete a Account",
+           Tags = new[] { "Accounts" })
+        ]
+
+        [SwaggerResponse(200, "Delete an account given it's id", typeof(AccountResource))]
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _accountService.DeleteAsync(id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var accountResource = _mapper.Map<Account, AccountResource>(result.Resource);
+            return Ok(accountResource);
+        }
     }
 }
