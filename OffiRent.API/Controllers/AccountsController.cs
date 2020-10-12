@@ -14,12 +14,12 @@ namespace OffiRent.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public AccountController(IAccountService accountService, IMapper mapper)
+        public AccountsController(IAccountService accountService, IMapper mapper)
         {
             _accountService = accountService;
             _mapper = mapper;

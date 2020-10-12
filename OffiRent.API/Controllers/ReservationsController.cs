@@ -14,19 +14,22 @@ namespace OffiRent.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
         
-    public class ReservationController: ControllerBase
+    public class ReservationsController: ControllerBase
     {
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
 
-        public ReservationController(IReservationService reservationService, IMapper mapper)
+        public ReservationsController(IReservationService reservationService, IMapper mapper)
         {
             _reservationService = reservationService;
             _mapper = mapper;
         }
 
         [SwaggerOperation(
-           Summary = "Delete a Reservation" )]
+            Summary = "Delete a Reservation",
+            Description = "Delete a reservation given it's id",
+            Tags = new[] { "Reservations" }
+        )]
 
         [SwaggerResponse(200, "Delete a reservation made by OffiUser ", typeof(ReservationResource))]
         [HttpDelete("id")]
@@ -41,7 +44,9 @@ namespace OffiRent.API.Controllers
         }
 
         [SwaggerOperation(
-           Summary = "List all Reservations"
+            Summary = "List all Reservations",
+            Description = "List of Reservations",
+            Tags = new[] { "Reservations" }
 
            )]
         [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
@@ -55,8 +60,9 @@ namespace OffiRent.API.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Create a Reservation"
-
+            Summary = "Create a new Reservation",
+            Description = "Create a new Reservation",
+            Tags = new[] { "Reservations" }
         )]
         [SwaggerResponse(200, "Reservation was created", typeof(ReservationResource))]
         [HttpPost]
@@ -79,7 +85,9 @@ namespace OffiRent.API.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Update a Reservation"
+            Summary = "Update a Reservation",
+            Description = "Update properties of reservation given it's id",
+            Tags = new[] { "Reservations" }
 
         )]
         [SwaggerResponse(200, "Reservation was updated", typeof(ReservationResource))]

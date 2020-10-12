@@ -61,26 +61,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     OfficeId = 100
                 }
                 );
-            //builder.Entity<Reservation>().HasData(
-            //    new Reservation
-            //    {
-            //        Id = 100,
-            //        InitialDate = 10,
-            //        EndDate = 15,
-            //        InitialHour = 8,
-            //        EndHour = 16,
-            //        Status = true
-            //    },
-            //    new Reservation
-            //    {
-            //        Id = 101,
-            //        InitialDate = 8,
-            //        EndDate = 22,
-            //        InitialHour = 8,
-            //        EndHour = 16,
-            //        Status = false
-            //    }
-            //    );
+
 
 
             // Account Entity
