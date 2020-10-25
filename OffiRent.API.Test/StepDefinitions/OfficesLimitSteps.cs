@@ -86,13 +86,9 @@ namespace OffiRent.API.Test.StepDefinitions
 
             Task task = new Task(action: new Action(() => new bool()));
 
-            //_officeRepositoryMock
-            //    .Setup(or => or.AddAsync(newOffice)).Returns(task);
-
 
             _officeRepositoryMock
                 .Setup(or => or.AddAsync(newOffice)).Returns(addOffice(newOffice));
-            //.Setup(or => or.AddAsync(newOffice)).Callback(premiumOffices.Add(newOffice).Returns(task);
 
             _accountRepositoryMock
                 .Setup(ar => ar.GetSingleByIdAsync(premiumAccount.Id)).ReturnsAsync(premiumAccount);
