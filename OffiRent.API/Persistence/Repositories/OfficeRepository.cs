@@ -25,6 +25,11 @@ namespace OffiRent.API.Persistence.Repositories
             return await _context.Offices.FindAsync(id);
         }
 
+        public async Task<IEnumerable<Office>> ListAccountOfficesAsync(int accountId)
+        {
+            return await _context.Offices.Where(o => o.AccountId == accountId).ToListAsync();
+        }
+
         public async Task<IEnumerable<Office>> ListAsync()
         {
             //return await _context.Offices.Include(p =>p.District).Include(p=>p.Publication).ToListAsync();

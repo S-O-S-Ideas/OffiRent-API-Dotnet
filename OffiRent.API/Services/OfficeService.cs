@@ -12,12 +12,15 @@ namespace OffiRent.API.Services
     public class OfficeService : IOfficeService
     {
         private readonly IOfficeRepository _officeRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OfficeService(IOfficeRepository officeRepository, IUnitOfWork unitOfWork)
+
+        public OfficeService(IOfficeRepository officeRepository, IUnitOfWork unitOfWork, IAccountRepository accountRepository)
         {
             _officeRepository = officeRepository;
             _unitOfWork = unitOfWork;
+            _accountRepository = accountRepository;
         }
 
         public async Task<OfficeResponse> DeleteAsync(int id)
@@ -63,14 +66,34 @@ namespace OffiRent.API.Services
             return await _officeRepository.ListByPriceEqualOrLowerThanAsync(price);
         }
 
-        public async Task<OfficeResponse> SaveAsync(Office Office)
+        public async Task<OfficeResponse> SaveAsync(Office office)
         {
             try
             {
-                await _officeRepository.AddAsync(Office);
-                await _unitOfWork.CompleteAsync();
+                int accountId = office.AccountId;
+                var account = await _accountRepository.GetSingleByIdAsync(accountId);
+                bool isPremium = account.IsPremium;
 
-                return new OfficeResponse(Office);
+                List<Office> accountOffices = (List<Office>)await _officeRepository.ListAccountOfficesAsync(accountId);
+
+                if (isPremium)
+                {
+                    if (accountOffices.Count > 14)
+                    {
+                        return new OfficeResponse("Your type of account cannot have more than 15 posts at the same time");
+                    }
+                } 
+                else
+                {
+                    if (accountOffices.Count > 0)
+                    {
+                        return new OfficeResponse("Your type of account cannot have more than 1 post at the same time");
+                    }
+                }
+                  
+                await _officeRepository.AddAsync(office);
+                await _unitOfWork.CompleteAsync();
+                return new OfficeResponse(office);
             }
             catch (Exception ex)
             {
