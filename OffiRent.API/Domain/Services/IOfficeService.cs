@@ -16,5 +16,6 @@ namespace OffiRent.API.Domain.Services
         Task<OfficeResponse> SaveAsync(Office Office);
         Task<OfficeResponse> UpdateAsync(int id, Office Office);
         Task<OfficeResponse> DeleteAsync(int id);
+        Task<bool> AccountHasMoreThanXPosts(int x, Account account);
     }
 }

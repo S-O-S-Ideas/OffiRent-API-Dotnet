@@ -63,7 +63,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 );
 
 
-
             // Account Entity
             builder.Entity<Account>().ToTable("Accounts");
             builder.Entity<Account>().HasKey(a => a.Id);

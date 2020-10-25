@@ -23,6 +23,13 @@ namespace OffiRent.API.Services
             _accountRepository = accountRepository;
         }
 
+        public async Task<bool> AccountHasMoreThanXPosts(int x, Account account)
+        {
+            List<Office> accountOffices = new List<Office>(await _officeRepository.ListAccountOfficesAsync(account.Id));
+            return (accountOffices.Count > x) ? true : false;
+
+        }
+
         public async Task<OfficeResponse> DeleteAsync(int id)
         {
             var existingOffice = await _officeRepository.FindById(id);
@@ -74,18 +81,16 @@ namespace OffiRent.API.Services
                 var account = await _accountRepository.GetSingleByIdAsync(accountId);
                 bool isPremium = account.IsPremium;
 
-                List<Office> accountOffices = (List<Office>)await _officeRepository.ListAccountOfficesAsync(accountId);
-
                 if (isPremium)
-                {
-                    if (accountOffices.Count > 14)
+                {         
+                    if (AccountHasMoreThanXPosts(14, account).Result)
                     {
                         return new OfficeResponse("Your type of account cannot have more than 15 posts at the same time");
                     }
                 } 
                 else
                 {
-                    if (accountOffices.Count > 0)
+                    if (AccountHasMoreThanXPosts(0, account).Result)
                     {
                         return new OfficeResponse("Your type of account cannot have more than 1 post at the same time");
                     }
