@@ -76,7 +76,7 @@ namespace OffiRent.API.Services
             catch (Exception ex)
             {
                 return new ReservationResponse(
-                    $"An error ocurred while saving the category: {ex.Message}");
+                    $"An error ocurred while saving the reservation: {ex.Message}");
             }
         }
 
@@ -86,7 +86,7 @@ namespace OffiRent.API.Services
             var existReservation = await _reservationRepository.FindById(id);
 
             if (existReservation == null)
-                return new ReservationResponse("Category not found");
+                return new ReservationResponse("Reservation not found");
 
             existReservation.Id = reservation.Id;
 
@@ -99,7 +99,7 @@ namespace OffiRent.API.Services
             }
             catch (Exception ex)
             {
-                return new ReservationResponse($"An error ocurred while updating category: {ex.Message}");
+                return new ReservationResponse($"An error ocurred while updating reservation : {ex.Message}");
             }
         }
     }

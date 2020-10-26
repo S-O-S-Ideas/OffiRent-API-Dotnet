@@ -20,6 +20,33 @@ namespace OffiRent.API.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<OfficeResponse> ActiveOffice(int id)
+        {
+            var inactiveOffice = await _officeRepository.FindById(id);
+
+            if (inactiveOffice == null)
+                return new OfficeResponse("Office not found");
+            
+            else if (inactiveOffice.Status == true)
+                return new OfficeResponse("Office is already active");
+
+            inactiveOffice.Status = true;
+
+            try
+            {
+                _officeRepository.Remove(inactiveOffice);
+                await _unitOfWork.CompleteAsync();
+
+                return new OfficeResponse(inactiveOffice);
+            }
+            catch (Exception ex)
+            {
+                return new OfficeResponse($"An error ocurred while deleting Office: {ex.Message}");
+            }
+
+
+        }
+
         public async Task<OfficeResponse> DeleteAsync(int id)
         {
             var existingOffice = await _officeRepository.FindById(id);
@@ -58,13 +85,25 @@ namespace OffiRent.API.Services
             return await _officeRepository.ListByDistrictIdAsync(districtId);
         }
 
+        public async Task<IEnumerable<Office>> ListByInactiveStatus(int providerId)
+        {
+            return await _officeRepository.ListByInactiveStatus(providerId);
+        }
+
         public async Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price)
         {
             return await _officeRepository.ListByPriceEqualOrLowerThanAsync(price);
         }
 
+        public async Task<IEnumerable<Office>> ListByProviderIdAsync(int providerId)
+        {
+            return await _officeRepository.ListByProviderIdAsync(providerId);
+        }
+
         public async Task<OfficeResponse> SaveAsync(Office Office)
         {
+            Office.Status = true;
+
             try
             {
                 await _officeRepository.AddAsync(Office);
