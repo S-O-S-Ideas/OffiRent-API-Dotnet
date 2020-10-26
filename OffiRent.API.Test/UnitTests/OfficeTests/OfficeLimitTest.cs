@@ -41,12 +41,7 @@ namespace OffiRent.API.Test
             Office nullOffice = null;
 
             mockAccountRepository.Setup(ar => ar.GetSingleByIdAsync(account.Id)).ReturnsAsync(account);
-            mockOfficeRepository.Setup(or => or.AddAsync(nullOffice)).ReturnsAsync(new Task(action: new System.Action(() => new null)));
-            //mockCategoryRepository.Setup(r => r.ListAsync())
-            //    .ReturnsAsync(new List<Category>());
-            //var service = new CategoryService(
-            //    mockCategoryRepository.Object,
-            //    mockUnitOfWork.Object);
+            mockOfficeRepository.Setup(or => or.AddAsync(nullOffice)).Returns(() => Task.FromResult<Office>(null));
 
             // Act
             
