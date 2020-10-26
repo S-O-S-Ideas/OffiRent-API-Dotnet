@@ -12,21 +12,25 @@ namespace OffiRent.API.Services
     public class OfficeService : IOfficeService
     {
         private readonly IOfficeRepository _officeRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OfficeService(IOfficeRepository officeRepository, IUnitOfWork unitOfWork)
+        public OfficeService(IOfficeRepository officeRepository, IUnitOfWork unitOfWork, IAccountRepository accountRepository)
         {
             _officeRepository = officeRepository;
             _unitOfWork = unitOfWork;
+            _accountRepository = accountRepository;
         }
 
-        public async Task<OfficeResponse> ActiveOffice(int id)
+        public async Task<OfficeResponse> ActiveOffice(int providerId, int id)
         {
             var inactiveOffice = await _officeRepository.FindById(id);
-
-            if (inactiveOffice == null)
+            var offiprovider = await _accountRepository.GetSingleByIdAsync(providerId);
+ 
+            if (offiprovider.IsPremium == false)
+                return new OfficeResponse("This Account is not premium");
+            else if (inactiveOffice == null)
                 return new OfficeResponse("Office not found");
-            
             else if (inactiveOffice.Status == true)
                 return new OfficeResponse("Office is already active");
 
