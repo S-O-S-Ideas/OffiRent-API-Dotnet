@@ -77,7 +77,8 @@ namespace OffiRent.API.Controllers
 
         [SwaggerOperation(
             Summary = "Add an office",
-            Description = "Add an office given its properties")]
+            Description = "Add an office given its properties. Non-premium accounts cannot have more than one office at the same time. But" +
+            "premium accounts can have up to 15 offices.")]
         [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOfficeResource resource)
