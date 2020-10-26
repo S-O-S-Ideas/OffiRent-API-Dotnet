@@ -14,7 +14,7 @@ namespace OffiRent.API.Domain.Services
         Task<AccountResponse> GetBySingleEmailAsync(string email);
         Task<AccountResponse> SaveAsync(Account account);
         Task<AccountResponse> DeleteAsync(int id);
-        Task<AccountResponse> UpdateSync(int id);
+        Task<AccountResponse> UpdatePremiumStatusAsync(int id);
         Task<AccountResponse> UpdateAsync(int id, Account account);
     }
 }

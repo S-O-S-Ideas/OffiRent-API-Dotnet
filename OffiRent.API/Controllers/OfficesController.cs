@@ -20,11 +20,13 @@ namespace OffiRent.API.Controllers
     public class OfficesController : ControllerBase
     {
         private readonly IOfficeService _officeService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public OfficesController(IOfficeService officeService, IMapper mapper)
+        public OfficesController(IOfficeService officeService, IAccountService accountService, IMapper mapper)
         {
             _officeService = officeService;
+            _accountService = accountService;
             _mapper = mapper;
         }
 
@@ -79,14 +81,14 @@ namespace OffiRent.API.Controllers
             Summary = "Add an office",
             Description = "Add an office given its properties")]
         [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
-        [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveOfficeResource resource)
+        [HttpPost("{accountId}")]
+        public async Task<IActionResult> PostAsync(int accountId, [FromBody] SaveOfficeResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var office = _mapper.Map<SaveOfficeResource, Office>(resource);
-            var result = await _officeService.SaveAsync(office);
+            var result = await _officeService.SaveAsync(accountId, office);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -125,6 +127,27 @@ namespace OffiRent.API.Controllers
 
             var office = _mapper.Map<SaveOfficeResource, Office>(resource);
             var result = await _officeService.UpdateAsync(id, office);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            return Ok(officeResource);
+        }
+
+        [SwaggerOperation(
+            Summary = "Rate an office given a score",
+            Description = "Rate an office giving a score between 1 to 5",
+            Tags = new[] { "Offices" }
+            )]
+        [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<OfficeResource>))]
+        [ProducesResponseType(typeof(IEnumerable<OfficeResource>), 200)]
+        [HttpPatch("{officeId}")]
+        public async Task<IActionResult> PutScoreAsync(int accountId, int officeId, [FromBody] SaveOfficeResource resource)
+        {
+
+            var office = _mapper.Map<SaveOfficeResource, Office>(resource);
+            var result = await _officeService.UpdateScoreAsync(accountId, officeId, office);
 
             if (!result.Success)
                 return BadRequest(result.Message);

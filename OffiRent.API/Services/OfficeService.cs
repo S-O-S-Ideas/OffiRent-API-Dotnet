@@ -12,11 +12,13 @@ namespace OffiRent.API.Services
     public class OfficeService : IOfficeService
     {
         private readonly IOfficeRepository _officeRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OfficeService(IOfficeRepository officeRepository, IUnitOfWork unitOfWork)
+        public OfficeService(IOfficeRepository officeRepository, IAccountRepository accountRepository, IUnitOfWork unitOfWork)
         {
             _officeRepository = officeRepository;
+            _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -63,8 +65,12 @@ namespace OffiRent.API.Services
             return await _officeRepository.ListByPriceEqualOrLowerThanAsync(price);
         }
 
-        public async Task<OfficeResponse> SaveAsync(Office Office)
+        public async Task<OfficeResponse> SaveAsync(int accountId, Office Office)
         {
+            var existingservice = await _officeRepository.FindById(accountId);
+            if (existingservice == null)
+                return new OfficeResponse("Account Id not found");
+
             try
             {
                 await _officeRepository.AddAsync(Office);
@@ -107,6 +113,31 @@ namespace OffiRent.API.Services
             catch (Exception ex)
             {
                 return new OfficeResponse($"An error ocurred while deleting Office: {ex.Message}");
+            }
+        }
+
+        public async Task<OfficeResponse> UpdateScoreAsync(int accountId, int officeId, Office office)
+        {
+            var existingAccount = await _accountRepository.GetSingleByIdAsync(accountId);
+            var existingOffice = await _officeRepository.FindById(officeId);
+
+            if (existingAccount == null)
+                return new OfficeResponse("Account not found");
+            if (existingOffice == null)
+                return new OfficeResponse("Office not found");
+
+            existingOffice.Score = office.Score;
+
+            try
+            {
+                _officeRepository.Update(existingOffice);
+                await _unitOfWork.CompleteAsync();
+
+                return new OfficeResponse(existingOffice);
+            }
+            catch (Exception ex)
+            {
+                return new OfficeResponse($"An error ocurred while updating the score of the office: {ex.Message}");
             }
         }
     }

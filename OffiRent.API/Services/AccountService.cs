@@ -26,8 +26,7 @@ namespace OffiRent.API.Services
             await _accountRepository.AddAsync(account);
         }
 
-        //premium status
-        public async Task<AccountResponse> UpdateSync(int id)
+        public async Task<AccountResponse> UpdatePremiumStatusAsync(int id)
         {
                 var existingAccount = await _accountRepository.GetSingleByIdAsync(id);
 
@@ -45,7 +44,7 @@ namespace OffiRent.API.Services
                 }
                 catch (Exception ex)
                 {
-                    return new AccountResponse($"An error ocurred while updating OffiProvider: {ex.Message}");
+                    return new AccountResponse($"An error ocurred while updating the status of the account: {ex.Message}");
                 }
             
         }

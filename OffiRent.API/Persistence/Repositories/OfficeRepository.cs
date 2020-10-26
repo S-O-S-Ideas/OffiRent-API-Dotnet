@@ -35,7 +35,6 @@ namespace OffiRent.API.Persistence.Repositories
         {
             return await _context.Offices
                 .Where(p => p.DistrictId == districtId)
-                .Include(p => p.District)
                 .ToListAsync();
         }
 
