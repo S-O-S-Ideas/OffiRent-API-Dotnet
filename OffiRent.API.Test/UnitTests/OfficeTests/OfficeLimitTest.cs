@@ -1,73 +1,79 @@
-﻿//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using FluentAssertions;
-//using Moq;
-//using NUnit.Framework;
-//using OffiRent.API.Domain.Models;
-//using OffiRent.API.Domain.Repositories;
-//using OffiRent.API.Domain.Services.Communications;
-//using OffiRent.API.Services;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Moq;
+using NUnit.Framework;
+using OffiRent.API.Domain.Models;
+using OffiRent.API.Domain.Repositories;
+using OffiRent.API.Domain.Services.Communications;
+using OffiRent.API.Services;
+using Ubiety.Dns.Core.Records.General;
 
-//namespace OffiRent.API.Test
-//{
-//    public class CategoryServiceTest
-//    {
-//        [SetUp]
-//        public void Setup()
-//        {
-//        }
+namespace OffiRent.API.Test
+{
+    public class OfficeServiceTest
+    {
+        [SetUp]
+        public void Setup()
+        {
+        }
 
-//        [Test]
-//        public async Task GetAllAsyncWhenNoCategoriesReturnsEmptyCollection()
-//        {
-//            // Arrange
-//            var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
-//            mockCategoryRepository.Setup(r => r.ListAsync())
-//                .ReturnsAsync(new List<Category>());
-//            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-//            var service = new CategoryService(
-//                mockCategoryRepository.Object,
-//                mockUnitOfWork.Object);
+        [Test]
+        public async Task AddAsync_WhenRecievesNullObject_ReturnsException()
+        {
+            // Arrange
+            var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
-//            // Act
-//            List<Category> categories = (List<Category>)await service.ListAsync();
-//            var categoriesCount = categories.Count;
+            Account account = new Account
+            {
+                Id = 100,
+                Email = "test@gmail.com",
+                Password = "test1234",
+                Identification = "72901831",
+                FirstName = "testing",
+                LastName = "tests",
+                PhoneNumber = "920837182",
+                IsPremium = false,
+            };
+            Office nullOffice = null;
 
-//            // Assert
-//            categoriesCount.Should().Equals(0);
-//        }
+            mockAccountRepository.Setup(ar => ar.GetSingleByIdAsync(account.Id)).ReturnsAsync(account);
+            mockOfficeRepository.Setup(or => or.AddAsync(nullOffice)).ReturnsAsync(new Task(action: new System.Action(() => new null)));
+            //mockCategoryRepository.Setup(r => r.ListAsync())
+            //    .ReturnsAsync(new List<Category>());
+            //var service = new CategoryService(
+            //    mockCategoryRepository.Object,
+            //    mockUnitOfWork.Object);
 
-//        [Test]
-//        public async Task GetByIdAsyncWhenInvalidIdReturnsCategoryNotFoundReResponse()
-//        {
-//            // Arrange
-//            var mockCategoryRepository = GetDefaultICategoryRepositoryInstance();
-//            var categoryId = 1;
-//            mockCategoryRepository.Setup(r => r.FindById(categoryId))
-//                .Returns(Task.FromResult<Category>(null));
-//            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-//            var service = new CategoryService(
-//                mockCategoryRepository.Object,
-//                mockUnitOfWork.Object);
+            // Act
+            
+            var response = service.SaveAsync(nullOffice).Result;
 
+            // Assert
+            Assert.AreEqual("An error ocurred while saving the office: Object reference not set to an instance of an object.", response.Message);
 
-//            // Act
-//            CategoryResponse response = await service.GetByIdAsync(categoryId);
-//            var message = response.Message;
+            
+        }
 
-//            // Assert
-//            message.Should().Be("Category not found");
-//        }
+        
 
-//        private Mock<IOfficeRepository> GetDefaultICategoryRepositoryInstance()
-//        {
-//            return new Mock<IOfficeRepository>();
-//        }
+        private Mock<IOfficeRepository> GetDefaultIOfficeRepositoryInstance()
+        {
+            return new Mock<IOfficeRepository>();
+        }
 
-//        private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
-//        {
-//            return new Mock<IUnitOfWork>();
-//        }
+        private Mock<IAccountRepository> GetDefaultIAccountRepositoryInstance()
+        {
+            return new Mock<IAccountRepository>();
+        }
 
-//    }
-//}
+        private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
+        {
+            return new Mock<IUnitOfWork>();
+        }
+
+    }
+}
