@@ -2,6 +2,7 @@
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Domain.Services.Communications;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,6 +97,7 @@ namespace OffiRent.API.Services
             existingOffice.Comment = office.Comment;
             existingOffice.Status = office.Status;
             existingOffice.DistrictId = office.DistrictId;
+            existingOffice.Services = office.Services;
 
             try
             {

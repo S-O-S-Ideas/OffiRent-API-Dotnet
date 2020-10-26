@@ -26,6 +26,7 @@ namespace OffiRent.API.Domain.Models
         public District District { get; set; }
 
         public List<Reservation> Reservations { get; set; }
+        public List<Service> Services { get; set; }
         
         //public List<Resource> Resources { get; set; }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OffiRent.API.Domain.Models;
+using OffiRent.API.Resources.Office;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Resources
 {
-    public class SaveOfficeResource
+    public class SaveOfficeServiceResource
     {
         [Required]
         [MaxLength(30)]
@@ -28,5 +30,6 @@ namespace OffiRent.API.Resources
         public int AccountId { get; set; }
         public int DistrictId { get; set; }
 
+        public List<SaveServiceResource> Services { get; set; }
     }
 }

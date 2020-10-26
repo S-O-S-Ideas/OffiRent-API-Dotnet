@@ -33,12 +33,12 @@ namespace OffiRent.API.Controllers
             Description = "List of Offices",
             Tags = new[] { "Offices" }
         )]
-        [SwaggerResponse(200, "List of  Offices", typeof(OfficeResource))]
+        [SwaggerResponse(200, "List of  Offices", typeof(OfficeServiceResource))]
         [HttpGet]
-        public async Task<IEnumerable<OfficeResource>> GetAllAsync()
+        public async Task<IEnumerable<OfficeServiceResource>> GetAllAsync()
         {
             var offices = await _officeService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
+            var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeServiceResource>>(offices);
             return resources;
         }
 
@@ -49,7 +49,7 @@ namespace OffiRent.API.Controllers
             Description = "Details of the Office for entered officeId",
             Tags = new[] { "Offices" }
         )]
-        [SwaggerResponse(200, "Details of the Office", typeof(OfficeResource))]
+        [SwaggerResponse(200, "Details of the Office", typeof(OfficeServiceResource))]
         [HttpGet("{officeId}")]
         public async Task<IActionResult> GetByIdAsync(int officeId)
         {
@@ -57,7 +57,7 @@ namespace OffiRent.API.Controllers
 
             if (!result.Success)
                 return BadRequest(result.Message);
-            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            var officeResource = _mapper.Map<Office, OfficeServiceResource>(result.Resource);
             return Ok(officeResource);
         }
 
@@ -78,20 +78,20 @@ namespace OffiRent.API.Controllers
         [SwaggerOperation(
             Summary = "Add an office",
             Description = "Add an office given its properties")]
-        [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
+        [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeServiceResource))]
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveOfficeResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveOfficeServiceResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var office = _mapper.Map<SaveOfficeResource, Office>(resource);
+            var office = _mapper.Map<SaveOfficeServiceResource, Office>(resource);
             var result = await _officeService.SaveAsync(office);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            var officeResource = _mapper.Map<Office, OfficeServiceResource>(result.Resource);
 
             return Ok(officeResource);
         }
@@ -99,7 +99,7 @@ namespace OffiRent.API.Controllers
         [SwaggerOperation(
             Summary = "Delete a reservation",
             Description = "Remove a reservation given its id")]
-        [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeResource))]
+        [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeServiceResource))]
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -107,7 +107,7 @@ namespace OffiRent.API.Controllers
 
             if (!result.Success)
                 return BadRequest(result.Message);
-            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            var officeResource = _mapper.Map<Office, OfficeServiceResource>(result.Resource);
             return Ok(officeResource);
         }
 
@@ -117,19 +117,19 @@ namespace OffiRent.API.Controllers
             OperationId = "EditOffice",
             Tags = new[] { "Offices" }
             )]
-        [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<OfficeResource>))]
-        [ProducesResponseType(typeof(IEnumerable<OfficeResource>), 200)]
+        [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<OfficeServiceResource>))]
+        [ProducesResponseType(typeof(IEnumerable<OfficeServiceResource>), 200)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveOfficeResource resource)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveOfficeServiceResource resource)
         {
 
-            var office = _mapper.Map<SaveOfficeResource, Office>(resource);
+            var office = _mapper.Map<SaveOfficeServiceResource, Office>(resource);
             var result = await _officeService.UpdateAsync(id, office);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            var officeResource = _mapper.Map<Office, OfficeServiceResource>(result.Resource);
             return Ok(officeResource);
         }
     }

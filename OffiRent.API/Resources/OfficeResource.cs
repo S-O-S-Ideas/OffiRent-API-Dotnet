@@ -1,4 +1,5 @@
 ﻿using OffiRent.API.Domain.Models;
+using OffiRent.API.Resources.Office;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Resources
 {
-    public class OfficeResource
+    public class OfficeServiceResource
     {
         public int Id { get; set; }
         public string Address { get; set; }
@@ -18,6 +19,8 @@ namespace OffiRent.API.Resources
         public float Price { get; set; }
         public bool Status { get; set; }
         public string Comment { get; set; }
+
+        public List<ServiceResource> Services { get; set; }
 
         //public District District { get; set; }
         //public Publication Publication { get; set; }

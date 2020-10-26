@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-
-    <Folder Include="Domain\Models\" />
     <Folder Include="Domain\Repositories\" />
     <Folder Include="Domain\Persistence\" />
     <Folder Include="Domain\Persistence\Contexts\" />

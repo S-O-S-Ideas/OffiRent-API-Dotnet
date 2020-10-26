@@ -5,9 +5,7 @@ using OffiRent.API.Extensions;
 using OffiRent.API.Resources;
 
 using OffiRent.API.Resources.Account;
-
-
-
+using OffiRent.API.Resources.Office;
 
 namespace OffiRent.API.Mapping
 {
@@ -25,7 +23,8 @@ namespace OffiRent.API.Mapping
 
             CreateMap<Departament, DepartamentResource>();
             CreateMap<District, DistrictResource>();
-            CreateMap<Office, OfficeResource>();
+            CreateMap<Office, OfficeServiceResource>();
+            CreateMap<Service, ServiceResource>();
 
         }
     }

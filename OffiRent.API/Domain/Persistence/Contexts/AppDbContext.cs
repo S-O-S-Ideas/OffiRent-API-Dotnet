@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Extensions;
 
@@ -19,7 +20,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
+        public DbSet<Service> Services { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -153,6 +154,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasOne(p => p.Account)
                 .WithMany(p => p.Offices)
                 .HasForeignKey(p => p.AccountId);
+            builder.Entity<Office>()
+                .HasMany(o => o.Services)
+                .WithOne(s => s.Office)
+                .HasForeignKey(s => s.OfficeId);
 
             builder.Entity<Office>().HasData(
                 new Office { Id = 100, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 },
@@ -293,6 +298,31 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                  .HasOne(p => p.Currency)
                  .WithMany(d => d.CountryCurrencies)
                  .HasForeignKey(p => p.CurrencyId);
+
+            // Service Entity
+            builder.Entity<Service>().ToTable("Services");
+            builder.Entity<Service>().HasKey(a => a.Id);
+            builder.Entity<Service>().Property(a => a.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Service>().Property(a => a.Image);
+            builder.Entity<Service>().Property(a => a.Name)
+                .IsRequired().HasMaxLength(50);
+            builder.Entity<Service>().Property(s => s.OfficeId)
+                .IsRequired();
+            builder.Entity<Service>()
+            .HasOne(p => p.Office)
+                 .WithMany(d => d.Services)
+                 .HasForeignKey(p => p.OfficeId);
+
+
+            builder.Entity<Service>().HasData(
+                new Service
+                {
+                    Id = 100,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Wifi",
+                    OfficeId = 100
+                }); ;
 
 
             // Naming convention Policy
