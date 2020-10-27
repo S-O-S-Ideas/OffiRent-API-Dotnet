@@ -21,14 +21,15 @@ namespace OffiRent.API.Test
             //Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var officeId = 70;
-            Office falseoffice = new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = "4 personas", AllowResource = true, Punctuation = "85 puntos", Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 };
+            Office falseoffice = new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity =4, AllowResource = true , Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 };
 
             mockOfficeRepository.Setup(o => o.FindById(officeId))
                 .ReturnsAsync(falseoffice);
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             //Act
             var offices2 = (OfficeResponse)await service.GetByIdAsync(officeId);
@@ -49,10 +50,12 @@ namespace OffiRent.API.Test
                 .Returns(Task.FromResult<Office>(null));                        
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
             var service = new OfficeService(
                 mockOfficeRepository.Object,
-                mockUnitOfWork.Object);
+                mockUnitOfWork.Object,
+                mockAccountRepository.Object);
 
             //Act                                                                   
             OfficeResponse response = await service.GetByIdAsync(officeId);      
@@ -69,15 +72,16 @@ namespace OffiRent.API.Test
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var districtId = 80;
             List<Office> offices= new List<Office>();
-            offices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = "4 personas", AllowResource = true, Punctuation = "85 puntos", Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
-            offices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = "3 personas", AllowResource = true, Punctuation = "99 puntos", Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
+            offices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4 , AllowResource = true, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
+            offices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3 , AllowResource = true, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
 
             mockOfficeRepository.Setup(o => o.ListByDistrictIdAsync(districtId))
                 .ReturnsAsync(offices);
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             //Act
             List<Office> offices2 = (List<Office>)await service.ListByDistrictIdAsync(districtId);
@@ -99,7 +103,8 @@ namespace OffiRent.API.Test
                 .ReturnsAsync(new List<Office>());
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object);
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             // Act
             List<Office> offices = (List<Office>)await service.ListByDistrictIdAsync(districtInvalidId);
@@ -119,15 +124,16 @@ namespace OffiRent.API.Test
             var price = 120;
 
             List<Office> falseoffices = new List<Office>();
-            falseoffices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = "4 personas", AllowResource = true, Punctuation = "85 puntos", Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
-            falseoffices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = "3 personas", AllowResource = true, Punctuation = "99 puntos", Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
+            falseoffices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
+            falseoffices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
 
             mockOfficeRepository.Setup(o => o.ListByPriceEqualOrLowerThanAsync(price))
                 .ReturnsAsync(falseoffices);
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             //Act
             List<Office> offices = (List<Office>)await service.ListByPriceEqualOrLowerThanAsync(price);
@@ -147,7 +153,8 @@ namespace OffiRent.API.Test
                 .ReturnsAsync(new List<Office>());
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object);
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var service = new OfficeService(mockOfficeRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             // Act
             List<Office> offices = (List<Office>)await service.ListByPriceEqualOrLowerThanAsync(invalidprice);
@@ -157,6 +164,10 @@ namespace OffiRent.API.Test
             officesCount.Should().Equals(0);
         }
 
+        private Mock<IAccountRepository> GetDefaultIAccountRepositoryInstance()
+        {
+            return new Mock<IAccountRepository>();
+        }
 
         private Mock<IOfficeRepository> GetDefaultIOfficeRepositoryInstance()
         {

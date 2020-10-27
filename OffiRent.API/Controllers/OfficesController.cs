@@ -96,6 +96,9 @@ namespace OffiRent.API.Controllers
             return Ok(officeResource);
         }
 
+
+
+
         [SwaggerOperation(
             Summary = "Delete a reservation",
             Description = "Remove a reservation given its id")]
@@ -117,7 +120,7 @@ namespace OffiRent.API.Controllers
             OperationId = "EditOffice",
             Tags = new[] { "Offices" }
             )]
-        [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<OfficeResource>))]
+        [SwaggerResponse(200, "List of Offices", typeof(IEnumerable<OfficeResource>))]
         [ProducesResponseType(typeof(IEnumerable<OfficeResource>), 200)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveOfficeResource resource)
@@ -132,5 +135,30 @@ namespace OffiRent.API.Controllers
             var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
             return Ok(officeResource);
         }
+
+
+
+        [SwaggerOperation(
+            Summary = "Active office status",
+            Description = "Change the status from a office a active",
+            OperationId = "ActiveOffice",
+            Tags = new[] { "Offices" }
+            )]
+        [SwaggerResponse(200, "Status from a Office changed", typeof(IEnumerable<OfficeResource>))]
+        [ProducesResponseType(typeof(IEnumerable<OfficeResource>), 200)]
+        [HttpPut("/PutActiveOffice/{providerId}/{id}")]
+        public async Task<IActionResult> PutActiveOfficeAsync(int providerid, int id)
+        {
+            var result = await _officeService.ActiveOffice(providerid, id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var officeResource = _mapper.Map<Office, OfficeResource>(result.Resource);
+            return Ok(officeResource);
+        }
+
+
+
     }
 }

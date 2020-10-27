@@ -28,21 +28,40 @@ namespace OffiRent.API.Persistence.Repositories
         public async Task<IEnumerable<Office>> ListAsync()
         {
             //return await _context.Offices.Include(p =>p.District).Include(p=>p.Publication).ToListAsync();
-            return await _context.Offices.ToListAsync();
+            return await _context.Offices
+                .OrderByDescending(p => p.Account.IsPremium)
+                .Where(p => p.Status == true)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId)
         {
             return await _context.Offices
-                .Where(p => p.DistrictId == districtId)
+                .OrderByDescending(p => p.Account.IsPremium)
+                .Where(p => p.DistrictId == districtId  && p.Status==true )
                 .Include(p => p.District)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Office>> ListByInactiveStatus(int providerId)
+        {
+            return await _context.Offices
+                .Where(p => p.AccountId == providerId && p.Status == false)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price)
         {
             return await _context.Offices
-                .Where(p => p.Price <= price)
+                .OrderByDescending(p => p.Account.IsPremium)
+                .Where(p => p.Price <= price && p.Status == true)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Office>> ListByProviderIdAsync(int providerId)
+        {
+            return await _context.Offices
+                .Where(p => p.AccountId == providerId && p.Status == true)
                 .ToListAsync();
         }
 

@@ -9,6 +9,8 @@ namespace OffiRent.API.Domain.Repositories
     public interface IOfficeRepository
     {
         Task<IEnumerable<Office>> ListAsync();
+        Task<IEnumerable<Office>> ListByProviderIdAsync(int providerId);
+        Task<IEnumerable<Office>> ListByInactiveStatus(int providerId);
         Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId);
         Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price);
         Task AddAsync(Office office);
