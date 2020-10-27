@@ -11,6 +11,7 @@ namespace OffiRent.API.Domain.Repositories
         Task<IEnumerable<Office>> ListAsync();
         Task<IEnumerable<Office>> ListByProviderIdAsync(int providerId);
         Task<IEnumerable<Office>> ListByInactiveStatus(int providerId);
+        Task<IEnumerable<Office>> ListAccountOfficesAsync(int accountId);
         Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId);
         Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price);
         Task AddAsync(Office office);

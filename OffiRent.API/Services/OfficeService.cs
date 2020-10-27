@@ -28,7 +28,7 @@ namespace OffiRent.API.Services
         {
             var inactiveOffice = await _officeRepository.FindById(id);
             var offiprovider = await _accountRepository.GetSingleByIdAsync(providerId);
- 
+
             if (offiprovider.IsPremium == false)
                 return new OfficeResponse("This Account is not premium");
             else if (inactiveOffice == null)
@@ -49,7 +49,12 @@ namespace OffiRent.API.Services
             {
                 return new OfficeResponse($"An error ocurred while deleting Office: {ex.Message}");
             }
+        }
 
+        public async Task<bool> AccountHasMoreThanXPosts(int x, Account account)
+        {
+            List<Office> accountOffices = new List<Office>(await _officeRepository.ListAccountOfficesAsync(account.Id));
+            return (accountOffices.Count > x) ? true : false;
 
         }
 
@@ -132,15 +137,36 @@ namespace OffiRent.API.Services
                     $"An error ocurred while saving the office");
         }
 
-        public async Task<OfficeResponse> SaveAsyncPrev(Office Office)
+        public async Task<OfficeResponse> SaveAsyncPrev(Office office)
         {
-            Office.Status = true;
+            if (office!= null)
+            {
+                office.Status = true;
+            }
             try
             {
-                await _officeRepository.AddAsync(Office);
-                await _unitOfWork.CompleteAsync();
+                int accountId = office.AccountId;
+                var account = await _accountRepository.GetSingleByIdAsync(accountId);
+                bool isPremium = account.IsPremium;
 
-                return new OfficeResponse(Office);
+                if (isPremium)
+                {         
+                    if (AccountHasMoreThanXPosts(14, account).Result)
+                    {
+                        return new OfficeResponse("Your type of account cannot have more than 15 posts at the same time");
+                    }
+                } 
+                else
+                {
+                    if (AccountHasMoreThanXPosts(0, account).Result)
+                    {
+                        return new OfficeResponse("Your type of account cannot have more than 1 post at the same time");
+                    }
+                }
+                  
+                await _officeRepository.AddAsync(office);
+                await _unitOfWork.CompleteAsync();
+                return new OfficeResponse(office);
             }
             catch (Exception ex)
             {
