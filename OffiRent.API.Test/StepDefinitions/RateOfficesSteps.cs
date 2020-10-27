@@ -44,7 +44,7 @@ namespace OffiRent.API.Test.StepDefinitions
             _officeService = new OfficeService(_officeRepositoryMock.Object, _accountRepositoryMock.Object, _unitOfWorkMock.Object);
             _accountService = new AccountService(_accountRepositoryMock.Object,_accountPaymentMethodRepositoryMock.Object,
                 _unitOfWorkMock.Object);
-            _reservationService = new ReservationService(_reservationRepositoryMock.Object,_accountRepositoryMock.Object,_unitOfWorkMock.Object);
+            _reservationService = new ReservationService(_reservationRepositoryMock.Object,_unitOfWorkMock.Object, _accountRepositoryMock.Object);
 
             _reservationRepositoryMock.Setup(a => a.FindById(reservationId)).ReturnsAsync(reservation);
             _accountRepositoryMock.Setup(a => a.GetSingleByIdAsync(accountId)).ReturnsAsync(account);

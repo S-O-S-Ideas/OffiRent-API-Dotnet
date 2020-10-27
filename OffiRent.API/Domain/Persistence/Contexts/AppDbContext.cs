@@ -57,22 +57,18 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 new Reservation
                 {
                     Id = 100,
-                    InitialDate = new DateTime(2021, 03, 15,12,49,23),//"2021-03-15 12:49:23",
-                    FinishDate = new DateTime(2021,03,15,12,49,23),//"2021-23-15 12:49:23",
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = true,
                     AccountId = 100,
                     OfficeId = 100
                 }
                 ) ;
 
-
-
-
             //builder.Entity<Reservation>().HasData(
             //    new Reservation
             //    {
             //        Id = 100,
-
             //        InitialDate = 10,
             //        EndDate = 15,
             //        InitialHour = 8,

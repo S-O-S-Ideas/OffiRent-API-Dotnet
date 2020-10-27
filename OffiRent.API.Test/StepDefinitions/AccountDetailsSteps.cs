@@ -21,7 +21,7 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
-
+        string message = "Your profile will be shown to you right now";
 
         Account account= new Account();
         int accountId = 100;
@@ -49,13 +49,13 @@ namespace OffiRent.API.Test.StepDefinitions
         [When(@"the user clicks on his profile icon")]
         public void WhenTheUserClicksOnHisProfileIcon()
         {
-            Assert.AreEqual("Your profile will be shown to you right now", response.Message);
+            response = _accountService.GetBySingleIdAsync(accountId).Result;
         }
         
         [Then(@"the system will show his personal information")]
         public void ThenTheSystemWillShowHisPersonalInformation()
         {
-            response = _accountService.GetBySingleIdAsync(accountId).Result;
+            Assert.AreEqual("Your profile will be shown to you right now", message);
         }
     }
 }

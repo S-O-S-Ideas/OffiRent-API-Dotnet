@@ -15,12 +15,46 @@ namespace OffiRent.API.Services
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ReservationService(IReservationRepository reservationRepository, IAccountRepository accountRepository, IUnitOfWork unitOfWork)
+        public ReservationService(IReservationRepository reservationRepository, IUnitOfWork unitOfWork, IAccountRepository accountRepository)
         {
             _reservationRepository = reservationRepository;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
+            _accountRepository = accountRepository;
         }
+
+        public async Task<bool> AccountHasReservation(int x, Account account)
+        {
+            List<Reservation> accountReservations = new List<Reservation>(await _reservationRepository.ListAccountReservationsAsync(account.Id));
+            return (accountReservations.Count > x) ? true : false;
+        }
+
+        public async Task<ReservationResponse> ActiveReservation(int accountId, int id)
+        {
+            var inactiveReservation = await _reservationRepository.FindById(id);
+
+            if (inactiveReservation == null)
+                return new ReservationResponse("Reservation not found");
+            else if (inactiveReservation.Status == true)
+                return new ReservationResponse("Reservation is already active");
+
+            inactiveReservation.Status = true;
+
+            try
+            {
+                _reservationRepository.Remove(inactiveReservation);
+                await _unitOfWork.CompleteAsync();
+
+                return new ReservationResponse(inactiveReservation);
+            }
+            catch (Exception ex)
+            {
+                return new ReservationResponse($"An error ocurred while deleting Reservation: {ex.Message}");
+            }
+
+
+        }
+
 
         public async Task<IEnumerable<Reservation>> ListAsync()
         {
@@ -85,8 +119,6 @@ namespace OffiRent.API.Services
             if (existingReservation == null)
                 return new ReservationResponse("Reservation not found");
 
-            if (existingReservation == null)
-                return new ReservationResponse("Category not found");
 
 
             existingReservation.InitialDate = reservation.InitialDate;

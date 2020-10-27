@@ -81,7 +81,7 @@ namespace OffiRent.API.Test
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object,  mockAccountRepository.Object, mockUnitOfWork.Object);
 
             //Act
             List<Office> offices2 = (List<Office>)await service.ListByDistrictIdAsync(districtId);

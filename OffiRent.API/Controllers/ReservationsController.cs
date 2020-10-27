@@ -37,7 +37,7 @@ namespace OffiRent.API.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-           var result = await _reservationService.DeleteAsync(id);
+            var result = await _reservationService.DeleteAsync(id);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -121,6 +121,43 @@ namespace OffiRent.API.Controllers
                 return BadRequest(result.Message);
             var reservationResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
             return Ok(reservationResource);
+        }
+
+        [SwaggerOperation(
+            Summary = "Details of a Reservation",
+            Description = "Details of a Reservation given it's id",
+            Tags = new[] { "Reservations" }
+
+        )]
+        [SwaggerResponse(200, "Details of a Reservation", typeof(ReservationResource))]
+        [HttpPut("id")]
+        public async Task<IActionResult> GetByIdAsync(int reservationId)
+        {
+            var result = await _reservationService.GetByIdAsync(reservationId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var reservationResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
+            return Ok(reservationResource);
+        }
+
+        [SwaggerOperation(
+            Summary = "Active reservation status",
+            Description = "Change the status from a reservation to active",
+            OperationId = "ActiveReservation",
+            Tags = new[] { "Reservations" }
+            )]
+        [SwaggerResponse(200, "Status from a Reservation changed", typeof(IEnumerable<ReservationResource>))]
+        [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
+        [HttpPut("/PutActiveReservation/{accountId}/{id}")]
+        public async Task<IActionResult> PutActiveReservationAsync(int accountId, int id)
+        {
+            var result = await _reservationService.ActiveReservation(accountId, id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var officeResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
+            return Ok(officeResource);
         }
     }
 }

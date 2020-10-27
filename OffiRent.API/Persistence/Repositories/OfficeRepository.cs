@@ -54,6 +54,8 @@ namespace OffiRent.API.Persistence.Repositories
                 .ToListAsync();
         }
 
+
+
         public async Task<IEnumerable<Office>> ListByPriceEqualOrLowerThanAsync(int price)
         {
             return await _context.Offices

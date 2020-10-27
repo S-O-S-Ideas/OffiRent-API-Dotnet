@@ -139,8 +139,6 @@ namespace OffiRent.API.Controllers
         }
 
 
-
-
         [SwaggerOperation(
             Summary = "Active office status",
             Description = "Change the status from a office a active",

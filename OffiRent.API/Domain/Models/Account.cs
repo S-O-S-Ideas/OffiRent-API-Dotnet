@@ -15,7 +15,6 @@ namespace OffiRent.API.Domain.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-
         public Reservation Reservation { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 

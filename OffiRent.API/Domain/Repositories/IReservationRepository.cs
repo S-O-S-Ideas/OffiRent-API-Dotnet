@@ -10,6 +10,7 @@ namespace OffiRent.API.Domain.Repositories
     {
         Task<IEnumerable<Reservation>> ListAsync();
         Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId);
+        Task<IEnumerable<Reservation>> ListAccountReservationsAsync(int accountId);
         Task AddAsync(Reservation reservation);
         Task<Reservation> FindById(int Id);
         void Update(Reservation reservation);

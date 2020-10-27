@@ -15,10 +15,8 @@ namespace OffiRent.API.Services
         private readonly IAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-
        
         public OfficeService(IOfficeRepository officeRepository, IAccountRepository accountRepository, IUnitOfWork unitOfWork)
-
         {
             _officeRepository = officeRepository;
             _accountRepository = accountRepository;
@@ -103,7 +101,6 @@ namespace OffiRent.API.Services
             return await _officeRepository.ListByPriceEqualOrLowerThanAsync(price);
         }
 
-
         public async Task<IEnumerable<Office>> ListByProviderIdAsync(int providerId)
         {
             return await _officeRepository.ListByProviderIdAsync(providerId);
@@ -131,8 +128,13 @@ namespace OffiRent.API.Services
             var existingservice = await _officeRepository.FindById(accountId);
             if (existingservice == null)
                 return new OfficeResponse("Account Id not found");
+            return new OfficeResponse(
+                    $"An error ocurred while saving the office");
+        }
 
-
+        public async Task<OfficeResponse> SaveAsyncPrev(Office Office)
+        {
+            Office.Status = true;
             try
             {
                 await _officeRepository.AddAsync(Office);

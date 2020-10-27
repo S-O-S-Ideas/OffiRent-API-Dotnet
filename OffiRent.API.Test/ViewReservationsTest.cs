@@ -36,7 +36,7 @@ namespace OffiRent.API.Test
 
             mockReservationRepository.Setup(a => a.ListByAccountIdAsync(accountId)).ReturnsAsync(reservations);
 
-            var service = new ReservationService(mockReservationRepository.Object,mockAccountRepository.Object,mockUnitOfWork.Object);
+            var service = new ReservationService(mockReservationRepository.Object,mockUnitOfWork.Object, mockAccountRepository.Object);
 
             List<Reservation> reservations1 = (List<Reservation>)await service.ListByAccountIdAsync(accountId);
 
@@ -55,7 +55,7 @@ namespace OffiRent.API.Test
 
             mockReservationRepository.Setup(a => a.ListByAccountIdAsync(accountId)).ReturnsAsync(new List<Reservation>());
 
-            var service = new ReservationService(mockReservationRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new ReservationService(mockReservationRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
             List<Reservation> reservations = (List<Reservation>)await service.ListByAccountIdAsync(accountId);
             var reservationsCount = reservations.Count;

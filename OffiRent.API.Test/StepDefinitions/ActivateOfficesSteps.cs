@@ -35,6 +35,7 @@ namespace OffiRent.API.Test.StepDefinitions
                 _accountRepositoryMock.Object,
                 _unitOfWorkMock.Object);
 
+
             _accountService = new AccountService(_accountRepositoryMock.Object,
                 _accountPaymentMethodRepositoryMock.Object,
                 _unitOfWorkMock.Object);
@@ -65,7 +66,7 @@ namespace OffiRent.API.Test.StepDefinitions
         public void GivenOffi_ProviderHasNotAPremiumAccount()
         {
             account.IsPremium = false;
-            Assert.AreEqual(_accountService.GetBySingleIdAsync(providerId).Result.Resource.IsPremium, true);
+            Assert.AreEqual(_accountService.GetBySingleIdAsync(providerId).Result.Resource.IsPremium, false);
 
         }
         
