@@ -4,6 +4,7 @@ using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace OffiRent.API.Persistence.Repositories
 {
@@ -29,6 +30,14 @@ namespace OffiRent.API.Persistence.Repositories
             return await _context.Reservations.ToListAsync();
         }
 
+        public async Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId)
+        {
+            return await _context.Reservations
+                .Where(p => p.AccountId == accountId)
+                .Where(p=>p.Status==true)
+                .ToListAsync();      
+        }
+
         public void Remove(Reservation reservation)
         {
             _context.Reservations.Remove(reservation);
@@ -38,5 +47,7 @@ namespace OffiRent.API.Persistence.Repositories
         {
             _context.Reservations.Update(reservation);
         }
+
+     
     }
 }

@@ -10,8 +10,9 @@ namespace OffiRent.API.Domain.Services
     public interface IReservationService
     {
         Task<IEnumerable<Reservation>> ListAsync();
+        Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId);
         Task<ReservationResponse> GetByIdAsync(int id);
-        Task<ReservationResponse> SaveAsync(Reservation reservation);
+        Task<ReservationResponse> SaveAsync(int accountId, Reservation reservation);
         Task<ReservationResponse> UpdateAsync(int id, Reservation reservation);
         Task<ReservationResponse> DeleteAsync(int id);
     }

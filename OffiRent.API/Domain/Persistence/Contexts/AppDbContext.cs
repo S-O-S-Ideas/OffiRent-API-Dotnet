@@ -45,10 +45,13 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             //    .IsRequired();
             builder.Entity<Reservation>().Property(p => p.Status)
                 .HasDefaultValue(false);
-            builder.Entity<Reservation>().Property(p => p.InitialDate)
+            builder.Entity<Reservation>().Property(p => p.FinishDate)
                 .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.InitialDate)
+            builder.Entity<Reservation>().Property(p => p.AccountId)
                 .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.OfficeId)
+                .IsRequired();
+
 
             builder.Entity<Reservation>().HasData(
                 new Reservation
@@ -61,10 +64,15 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     OfficeId = 100
                 }
                 ) ;
+
+
+
+
             //builder.Entity<Reservation>().HasData(
             //    new Reservation
             //    {
             //        Id = 100,
+
             //        InitialDate = 10,
             //        EndDate = 15,
             //        InitialHour = 8,
@@ -81,6 +89,15 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             //        Status = false
             //    }
             //    );
+
+            //        InitialDate = 2021-03-15T12:49:23,
+            //        FinishDate = 2021 - 23 - 15T12:49:23,
+            //        Status = true,
+            //        AccountId = 100,
+            //        OfficeId = 100
+            //    }
+            //    );
+
 
 
             // Account Entity
@@ -102,6 +119,11 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasMaxLength(50);
             builder.Entity<Account>().Property(p => p.IsPremium)
                .IsRequired();
+
+            builder.Entity<Reservation>()
+                   .HasOne(p => p.Account)
+                   .WithMany(p => p.Reservations)
+                   .HasForeignKey(p => p.AccountId);
 
             builder.Entity<Account>().HasData(
                 new Account
@@ -174,10 +196,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasForeignKey(p => p.AccountId);
 
             builder.Entity<Office>().HasData(
-                new Office { Id = 100, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 },
-                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
-                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
-                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
+                new Office { Id = 100, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 4, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 },
+                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 5, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
+                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 2, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
+                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 3, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
 
             //builder.Entity<Office>()
             //  .HasOne(p => p.Publication);   //en duda

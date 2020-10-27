@@ -32,10 +32,10 @@ namespace OffiRent.API.Controllers
 
         )]
         [SwaggerResponse(200, "Change type of OffiProvider account to Premium", typeof(AccountResource))]
-        [HttpPatch("id")]
-        public async Task<IActionResult> UpdateAsync(int id)
+        [HttpPatch("{accountId}")]
+        public async Task<IActionResult> UpdateAsync(int accountId)
         {
-            var result = await _accountService.UpdateSync(id);
+            var result = await _accountService.UpdatePremiumStatusAsync(accountId);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -58,6 +58,23 @@ namespace OffiRent.API.Controllers
             var resources = _mapper.Map<IEnumerable<Account>,
                 IEnumerable<AccountResource>>(categories);
             return resources;
+        }
+
+        [SwaggerOperation(
+            Summary = "Details of an Account",
+            Description = "Details of an Account for entered accountId",
+            Tags = new[] { "Accounts" }
+        )]
+        [SwaggerResponse(200, "Details of an Account", typeof(AccountResource))]
+        [HttpGet("{accountId}")]
+        public async Task<IActionResult> GetByIdAsync(int accountId)
+        {
+            var result = await _accountService.GetBySingleIdAsync(accountId);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var accountResource = _mapper.Map<Account, AccountResource>(result.Resource);
+            return Ok(accountResource);
         }
 
 
@@ -94,7 +111,7 @@ namespace OffiRent.API.Controllers
             OperationId = "ListAllCategories",
             Tags = new[] { "Accounts" }
             )]
-        [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<AccountResource>))]
+        [SwaggerResponse(200, "Account updated", typeof(IEnumerable<AccountResource>))]
         [ProducesResponseType(typeof(IEnumerable<AccountResource>), 200)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveAccountResource resource)

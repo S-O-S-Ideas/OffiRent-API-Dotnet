@@ -37,9 +37,13 @@ namespace OffiRent.API.Persistence.Repositories
         public async Task<IEnumerable<Office>> ListByDistrictIdAsync(int districtId)
         {
             return await _context.Offices
+
                 .OrderByDescending(p => p.Account.IsPremium)
                 .Where(p => p.DistrictId == districtId  && p.Status==true )
                 .Include(p => p.District)
+
+                .Where(p => p.DistrictId == districtId)
+
                 .ToListAsync();
         }
 
