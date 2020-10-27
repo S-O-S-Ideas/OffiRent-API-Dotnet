@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Extensions;
 
@@ -19,7 +20,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<CountryCurrency> CountryCurrencies { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
+        public DbSet<Service> Services { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -185,16 +186,35 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>().Property(p => p.Comment);
             builder.Entity<Office>().Property(p => p.Status)
                 .IsRequired();
+            builder.Entity<Office>().Property(o => o.DistrictId)
+                .IsRequired();
             builder.Entity<Office>()
                 .HasOne(p => p.Account)
                 .WithMany(p => p.Offices)
                 .HasForeignKey(p => p.AccountId);
+            builder.Entity<Office>()
+                .HasMany(o => o.Services)
+                .WithOne(s => s.Office)
+                .HasForeignKey(s => s.OfficeId);
 
             builder.Entity<Office>().HasData(
-                new Office { Id = 100, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 4, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 },
-                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 5, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
-                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 2, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
-                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 3, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 });
+                new Office
+                {
+                    Id = 100,
+                    Address = "calle Jerusalen",
+                    Floor = 2,
+                    Capacity = 4,
+                    AllowResource = true,
+                    Score = 85,
+                    Description = "Oficina espaciosa con gran comodidad",
+                    Price = 100,
+                    Status = true,
+                    AccountId = 300,
+                    DistrictId = 80,
+                },
+                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
+                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
+                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 }); ; ;
 
             //builder.Entity<Office>()
             //  .HasOne(p => p.Publication);   //en duda
@@ -329,6 +349,74 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                  .HasOne(p => p.Currency)
                  .WithMany(d => d.CountryCurrencies)
                  .HasForeignKey(p => p.CurrencyId);
+
+            // Service Entity
+            builder.Entity<Service>().ToTable("Services");
+            builder.Entity<Service>().HasKey(a => a.Id);
+            builder.Entity<Service>().Property(a => a.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Service>().Property(a => a.Image);
+            builder.Entity<Service>().Property(a => a.Name)
+                .IsRequired().HasMaxLength(50);
+            builder.Entity<Service>().Property(s => s.OfficeId)
+                .IsRequired();
+            builder.Entity<Service>()
+            .HasOne(p => p.Office)
+                 .WithMany(d => d.Services)
+                 .HasForeignKey(p => p.OfficeId);
+
+
+            builder.Entity<Service>().HasData(
+                new Service
+                {
+                    Id = 100,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Wifi",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 101,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Luz",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 102,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Agua",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 103,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Oficina",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 104,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Cable",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 105,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Limpieza",
+                    OfficeId = 100
+                },
+                new Service
+                {
+                    Id = 106,
+                    Image = "https://wallpapershome.com/images/pages/pic_v/14178.jpg",
+                    Name = "Mantenimiento",
+                    OfficeId = 100
+                }
+                ); ;
 
 
             // Naming convention Policy

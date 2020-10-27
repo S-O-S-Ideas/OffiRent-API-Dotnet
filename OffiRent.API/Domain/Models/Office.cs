@@ -15,18 +15,24 @@ namespace OffiRent.API.Domain.Models
         public bool AllowResource { get; set; }
         public float Score { get; set; }
         public string Description { get; set; }
-        public float Price { get; set; }
+        public float? Price { get; set; }
         public string Comment { get; set; }
         public bool Status { get; set; }
 
         public int AccountId { get; set; }
         public Account Account { get; set; }
 
-        public int DistrictId { get; set; }
+        public int? DistrictId { get; set; }
         public District District { get; set; }
 
         public List<Reservation> Reservations { get; set; }
+        public List<Service> Services { get; set; }
         
         //public List<Resource> Resources { get; set; }
+
+        public bool Validate()
+        {
+            return ((Address != null) && (Price != null) && DistrictId != null);
+        }
     }
 }

@@ -33,9 +33,10 @@ namespace OffiRent.API.Persistence.Repositories
         public async Task<IEnumerable<Office>> ListAsync()
         {
             //return await _context.Offices.Include(p =>p.District).Include(p=>p.Publication).ToListAsync();
+
             return await _context.Offices
                 .OrderByDescending(p => p.Account.IsPremium)
-                .Where(p => p.Status == true)
+                .Where(p => p.Status == true).Include(o => o.Services)
                 .ToListAsync();
         }
 
