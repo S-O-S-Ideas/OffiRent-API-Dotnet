@@ -32,8 +32,8 @@ namespace OffiRent.API.Test.StepDefinitions
         public ActivateOfficesSteps()
         {
             _officeService = new OfficeService(_officeRepositoryMock.Object,
-                _unitOfWorkMock.Object,
-                _accountRepositoryMock.Object);
+                _accountRepositoryMock.Object,
+                _unitOfWorkMock.Object);
 
             _accountService = new AccountService(_accountRepositoryMock.Object,
                 _accountPaymentMethodRepositoryMock.Object,
