@@ -38,6 +38,7 @@ namespace OffiRent.API
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseInMemoryDatabase("offirent-api-in-memory");
+                //options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
             });
 
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();

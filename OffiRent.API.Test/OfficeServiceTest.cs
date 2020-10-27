@@ -46,7 +46,7 @@ namespace OffiRent.API.Test
         {
             //Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
-            var mockAccountRepository = new Mock<AccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var officeId = 1;
             mockOfficeRepository.Setup(r => r.FindById(officeId))
                 .Returns(Task.FromResult<Office>(null));
@@ -70,7 +70,7 @@ namespace OffiRent.API.Test
         public async Task GetByDistrictIdAsynWhenExistingIdReturnsCollectionNotEmpty()
         {
             //Arrange
-            var mockAccountRepository = new Mock<IAccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var districtId = 80;
@@ -103,7 +103,7 @@ namespace OffiRent.API.Test
             var districtInvalidId = 12;
             mockOfficeRepository.Setup(r => r.ListByDistrictIdAsync(districtInvalidId))
                 .ReturnsAsync(new List<Office>());
-            var mockAccountRepository = new Mock<IAccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
@@ -124,7 +124,7 @@ namespace OffiRent.API.Test
             //Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var price = 120;
-            var mockAccountRepository = new Mock<IAccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
             List<Office> falseoffices = new List<Office>();
             falseoffices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
@@ -155,7 +155,7 @@ namespace OffiRent.API.Test
                 .ReturnsAsync(new List<Office>());
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var mockAccountRepository = new Mock<IAccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
 
 
@@ -172,7 +172,7 @@ namespace OffiRent.API.Test
         {
             // Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
-            var mockAccountRepository = new Mock<IAccountRepository>();
+            var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
 
