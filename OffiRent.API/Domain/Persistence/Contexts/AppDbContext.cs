@@ -150,6 +150,8 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>().Property(p => p.Comment);
             builder.Entity<Office>().Property(p => p.Status)
                 .IsRequired();
+            builder.Entity<Office>().Property(o => o.DistrictId)
+                .IsRequired();
             builder.Entity<Office>()
                 .HasOne(p => p.Account)
                 .WithMany(p => p.Offices)

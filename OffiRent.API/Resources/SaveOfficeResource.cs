@@ -27,7 +27,9 @@ namespace OffiRent.API.Resources
         public float Price { get; set; }
         public bool Status { get; set; }
         public string Comment { get; set; }
+        [Required(ErrorMessage ="Required stuff")]
         public int AccountId { get; set; }
+        [Required]
         public int DistrictId { get; set; }
 
         public List<SaveServiceResource> Services { get; set; }
