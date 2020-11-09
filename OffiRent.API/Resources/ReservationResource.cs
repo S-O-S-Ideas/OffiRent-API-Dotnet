@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OffiRent.API.Domain.Models;
 
 namespace OffiRent.API.Resources
 {
@@ -16,7 +17,8 @@ namespace OffiRent.API.Resources
         //public int EndHour { get; set; }
         public string Status { get; set; }
         public int AccountId { get; set; }
-        public int OfficeId { get; set; }
+        //public int OfficeId { get; set; }
+        public OfficeServiceResource Office { get; set; }
         //public int OffiUserId { get; set; }   
     }
 }

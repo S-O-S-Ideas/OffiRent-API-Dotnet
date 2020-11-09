@@ -158,6 +158,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 .HasMany(o => o.Services)
                 .WithOne(s => s.Office)
                 .HasForeignKey(s => s.OfficeId);
+            builder.Entity<Office>()
+                .HasMany(o => o.Reservations)
+                .WithOne(o => o.Office)
+                .HasForeignKey(o => o.OfficeId);
 
             builder.Entity<Office>().HasData(
                 new Office
@@ -421,7 +425,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Pending",
                     AccountId = 100,
-                    OfficeId = 100
+                    OfficeId = 101
                 },
                 new Reservation
                 {
@@ -430,7 +434,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Canceled",
                     AccountId = 100,
-                    OfficeId = 100
+                    OfficeId = 102
                 },
                 new Reservation
                 {
@@ -439,7 +443,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Finished",
                     AccountId = 100,
-                    OfficeId = 100
+                    OfficeId = 103
                 },
                 new Reservation
                 {
@@ -448,7 +452,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Active",
                     AccountId = 100,
-                    OfficeId = 100
+                    OfficeId = 103
                 }
                 );
 

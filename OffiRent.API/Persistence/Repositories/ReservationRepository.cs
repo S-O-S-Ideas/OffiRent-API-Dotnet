@@ -36,10 +36,12 @@ namespace OffiRent.API.Persistence.Repositories
                 return await _context.Reservations
                 .Where(p => p.AccountId == accountId)
                 .Where(p => p.Status == status)
+                .Include(r => r.Office)
                 .ToListAsync();
             }
             return await _context.Reservations
                 .Where(p => p.AccountId == accountId)
+                .Include(r => r.Office)
                 .ToListAsync();
         }
 
@@ -52,6 +54,7 @@ namespace OffiRent.API.Persistence.Repositories
         {
             return await _context.Reservations
                 .Where(p => p.AccountId == accountId)
+                .Include(r => r.Office)
                 .ToListAsync();      
         }
 
