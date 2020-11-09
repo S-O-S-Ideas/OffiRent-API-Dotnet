@@ -15,7 +15,7 @@ namespace OffiRent.API.Resources
         //public int EndDate { get; set; }
         //public int InitialHour { get; set; }
         //public int EndHour { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public int AccountId { get; set; }
         public int OfficeId { get; set; }
     }

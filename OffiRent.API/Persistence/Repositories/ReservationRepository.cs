@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Runtime.InteropServices;
+using Castle.Core.Internal;
 
 namespace OffiRent.API.Persistence.Repositories
 {
@@ -27,9 +29,18 @@ namespace OffiRent.API.Persistence.Repositories
             return await _context.Reservations.FindAsync(Id);
         }
 
-        public async Task<IEnumerable<Reservation>> ListAccountReservationsAsync(int accountId)
+        public async Task<IEnumerable<Reservation>> ListAccountReservationsAsync(int accountId, [Optional] string status)
         {
-            return await _context.Reservations.Where(o => o.AccountId == accountId).ToListAsync();
+            if (!status.IsNullOrEmpty())
+            {
+                return await _context.Reservations
+                .Where(p => p.AccountId == accountId)
+                .Where(p => p.Status == status)
+                .ToListAsync();
+            }
+            return await _context.Reservations
+                .Where(p => p.AccountId == accountId)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Reservation>> ListAsync()
@@ -41,7 +52,6 @@ namespace OffiRent.API.Persistence.Repositories
         {
             return await _context.Reservations
                 .Where(p => p.AccountId == accountId)
-                .Where(p=>p.Status==true)
                 .ToListAsync();      
         }
 

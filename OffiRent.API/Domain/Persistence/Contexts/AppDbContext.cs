@@ -31,40 +31,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             base.OnModelCreating(builder);
 
 
-            //Reservation
-            builder.Entity<Reservation>().ToTable("reservation");
-            builder.Entity<Reservation>().HasKey(P => P.Id);
-            builder.Entity<Reservation>().Property(P => P.Id)
-                .IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Reservation>().Property(p => p.InitialDate)
-                .IsRequired();
-            //builder.Entity<Reservation>().Property(p => p.EndDate)
-            //    .IsRequired();
-            //builder.Entity<Reservation>().Property(p => p.InitialHour)
-            //    .IsRequired();
-            //builder.Entity<Reservation>().Property(p => p.EndHour)
-            //    .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.Status)
-                .HasDefaultValue(false);
-            builder.Entity<Reservation>().Property(p => p.FinishDate)
-                .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.AccountId)
-                .IsRequired();
-            builder.Entity<Reservation>().Property(p => p.OfficeId)
-                .IsRequired();
-
-
-            builder.Entity<Reservation>().HasData(
-                new Reservation
-                {
-                    Id = 100,
-                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
-                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
-                    Status = true,
-                    AccountId = 100,
-                    OfficeId = 100
-                }
-                ) ;
+            
 
             //builder.Entity<Reservation>().HasData(
             //    new Reservation
@@ -116,11 +83,6 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Account>().Property(p => p.IsPremium)
                .IsRequired();
 
-            builder.Entity<Reservation>()
-                   .HasOne(p => p.Account)
-                   .WithMany(p => p.Reservations)
-                   .HasForeignKey(p => p.AccountId);
-
             builder.Entity<Account>().HasData(
                 new Account
                 {
@@ -131,7 +93,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     FirstName = "Pepe",
                     LastName = "Cadena",
                     PhoneNumber = "920837182",
-                    IsPremium = false,
+                    IsPremium = true,
                 });
 
 
@@ -209,12 +171,12 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     Description = "Oficina espaciosa con gran comodidad",
                     Price = 100,
                     Status = true,
-                    AccountId = 300,
+                    AccountId = 100,
                     DistrictId = 80,
                 },
-                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 },
-                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 300, DistrictId = 81 },
-                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 }); ; ;
+                new Office { Id = 101, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 100, DistrictId = 80 },
+                new Office { Id = 102, Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 100, DistrictId = 81 },
+                new Office { Id = 103, Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 100, DistrictId = 81 }); ; ;
 
             //builder.Entity<Office>()
             //  .HasOne(p => p.Publication);   //en duda
@@ -418,6 +380,87 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 }
                 ); ;
 
+
+            //Reservation
+            builder.Entity<Reservation>().ToTable("reservation");
+            builder.Entity<Reservation>().HasKey(P => P.Id);
+            builder.Entity<Reservation>().Property(P => P.Id)
+                .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Reservation>().Property(p => p.InitialDate)
+                .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.EndDate)
+            //    .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.InitialHour)
+            //    .IsRequired();
+            //builder.Entity<Reservation>().Property(p => p.EndHour)
+            //    .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.Status);
+            //.HasDefaultValue(false);
+            builder.Entity<Reservation>().Property(p => p.FinishDate)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.AccountId)
+                .IsRequired();
+            builder.Entity<Reservation>().Property(p => p.OfficeId)
+                .IsRequired();
+
+
+            builder.Entity<Reservation>().HasData(
+                new Reservation
+                {
+                    Id = 100,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Active",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 101,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Pending",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 102,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Canceled",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 103,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Finished",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 104,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Active",
+                    AccountId = 100,
+                    OfficeId = 100
+                }
+                );
+
+            builder.Entity<Reservation>()
+                   .HasOne(p => p.Account)
+                   .WithMany(p => p.Reservations)
+                   .HasForeignKey(p => p.AccountId);
+
+            builder.Entity<Reservation>()
+                   .HasOne(p => p.Office)
+                   .WithMany(p => p.Reservations)
+                   .HasForeignKey(p => p.OfficeId);
 
             // Naming convention Policy
             builder.ApplySnakeCaseNamingConvention();

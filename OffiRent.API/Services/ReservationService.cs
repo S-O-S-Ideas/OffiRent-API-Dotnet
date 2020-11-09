@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace OffiRent.API.Services
 {
@@ -29,31 +30,31 @@ namespace OffiRent.API.Services
             return (accountReservations.Count > x) ? true : false;
         }
 
-        public async Task<ReservationResponse> ActiveReservation(int accountId, int id)
-        {
-            var inactiveReservation = await _reservationRepository.FindById(id);
+        //public async Task<ReservationResponse> ActiveReservation(int accountId, int id)
+        //{
+        //    var inactiveReservation = await _reservationRepository.FindById(id);
 
-            if (inactiveReservation == null)
-                return new ReservationResponse("Reservation not found");
-            else if (inactiveReservation.Status == true)
-                return new ReservationResponse("Reservation is already active");
+        //    if (inactiveReservation == null)
+        //        return new ReservationResponse("Reservation not found");
+        //    else if (inactiveReservation.Status == true)
+        //        return new ReservationResponse("Reservation is already active");
 
-            inactiveReservation.Status = true;
+        //    inactiveReservation.Status = true;
 
-            try
-            {
-                _reservationRepository.Remove(inactiveReservation);
-                await _unitOfWork.CompleteAsync();
+        //    try
+        //    {
+        //        _reservationRepository.Remove(inactiveReservation);
+        //        await _unitOfWork.CompleteAsync();
 
-                return new ReservationResponse(inactiveReservation);
-            }
-            catch (Exception ex)
-            {
-                return new ReservationResponse($"An error ocurred while deleting Reservation: {ex.Message}");
-            }
+        //        return new ReservationResponse(inactiveReservation);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new ReservationResponse($"An error ocurred while deleting Reservation: {ex.Message}");
+        //    }
 
 
-        }
+        //}
 
 
         public async Task<IEnumerable<Reservation>> ListAsync()
@@ -139,9 +140,9 @@ namespace OffiRent.API.Services
             }
         }
 
-        public async Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId)
+        public async Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId, [Optional] string status)
         {
-            return await _reservationRepository.ListByAccountIdAsync(accountId);
+            return await _reservationRepository.ListAccountReservationsAsync(accountId, status);
         }
 
 

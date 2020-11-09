@@ -7,6 +7,8 @@ using OffiRent.API.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Cors;
 
 namespace OffiRent.API.Controllers
 {
@@ -45,6 +47,7 @@ namespace OffiRent.API.Controllers
             return Ok(reservationResource);
         }
 
+
         [SwaggerOperation(
             Summary = "List all Reservations",
             Description = "List of Reservations",
@@ -53,6 +56,7 @@ namespace OffiRent.API.Controllers
            )]
         [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
         [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
+        [EnableCors]
         [HttpGet]
         public async Task<IEnumerable<ReservationResource>> GetAllAsync()
         {
@@ -70,9 +74,9 @@ namespace OffiRent.API.Controllers
         [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
         [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
         [HttpGet("{accountId}")]
-        public async Task<IEnumerable<ReservationResource>> GetAllReservationsByOffiUserIdAsync(int accountId)
+        public async Task<IEnumerable<ReservationResource>> GetAllReservationsByOffiUserIdAsync(int accountId, [Optional][FromQuery(Name ="status")] string status)
         {
-            var reservations = await _reservationService.ListByAccountIdAsync(accountId);
+            var reservations = await _reservationService.ListByAccountIdAsync(accountId, status);
             var resources = _mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationResource>>(reservations);
             return resources;
         }
@@ -140,24 +144,5 @@ namespace OffiRent.API.Controllers
             return Ok(reservationResource);
         }
 
-        [SwaggerOperation(
-            Summary = "Active reservation status",
-            Description = "Change the status from a reservation to active",
-            OperationId = "ActiveReservation",
-            Tags = new[] { "Reservations" }
-            )]
-        [SwaggerResponse(200, "Status from a Reservation changed", typeof(IEnumerable<ReservationResource>))]
-        [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
-        [HttpPut("/PutActiveReservation/{accountId}/{id}")]
-        public async Task<IActionResult> PutActiveReservationAsync(int accountId, int id)
-        {
-            var result = await _reservationService.ActiveReservation(accountId, id);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            var officeResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
-            return Ok(officeResource);
-        }
     }
 }
