@@ -182,7 +182,7 @@ namespace OffiRent.API.Services
 
             if (existingOffice == null)
                 return new OfficeResponse("Office not found");
-
+            existingOffice.Url = office.Url;
             existingOffice.Address = office.Address;
             existingOffice.Floor = office.Floor;
             existingOffice.Capacity = office.Capacity;

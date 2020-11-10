@@ -81,6 +81,7 @@ namespace OffiRent.API.Controllers
             return resources;
         }
 
+       
 
 
         [SwaggerOperation(
@@ -134,7 +135,7 @@ namespace OffiRent.API.Controllers
 
         )]
         [SwaggerResponse(200, "Details of a Reservation", typeof(ReservationResource))]
-        [HttpPut("id")]
+        [HttpGet("id")]
         public async Task<IActionResult> GetByIdAsync(int reservationId)
         {
             var result = await _reservationService.GetByIdAsync(reservationId);
