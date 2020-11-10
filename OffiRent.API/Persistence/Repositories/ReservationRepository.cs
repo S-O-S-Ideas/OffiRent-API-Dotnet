@@ -52,12 +52,12 @@ namespace OffiRent.API.Persistence.Repositories
                 return await _context.Reservations
                 .Where(p => p.OfficeId == officeId)
                 .Where(p => p.Status == status)
-                .Include(r => r.Office)
+                .Include(r => r.Account)
                 .ToListAsync();
             }
             return await _context.Reservations
                 .Where(p => p.OfficeId == officeId)
-                .Include(r => r.Office)
+                .Include(r => r.Account)
                 .ToListAsync();
         }
 

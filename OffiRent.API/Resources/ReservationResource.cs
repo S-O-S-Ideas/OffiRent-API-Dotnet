@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OffiRent.API.Domain.Models;
+using OffiRent.API.Resources.Account;
 
 namespace OffiRent.API.Resources
 {
@@ -19,6 +20,6 @@ namespace OffiRent.API.Resources
         public int AccountId { get; set; }
         //public int OfficeId { get; set; }
         public OfficeServiceResource Office { get; set; }
-        //public int OffiUserId { get; set; }   
+        public AccountResource Account { get; set; }
     }
 }
