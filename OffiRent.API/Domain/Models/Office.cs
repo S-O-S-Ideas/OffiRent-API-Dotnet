@@ -9,6 +9,7 @@ namespace OffiRent.API.Domain.Models
     public class Office
     {
         public int Id { get; set; }
+        public string Url { get; set; }
         public string Address { get; set; }
         public int Floor { get; set; }
         public int Capacity { get; set; }

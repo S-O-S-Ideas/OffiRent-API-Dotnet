@@ -23,7 +23,7 @@ namespace OffiRent.API.Test
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var officeId = 70;
-            Office falseoffice = new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 };
+            Office falseoffice = new Office { Id = 70, Url="oficina.com", Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 };
 
             mockOfficeRepository.Setup(o => o.FindById(officeId))
                 .ReturnsAsync(falseoffice);
@@ -75,8 +75,8 @@ namespace OffiRent.API.Test
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var districtId = 80;
             List<Office> offices = new List<Office>();
-            offices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
-            offices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
+            offices.Add(new Office { Id = 70, Url = "oficina.com", Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
+            offices.Add(new Office { Id = 71, Url = "oficina.com", Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
 
             mockOfficeRepository.Setup(o => o.ListByDistrictIdAsync(districtId))
                 .ReturnsAsync(offices);
@@ -127,8 +127,8 @@ namespace OffiRent.API.Test
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
 
             List<Office> falseoffices = new List<Office>();
-            falseoffices.Add(new Office { Id = 70, Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
-            falseoffices.Add(new Office { Id = 71, Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
+            falseoffices.Add(new Office { Id = 70, Url = "oficina.com", Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
+            falseoffices.Add(new Office { Id = 71, Url = "oficina.com", Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 300, DistrictId = 80 });
 
             mockOfficeRepository.Setup(o => o.ListByPriceEqualOrLowerThanAsync(price))
                 .ReturnsAsync(falseoffices);
