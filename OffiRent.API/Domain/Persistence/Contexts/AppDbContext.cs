@@ -453,6 +453,33 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     Status = "Active",
                     AccountId = 100,
                     OfficeId = 103
+                },
+                new Reservation
+                {
+                    Id = 105,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Pending",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 106,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Canceled",
+                    AccountId = 100,
+                    OfficeId = 100
+                },
+                new Reservation
+                {
+                    Id = 107,
+                    InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
+                    FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
+                    Status = "Finished",
+                    AccountId = 100,
+                    OfficeId = 100
                 }
                 );
 

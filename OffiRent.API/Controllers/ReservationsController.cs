@@ -144,5 +144,23 @@ namespace OffiRent.API.Controllers
             return Ok(reservationResource);
         }
 
+        [SwaggerOperation(
+            Summary = "Set the status of a pending reservation",
+            Description = "Set the status of a pending reservation, either 'Accepted' or 'Canceled'",
+            Tags = new[] { "Reservations" }
+
+        )]
+        [SwaggerResponse(200, "Status of a reservation changed", typeof(ReservationResource))]
+        [HttpPatch("id")]
+        public async Task<IActionResult> SetReservationStatus(int reservationId, [Optional][FromQuery(Name = "status")] string status)
+        {
+            var result = await _reservationService.SetStatus(reservationId, status);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var reservationResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
+            return Ok(reservationResource);
+        }
+
     }
 }

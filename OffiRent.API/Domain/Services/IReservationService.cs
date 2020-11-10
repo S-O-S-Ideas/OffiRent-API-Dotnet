@@ -16,6 +16,7 @@ namespace OffiRent.API.Domain.Services
         Task<ReservationResponse> GetByIdAsync(int id);
         Task<ReservationResponse> SaveAsync(int accountId, Reservation reservation);
         Task<ReservationResponse> UpdateAsync(int id, Reservation reservation);
+        Task<ReservationResponse> SetStatus(int id, [Optional] string status);
         Task<ReservationResponse> DeleteAsync(int id);
         //Task<ReservationResponse> ActiveReservation(int accountId, int id);
         Task<bool> AccountHasReservation(int x, Account account);

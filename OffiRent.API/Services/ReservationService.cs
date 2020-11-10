@@ -149,5 +149,27 @@ namespace OffiRent.API.Services
         {
             return await _reservationRepository.ListOfficeReservationsAsync(officeId, status);
         }
+
+        public async Task<ReservationResponse> SetStatus(int id, [Optional] string status)
+        {
+            var existingReservation = await _reservationRepository.FindById(id);
+
+            if (existingReservation == null)
+                return new ReservationResponse("Reservation not found");
+
+            existingReservation.Status = status;
+
+            try
+            {
+                _reservationRepository.Update(existingReservation);
+                await _unitOfWork.CompleteAsync();
+
+                return new ReservationResponse(existingReservation);
+            }
+            catch (Exception ex)
+            {
+                return new ReservationResponse($"An error ocurred while updating reservation : {ex.Message}");
+            }
+        }
     }
 }
