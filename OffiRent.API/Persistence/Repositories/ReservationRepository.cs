@@ -45,6 +45,22 @@ namespace OffiRent.API.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Reservation>> ListOfficeReservationsAsync(int officeId, [Optional] string status)
+        {
+            if (!status.IsNullOrEmpty())
+            {
+                return await _context.Reservations
+                .Where(p => p.OfficeId == officeId)
+                .Where(p => p.Status == status)
+                .Include(r => r.Office)
+                .ToListAsync();
+            }
+            return await _context.Reservations
+                .Where(p => p.OfficeId == officeId)
+                .Include(r => r.Office)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Reservation>> ListAsync()
         {
             return await _context.Reservations.ToListAsync();

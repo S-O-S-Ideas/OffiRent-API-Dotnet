@@ -12,6 +12,7 @@ namespace OffiRent.API.Domain.Services
     {
         Task<IEnumerable<Reservation>> ListAsync();
         Task<IEnumerable<Reservation>> ListByAccountIdAsync(int accountId, [Optional] string status);
+        Task<IEnumerable<Reservation>> ListByOfficeIdAsync(int officeId, [Optional] string status);
         Task<ReservationResponse> GetByIdAsync(int id);
         Task<ReservationResponse> SaveAsync(int accountId, Reservation reservation);
         Task<ReservationResponse> UpdateAsync(int id, Reservation reservation);

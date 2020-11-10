@@ -145,6 +145,9 @@ namespace OffiRent.API.Services
             return await _reservationRepository.ListAccountReservationsAsync(accountId, status);
         }
 
-
+        public async Task<IEnumerable<Reservation>> ListByOfficeIdAsync(int officeId, [Optional] string status)
+        {
+            return await _reservationRepository.ListOfficeReservationsAsync(officeId, status);
+        }
     }
 }
