@@ -151,10 +151,10 @@ namespace OffiRent.API.Controllers
 
         )]
         [SwaggerResponse(200, "Status of a reservation changed", typeof(ReservationResource))]
-        [HttpPatch("id")]
-        public async Task<IActionResult> SetReservationStatus(int reservationId, [Optional][FromQuery(Name = "status")] string status)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> SetReservationStatus(int id, [Optional][FromQuery(Name = "status")] string status)
         {
-            var result = await _reservationService.SetStatus(reservationId, status);
+            var result = await _reservationService.SetStatus(id, status);
 
             if (!result.Success)
                 return BadRequest(result.Message);
