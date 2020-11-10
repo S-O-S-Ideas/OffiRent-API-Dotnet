@@ -44,5 +44,20 @@ namespace OffiRent.API.Controllers
             var officeResource = _mapper.Map<Office, OfficeServiceResource>(result.Resource);
             return Ok(officeResource);
         }
+
+        [SwaggerOperation(
+             Summary = "List offices by provider",
+             Description = "List offices given the provider id",
+             Tags = new[] { "Accounts" }
+         )]
+        [SwaggerResponse(200, "Office list of account", typeof(OfficeServiceResource))]
+        [HttpGet("account/{accountId}/offices")]
+        public async Task<IActionResult> ListByAccountIdAsync(int accountId)
+        {
+            var result = await _officeService.ListByProviderIdAsync(accountId);
+
+            var officeResource = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeServiceResource>>(result);
+            return Ok(officeResource);
+        }
     }
 }
