@@ -14,15 +14,17 @@ namespace OffiRent.API.Services
     {
         private readonly IOfficeRepository _officeRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IReservationRepository _reservationRepository;
         private readonly IUnitOfWork _unitOfWork;
 
        
-        public OfficeService(IOfficeRepository officeRepository, IAccountRepository accountRepository, IUnitOfWork unitOfWork)
+        public OfficeService(IOfficeRepository officeRepository, IAccountRepository accountRepository, IReservationRepository reservationRepository, IUnitOfWork unitOfWork)
         {
             _officeRepository = officeRepository;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
             _accountRepository = accountRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public async Task<OfficeResponse> ActiveOffice(int providerId, int id)
@@ -62,9 +64,14 @@ namespace OffiRent.API.Services
         public async Task<OfficeResponse> DeleteAsync(int id)
         {
             var existingOffice = await _officeRepository.FindById(id);
+            var reservationsList = await _reservationRepository.ListOfficeReservationsAsync(id);
+            var activeReservation = reservationsList.FirstOrDefault(reservation => reservation.Status=="Active");
 
             if (existingOffice == null)
                 return new OfficeResponse("Office not found");
+            else if (activeReservation != null) //queda pendiente
+                return new OfficeResponse("Office has active reservations");
+
 
             try
             {

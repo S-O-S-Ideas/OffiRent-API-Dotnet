@@ -149,7 +149,7 @@ namespace OffiRent.API.Controllers
             )]
         [SwaggerResponse(200, "Status from a Office changed", typeof(IEnumerable<OfficeServiceResource>))]
         [ProducesResponseType(typeof(IEnumerable<OfficeServiceResource>), 200)]
-        [HttpPut("/PutActiveOffice/{providerId}/{id}")]
+        [HttpPatch("{providerId}/{id}")]
         public async Task<IActionResult> PutActiveOfficeAsync(int providerid, int id)
         {
             var result = await _officeService.ActiveOffice(providerid, id);
