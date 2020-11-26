@@ -36,7 +36,7 @@ namespace OffiRent.API.Services
 
         //    if (inactiveReservation == null)
         //        return new ReservationResponse("Reservation not found");
-        //    else if (inactiveReservation.Status == true)
+        //    else if (inactiveReservation.Status == active)
         //        return new ReservationResponse("Reservation is already active");
 
         //    inactiveReservation.Status = true;

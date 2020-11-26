@@ -26,6 +26,7 @@ namespace OffiRent.API.Test.StepDefinitions
         Reservation reservation = new Reservation();
         int reservationId = 1;
         int accountId = 2;
+        string reservationStatus = "Active";
         Account account = new Account();
 
         public ActivateReservationSteps()
@@ -41,7 +42,7 @@ namespace OffiRent.API.Test.StepDefinitions
             _accountRepositoryMock.Setup(a => a.GetSingleByIdAsync(accountId)).ReturnsAsync(account);
             _reservationRepositoryMock.Setup(r => r.FindById(reservationId)).ReturnsAsync(reservation);
 
-            reservation.Status = true;
+            reservation.Status = "true";
         }
 
         [Given(@"offi-user has a Reservation")]
@@ -52,22 +53,22 @@ namespace OffiRent.API.Test.StepDefinitions
         [Given(@"offi-user is in the deactivated reservation window")]
         public void GivenOffi_UserIsInTheDeactivatedOfficeWindow()
         {
-            reservation.Status = false;
-            Assert.AreEqual(_reservationService.GetByIdAsync(reservationId).Result.Resource.Status, false);
+            reservation.Status = "Pending";
+            Assert.AreEqual(_reservationService.GetByIdAsync(reservationId).Result.Resource.Status, "Pending");
 
         }
 
         [When(@"offi-user clicks in Activate reservation")]
         public void WhenOffi_UserClicksInActivateProduct()
         {
-            var response = _reservationService.ActiveReservation(accountId, reservationId).Result;
+            var response = _reservationService.SetStatus(accountId, reservationStatus).Result;
         }
 
         [Then(@"the system change the reservation status to activated")]
         public void ThenTheSystemChangeTheOfficeStatusToActivated()
         {
-            reservation.Status = false;
-            Assert.IsTrue(_reservationService.ActiveReservation(accountId, reservationId).Result.Success);
+            reservation.Status = "Active";
+            Assert.IsTrue(_reservationService.SetStatus(reservationId, reservationStatus).Result.Success); //lo cambie porque daba error de instancia
         }
     }
 }

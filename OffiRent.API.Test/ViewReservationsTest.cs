@@ -29,18 +29,22 @@ namespace OffiRent.API.Test
             List<Reservation> reservations = new List<Reservation>();
 
             var accountId = 100;
+            var reservationStatus = "Active";
 
-            reservations.Add(new Reservation {Id = 30, Status = true, AccountId = 100, OfficeId = 100 });
-            reservations.Add(new Reservation { Id = 31, Status = true, AccountId = 100, OfficeId = 101 });
-            reservations.Add(new Reservation { Id = 32, Status = true, AccountId = 101, OfficeId = 102 });
+            reservations.Add(new Reservation {Id = 30, Status = "Active", AccountId = 100, OfficeId = 100 });
+            reservations.Add(new Reservation { Id = 31, Status = "Active", AccountId = 100, OfficeId = 101 });
+            reservations.Add(new Reservation { Id = 32, Status = "Active", AccountId = 101, OfficeId = 102 });
 
-            mockReservationRepository.Setup(a => a.ListByAccountIdAsync(accountId)).ReturnsAsync(reservations);
+            
+
+            mockReservationRepository.Setup(a => a.ListAccountReservationsAsync(accountId,reservationStatus)).ReturnsAsync(reservations);
 
             var service = new ReservationService(mockReservationRepository.Object,mockUnitOfWork.Object, mockAccountRepository.Object);
 
-            List<Reservation> reservations1 = (List<Reservation>)await service.ListByAccountIdAsync(accountId);
+            List<Reservation> reservations1 = (List<Reservation>)await service.ListByAccountIdAsync(accountId, reservationStatus); // problema era reservation status
+           
 
-            reservations1.Should().NotBeEmpty();
+            reservations1.Should().NotBeEmpty();  // se probó el reservations de arriba, falta reemplazarlo
 
         }
 
@@ -52,15 +56,17 @@ namespace OffiRent.API.Test
             var mockReservationRepository = GetDefaultIResevationRepositoryInstance();
 
             var accountId = 102;
+            var reservationStatus = "Active";
+           
 
-            mockReservationRepository.Setup(a => a.ListByAccountIdAsync(accountId)).ReturnsAsync(new List<Reservation>());
+            mockReservationRepository.Setup(a => a.ListAccountReservationsAsync(accountId, reservationStatus)).ReturnsAsync(new List<Reservation>());
 
             var service = new ReservationService(mockReservationRepository.Object, mockUnitOfWork.Object, mockAccountRepository.Object);
 
-            List<Reservation> reservations = (List<Reservation>)await service.ListByAccountIdAsync(accountId);
+            List<Reservation> reservations = (List < Reservation >)await service.ListByAccountIdAsync(accountId, reservationStatus);
             var reservationsCount = reservations.Count;
 
-            reservations.Should().Equals(0);
+            reservationsCount.Should().Equals(0);
         }
 
         [Test]
