@@ -41,7 +41,7 @@ namespace OffiRent.API.Test.StepDefinitions
 
         public RateOfficeSteps()
         {
-            _officeService = new OfficeService(_officeRepositoryMock.Object, _accountRepositoryMock.Object, _unitOfWorkMock.Object);
+            _officeService = new OfficeService(_officeRepositoryMock.Object, _accountRepositoryMock.Object, _reservationRepositoryMock.Object,_unitOfWorkMock.Object);
             _accountService = new AccountService(_accountRepositoryMock.Object,_accountPaymentMethodRepositoryMock.Object,
                 _unitOfWorkMock.Object);
             _reservationService = new ReservationService(_reservationRepositoryMock.Object,_unitOfWorkMock.Object, _accountRepositoryMock.Object);
