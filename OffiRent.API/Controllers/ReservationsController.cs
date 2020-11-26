@@ -84,30 +84,7 @@ namespace OffiRent.API.Controllers
        
 
 
-        [SwaggerOperation(
-            Summary = "Create a new Reservation",
-            Description = "Create a new Reservation given a valid OffiUser id",
-            Tags = new[] { "Reservations" }
-        )]
-        [SwaggerResponse(200, "Reservation was created", typeof(ReservationResource))]
-        [HttpPost("{accountId}")]
-        public async Task<IActionResult> PostAsync(int accountId, [FromBody] SaveReservationResource resource)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState.GetErrorMessages());
-
-            var reservation = _mapper.Map<SaveReservationResource, Reservation>(resource);
-
-            var result = await _reservationService.SaveAsync(accountId, reservation);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            var reservationResource = _mapper.Map<Reservation, ReservationResource>(result.Resource);
-
-            return Ok(reservationResource);
-
-        }
+        
 
         [SwaggerOperation(
             Summary = "Update a Reservation",
