@@ -26,19 +26,19 @@ namespace OffiRent.API.Controllers
             _mapper = mapper;
         }
 
-        //[SwaggerOperation(
-        //    Summary = "List of Offices by DistrictId",
-        //    Description = "List of Offices by DistrictId",
-        //    Tags =new[] {"Offices"}
-        //)]
-        //[SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(OfficeResource))]
-        //[HttpGet("{districtId}")]
-        //public async Task<IEnumerable<OfficeResource>> GetAllByDistrictId(int districtId)
-        //{
-        //    var offices = await _officeService.ListByDistrictIdAsync(districtId);
-        //    var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeResource>>(offices);
-        //    return resources;
-        //}
+        [SwaggerOperation(
+            Summary = "List of Offices by DistrictId",
+            Description = "List of Offices by DistrictId",
+            Tags =new[] {"Offices"}
+        )]
+        [SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(OfficeServiceResource))]
+        [HttpGet("{districtId}")]
+        public async Task<IEnumerable<OfficeServiceResource>> GetAllByDistrictId(int districtId)
+        {
+            var offices = await _officeService.ListByDistrictIdAsync(districtId);
+            var resources = _mapper.Map<IEnumerable<Office>, IEnumerable<OfficeServiceResource>>(offices);
+            return resources;
+        }
 
 
 
