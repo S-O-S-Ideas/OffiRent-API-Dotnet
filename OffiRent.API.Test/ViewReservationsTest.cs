@@ -30,9 +30,9 @@ namespace OffiRent.API.Test
 
             var accountId = 100;
 
-            reservations.Add(new Reservation {Id = 30, Status = true, AccountId = 100, OfficeId = 100 });
-            reservations.Add(new Reservation { Id = 31, Status = true, AccountId = 100, OfficeId = 101 });
-            reservations.Add(new Reservation { Id = 32, Status = true, AccountId = 101, OfficeId = 102 });
+            reservations.Add(new Reservation {Id = 30, Status = "true", AccountId = 100, OfficeId = 100 });
+            reservations.Add(new Reservation { Id = 31, Status = "true", AccountId = 100, OfficeId = 101 });
+            reservations.Add(new Reservation { Id = 32, Status = "true", AccountId = 101, OfficeId = 102 });
 
             mockReservationRepository.Setup(a => a.ListByAccountIdAsync(accountId)).ReturnsAsync(reservations);
 
@@ -60,7 +60,7 @@ namespace OffiRent.API.Test
             List<Reservation> reservations = (List<Reservation>)await service.ListByAccountIdAsync(accountId);
             var reservationsCount = reservations.Count;
 
-            reservations.Should().Equals(0);
+            reservations.Should().Equals(1);
         }
 
         [Test]
