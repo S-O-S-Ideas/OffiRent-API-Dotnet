@@ -26,7 +26,7 @@ namespace OffiRent.API.Domain.Services.Communications
             FirstName = account.FirstName;
             LastName = account.LastName;
             PhoneNumber = account.PhoneNumber;
-            Token = account.Token;
+            Token = token;
         }
 
     }
