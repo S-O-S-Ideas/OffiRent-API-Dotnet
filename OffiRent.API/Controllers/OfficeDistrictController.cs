@@ -29,7 +29,7 @@ namespace OffiRent.API.Controllers
         [SwaggerOperation(
             Summary = "List of Offices by DistrictId",
             Description = "List of Offices by DistrictId",
-            Tags =new[] {"Offices"}
+            Tags =new[] {"Districts"}
         )]
         [SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(OfficeServiceResource))]
         [HttpGet("districts/{districtId}/offices")]
