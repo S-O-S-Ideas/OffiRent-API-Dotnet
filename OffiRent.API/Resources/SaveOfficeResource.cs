@@ -13,6 +13,7 @@ namespace OffiRent.API.Resources
         [Required]
         [MaxLength(30)]
         public string Address { get; set; }
+        public string Url { get; set; }
 
         [Required]
         public int Floor { get; set; }
