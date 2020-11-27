@@ -24,7 +24,7 @@ namespace OffiRent.API.Test.StepDefinitions
 
         private readonly IAccountService _accountService;
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
-        IOptions<AppSettings> _appSettings; // no se llega a usar
+        private readonly Mock<IOptions<AppSettings>> _appSettingsMock = new Mock<IOptions<AppSettings>>(); // no se llega a usar
 
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
 
@@ -42,7 +42,7 @@ namespace OffiRent.API.Test.StepDefinitions
 
             _accountService = new AccountService(_accountRepositoryMock.Object,
                 _accountPaymentMethodRepositoryMock.Object,
-                _unitOfWorkMock.Object);
+                _unitOfWorkMock.Object, _appSettingsMock.Object);
 
 
 

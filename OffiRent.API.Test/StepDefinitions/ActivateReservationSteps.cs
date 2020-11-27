@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Moq;
 using NUnit.Framework;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Services;
+using OffiRent.API.Settings;
 using System;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
@@ -20,6 +22,7 @@ namespace OffiRent.API.Test.StepDefinitions
 
         private readonly IAccountService _accountService;
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
+        private readonly Mock<IOptions<AppSettings>> _appSettingsMock = new Mock<IOptions<AppSettings>>();
 
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
 
@@ -37,7 +40,7 @@ namespace OffiRent.API.Test.StepDefinitions
 
             _accountService = new AccountService(_accountRepositoryMock.Object,
                 _accountPaymentMethodRepositoryMock.Object,
-                _unitOfWorkMock.Object);
+                _unitOfWorkMock.Object, _appSettingsMock.Object);
 
             _accountRepositoryMock.Setup(a => a.GetSingleByIdAsync(accountId)).ReturnsAsync(account);
             _reservationRepositoryMock.Setup(r => r.FindById(reservationId)).ReturnsAsync(reservation);

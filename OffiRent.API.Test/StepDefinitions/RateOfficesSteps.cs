@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Options;
+using Moq;
 using NuGet.Frameworks;
 using NUnit.Framework;
 using OffiRent.API.Domain.Models;
@@ -6,6 +7,7 @@ using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Domain.Services.Communications;
 using OffiRent.API.Services;
+using OffiRent.API.Settings;
 using System;
 using TechTalk.SpecFlow;
 using Ubiety.Dns.Core;
@@ -24,6 +26,7 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly Mock<IReservationRepository> _reservationRepositoryMock = new Mock<IReservationRepository>();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
+        private readonly Mock<IOptions<AppSettings>> _appSettingsMock = new Mock<IOptions<AppSettings>>();
 
         AccountResponse accountResponse;
         ReservationResponse reservationResponse;
@@ -43,7 +46,7 @@ namespace OffiRent.API.Test.StepDefinitions
         {
             _officeService = new OfficeService(_officeRepositoryMock.Object, _accountRepositoryMock.Object, _reservationRepositoryMock.Object,_unitOfWorkMock.Object);
             _accountService = new AccountService(_accountRepositoryMock.Object,_accountPaymentMethodRepositoryMock.Object,
-                _unitOfWorkMock.Object);
+                _unitOfWorkMock.Object, _appSettingsMock.Object);
             _reservationService = new ReservationService(_reservationRepositoryMock.Object,_unitOfWorkMock.Object, _accountRepositoryMock.Object);
 
             _reservationRepositoryMock.Setup(a => a.FindById(reservationId)).ReturnsAsync(reservation);

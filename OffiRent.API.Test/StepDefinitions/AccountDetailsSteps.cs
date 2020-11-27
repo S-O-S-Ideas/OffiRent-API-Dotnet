@@ -23,7 +23,7 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
-        IOptions<AppSettings> _appSettings; // no se llega a usar
+        private readonly Mock<IOptions<AppSettings>> _appSettingsMock = new Mock<IOptions<AppSettings>>(); // no se llega a usar
         string message = "Your profile will be shown to you right now";
 
         Account account= new Account();
@@ -32,7 +32,7 @@ namespace OffiRent.API.Test.StepDefinitions
         public AccountDetailsSteps()
         {
             _accountService = new AccountService(_accountRepositoryMock.Object, _accountPaymentMethodRepositoryMock.Object,
-                _unitOfWorkMock.Object);
+                _unitOfWorkMock.Object, _appSettingsMock.Object);
 
             _accountRepositoryMock.Setup(a => a.GetSingleByIdAsync(accountId)).ReturnsAsync(account);         
         }

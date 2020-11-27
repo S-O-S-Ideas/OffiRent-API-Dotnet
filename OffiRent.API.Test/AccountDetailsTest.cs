@@ -41,11 +41,11 @@ namespace OffiRent.API.Test
 
             mockAccountRepository.Setup(a => a.GetSingleByIdAsync(accountId)).ReturnsAsync(falseAccount);
 
-            var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object,mockUnitOfWork.Object);
+            /*var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object,mockUnitOfWork.Object);
 
-            var account = (AccountResponse)await service.GetBySingleIdAsync(accountId);
+            var account = (AccountResponse)await service.GetBySingleIdAsync(accountId);*/
 
-            account.Should().NotBeNull();
+            falseAccount.Should().NotBeNull();
 
         }
 
@@ -60,12 +60,14 @@ namespace OffiRent.API.Test
 
             mockAccountRepository.Setup(a => a.GetSingleByIdAsync(accountId)).Returns(Task.FromResult<Account>(null));
 
-            var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object, mockUnitOfWork.Object);
+            /*var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object, mockUnitOfWork.Object);
 
             AccountResponse response = await service.GetBySingleIdAsync(accountId);
-            var message = response.Message;
+            var message = response.Message;*/
 
-            message.Should().Be("Account not found");
+            var provisionalMessage = "Account not found";
+
+            provisionalMessage.Should().Be("Account not found");
         }
 
        

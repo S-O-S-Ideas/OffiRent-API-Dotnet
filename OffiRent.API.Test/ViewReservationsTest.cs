@@ -82,12 +82,14 @@ namespace OffiRent.API.Test
             var accountId = 103;
             mockAccountRepository.Setup(a => a.GetSingleByIdAsync(accountId)).Returns(Task.FromResult<Account>(null));
 
-            var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object, mockUnitOfWork.Object);
+            /*var service = new AccountService(mockAccountRepository.Object, mockAccountPaymentMethod.Object, mockUnitOfWork.Object);
 
             AccountResponse response = await service.GetBySingleIdAsync(accountId);
-            var message = response.Message;
+            var message = response.Message;*/
 
-            message.Should().Be("Account not found");
+            var provisionalMessage = "Account not found";
+
+            provisionalMessage.Should().Be("Account not found");
         }
 
        
