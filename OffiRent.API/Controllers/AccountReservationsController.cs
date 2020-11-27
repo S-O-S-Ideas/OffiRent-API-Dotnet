@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,24 @@ namespace OffiRent.API.Controllers
             _reservationService = reservationService;
             _accountService = accountService;
             _mapper = mapper;
+        }
+
+
+
+        [SwaggerOperation(
+          Summary = "List all Reservations made by OffiUser",
+          Description = "List all Reservations made by OffiUser given it's id",
+          Tags = new[] { "Accounts" }
+
+         )]
+        [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
+        [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
+        [HttpGet("accounts/{accountId}/reservations")]
+        public async Task<IEnumerable<ReservationResource>> GetAllReservationsByOffiUserIdAsync(int accountId, [Optional][FromQuery(Name = "status")] string status)
+        {
+            var reservations = await _reservationService.ListByAccountIdAsync(accountId, status);
+            var resources = _mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationResource>>(reservations);
+            return resources;
         }
 
 

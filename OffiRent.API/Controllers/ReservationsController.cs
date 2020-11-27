@@ -66,21 +66,7 @@ namespace OffiRent.API.Controllers
             return resources;
         }
 
-        [SwaggerOperation(
-            Summary = "List all Reservations made by OffiUser",
-            Description = "List all Reservations made by OffiUser given it's id",
-            Tags = new[] { "Reservations" }
-
-           )]
-        [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
-        [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
-        [HttpGet("account/{accountId}")]
-        public async Task<IEnumerable<ReservationResource>> GetAllReservationsByOffiUserIdAsync(int accountId, [Optional][FromQuery(Name ="status")] string status)
-        {
-            var reservations = await _reservationService.ListByAccountIdAsync(accountId, status);
-            var resources = _mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationResource>>(reservations);
-            return resources;
-        }
+      
 
        
 
