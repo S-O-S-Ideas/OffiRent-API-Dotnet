@@ -31,7 +31,7 @@ namespace OffiRent.API.Controllers
         [SwaggerOperation(
              Summary = "Details of the Office",
              Description = "Details of the Office for entered officeId",
-             Tags = new[] { "Offices" }
+             Tags = new[] { "Accounts" }
          )]
         [SwaggerResponse(200, "Details of the Office", typeof(OfficeServiceResource))]
         [HttpGet("account/offices/{officeId}")]
