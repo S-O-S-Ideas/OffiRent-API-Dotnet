@@ -54,7 +54,7 @@ namespace OffiRent.API.Controllers
         [SwaggerOperation(
             Summary = "Create a new Reservation",
             Description = "Create a new Reservation given a valid OffiUser id",
-            Tags = new[] { "Accounts" }
+            Tags = new[] { "Reservations" }
         )]
         [SwaggerResponse(200, "Reservation was created", typeof(ReservationResource))]
         [HttpPost("accounts/{accountId}/reservations")]
