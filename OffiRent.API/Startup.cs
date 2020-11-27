@@ -40,7 +40,15 @@ namespace OffiRent.API
         public void ConfigureServices(IServiceCollection services)
         {
             //CORS Support
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyHeader());
+            });
 
             services.AddControllers();
 
@@ -180,10 +188,7 @@ namespace OffiRent.API
             app.UseRouting();
 
             //app.UseCors();
-            app.UseCors(x => x.SetIsOriginAllowed(origin=> true)
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+            app.UseCors("CorsPolicy");
 
             // Authentication Support
             app.UseAuthentication();
