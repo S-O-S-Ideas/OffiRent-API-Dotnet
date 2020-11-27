@@ -40,18 +40,7 @@ namespace OffiRent.API
         public void ConfigureServices(IServiceCollection services)
         {
             //CORS Support
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:8080",
-                                                          "https://localhost:8080")
-                                                         .AllowAnyHeader()
-                                                         .AllowAnyMethod()
-                                                         .AllowAnyHeader();
-                    });
-            });
+            services.AddCors();
 
             services.AddControllers();
 
