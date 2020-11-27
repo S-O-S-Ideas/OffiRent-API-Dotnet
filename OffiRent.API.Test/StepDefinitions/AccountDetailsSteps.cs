@@ -1,10 +1,12 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Options;
+using Moq;
 using NUnit.Framework;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Domain.Services.Communications;
 using OffiRent.API.Services;
+using OffiRent.API.Settings;
 using System;
 using TechTalk.SpecFlow;
 using Ubiety.Dns.Core;
@@ -21,6 +23,7 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
+        IOptions<AppSettings> _appSettings; // no se llega a usar
         string message = "Your profile will be shown to you right now";
 
         Account account= new Account();

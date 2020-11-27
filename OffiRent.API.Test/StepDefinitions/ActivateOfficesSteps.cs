@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Moq;
 using NUnit.Framework;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Services;
+using OffiRent.API.Settings;
 using System;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
@@ -18,10 +20,12 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly IOfficeService _officeService;
         private readonly Mock<IOfficeRepository> _officeRepositoryMock = new Mock<IOfficeRepository>();
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
+        private readonly Mock<IReservationRepository> _reservationRepository = new Mock<IReservationRepository>();
 
         private readonly IAccountService _accountService;
         private readonly Mock<IAccountPaymentMethodRepository> _accountPaymentMethodRepositoryMock = new Mock<IAccountPaymentMethodRepository>();
-        
+        IOptions<AppSettings> _appSettings; // no se llega a usar
+
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
 
         Office office = new Office();
@@ -32,7 +36,7 @@ namespace OffiRent.API.Test.StepDefinitions
         public ActivateOfficesSteps()
         {
             _officeService = new OfficeService(_officeRepositoryMock.Object,
-                _accountRepositoryMock.Object,
+                _accountRepositoryMock.Object, _reservationRepository.Object,
                 _unitOfWorkMock.Object);
 
 

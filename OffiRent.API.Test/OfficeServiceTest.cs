@@ -22,6 +22,7 @@ namespace OffiRent.API.Test
             //Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
             var officeId = 70;
             Office falseoffice = new Office { Id = 70, Url="oficina.com", Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 };
 
@@ -29,8 +30,8 @@ namespace OffiRent.API.Test
                 .ReturnsAsync(falseoffice);
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object,mockUnitOfWork.Object);
 
             //Act
             var offices2 = (OfficeResponse)await service.GetByIdAsync(officeId);
@@ -47,6 +48,7 @@ namespace OffiRent.API.Test
             //Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
             var officeId = 1;
             mockOfficeRepository.Setup(r => r.FindById(officeId))
                 .Returns(Task.FromResult<Office>(null));
@@ -56,6 +58,7 @@ namespace OffiRent.API.Test
             var service = new OfficeService(
                 mockOfficeRepository.Object,
                 mockAccountRepository.Object,
+                MockReservationRepository.Object,
                 mockUnitOfWork.Object);
 
             //Act                                                                   
@@ -71,6 +74,7 @@ namespace OffiRent.API.Test
         {
             //Arrange
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
 
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var districtId = 80;
@@ -83,7 +87,7 @@ namespace OffiRent.API.Test
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object,mockUnitOfWork.Object);
 
             //Act
             List<Office> offices2 = (List<Office>)await service.ListByDistrictIdAsync(districtId);
@@ -104,9 +108,10 @@ namespace OffiRent.API.Test
             mockOfficeRepository.Setup(r => r.ListByDistrictIdAsync(districtInvalidId))
                 .ReturnsAsync(new List<Office>());
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object,mockUnitOfWork.Object);
 
             // Act
             List<Office> offices = (List<Office>)await service.ListByDistrictIdAsync(districtInvalidId);
@@ -125,6 +130,7 @@ namespace OffiRent.API.Test
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var price = 120;
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
 
             List<Office> falseoffices = new List<Office>();
             falseoffices.Add(new Office { Id = 70, Url = "oficina.com", Address = "calle Jerusalen", Floor = 2, Capacity = 4, AllowResource = true, Score = 85, Description = "Oficina espaciosa con gran comodidad", Price = 100, Status = true, AccountId = 300, DistrictId = 80 });
@@ -135,7 +141,7 @@ namespace OffiRent.API.Test
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object,mockUnitOfWork.Object);
 
             //Act
             List<Office> offices = (List<Office>)await service.ListByPriceEqualOrLowerThanAsync(price);
@@ -156,7 +162,8 @@ namespace OffiRent.API.Test
 
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object,mockUnitOfWork.Object);
 
 
             // Act
@@ -173,8 +180,9 @@ namespace OffiRent.API.Test
             // Arrange
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
+            var MockReservationRepository = GetDefaultIReservationRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, MockReservationRepository.Object, mockUnitOfWork.Object);
 
             Account account = new Account
             {
@@ -210,6 +218,11 @@ namespace OffiRent.API.Test
         private Mock<IAccountRepository> GetDefaultIAccountRepositoryInstance()
         {
             return new Mock<IAccountRepository>();
+        }
+
+        private Mock<IReservationRepository> GetDefaultIReservationRepositoryInstance()
+        {
+            return new Mock<IReservationRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()

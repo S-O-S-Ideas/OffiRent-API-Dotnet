@@ -22,12 +22,12 @@ namespace OffiRent.API.Services
 
         private readonly AppSettings _appSettings;
 
-        public AccountService(IAccountRepository accountRepository, IAccountPaymentMethodRepository accountPaymentMethodRepository, IUnitOfWork unitOfWork, IOptions<AppSettings> appSettings)
+        public AccountService(IAccountRepository accountRepository, IAccountPaymentMethodRepository accountPaymentMethodRepository, IUnitOfWork unitOfWork)
         {
             _accountRepository = accountRepository;
             _accountPaymentMethodRepository = accountPaymentMethodRepository;
             _unitOfWork = unitOfWork;
-            _appSettings = appSettings.Value;
+            
         }
 
         private string GenerateJwtToken(Account account)

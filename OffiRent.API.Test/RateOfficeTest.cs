@@ -26,7 +26,8 @@ namespace OffiRent.API.Test
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var mockReservationRepository = GetDefaultReservationRepositoryInstance();
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockReservationRepository.Object,mockUnitOfWork.Object);
 
             var accountId = 100;
             var officeId = 100;
@@ -68,8 +69,9 @@ namespace OffiRent.API.Test
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockOfficeRepository = GetDefaultIOfficeRepositoryInstance();
+            var mockReservationRepository = GetDefaultReservationRepositoryInstance();
 
-            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockUnitOfWork.Object);
+            var service = new OfficeService(mockOfficeRepository.Object, mockAccountRepository.Object, mockReservationRepository.Object,mockUnitOfWork.Object);
 
             Account account = new Account
             {
@@ -105,6 +107,11 @@ namespace OffiRent.API.Test
         private Mock<IOfficeRepository> GetDefaultIOfficeRepositoryInstance()
         {
             return new Mock<IOfficeRepository>();
+        }
+
+        private Mock<IReservationRepository> GetDefaultReservationRepositoryInstance()
+        {
+            return new Mock<IReservationRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()

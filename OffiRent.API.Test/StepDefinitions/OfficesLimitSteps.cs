@@ -25,6 +25,7 @@ namespace OffiRent.API.Test.StepDefinitions
         private readonly IOfficeService _officeService;
         private readonly Mock<IOfficeRepository> _officeRepositoryMock = new Mock<IOfficeRepository>();
         private readonly Mock<IAccountRepository> _accountRepositoryMock = new Mock<IAccountRepository>();
+        private readonly Mock<IReservationRepository> _reservationRepositoryMock = new Mock<IReservationRepository>();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
 
         Task addOffice(Office office) { this.premiumOffices.Add(office); return new Task(action: new Action(() => new bool())); ; }
@@ -34,6 +35,7 @@ namespace OffiRent.API.Test.StepDefinitions
             _officeService = new OfficeService(
                 _officeRepositoryMock.Object,
                 _accountRepositoryMock.Object,
+                _reservationRepositoryMock.Object,
                 _unitOfWorkMock.Object);
 
             nonPremiumAccount = new Account

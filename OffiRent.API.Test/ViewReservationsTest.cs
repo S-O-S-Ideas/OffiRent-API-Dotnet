@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services.Communications;
 using OffiRent.API.Services;
+using OffiRent.API.Settings;
 
 namespace OffiRent.API.Test
 {
@@ -75,6 +77,7 @@ namespace OffiRent.API.Test
             var mockAccountRepository = GetDefaultIAccountRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockAccountPaymentMethod = GetDefaultIAccountPaymentMethodRepositoryInstance();
+            
 
             var accountId = 103;
             mockAccountRepository.Setup(a => a.GetSingleByIdAsync(accountId)).Returns(Task.FromResult<Account>(null));
