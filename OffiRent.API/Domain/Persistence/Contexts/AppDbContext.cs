@@ -131,6 +131,8 @@ namespace OffiRent.API.Domain.Persistence.Contexts
             builder.Entity<Office>().HasKey(p => p.Id);
             builder.Entity<Office>().Property(p => p.Id)
                 .IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Office>().Property(p => p.Title)
+                .IsRequired();
             builder.Entity<Office>().Property(p => p.Url)
                 .IsRequired();
             builder.Entity<Office>().Property(p => p.Address)
@@ -169,6 +171,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                 new Office
                 {
                     Id = 100,
+                    Title ="Benevolente",
                     Url= "http://www.mateca.net/wp-content/uploads/2016/04/BBVA8.jpg",
                     Address = "calle Jerusalen",
                     Floor = 2,
@@ -181,9 +184,9 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     AccountId = 100,
                     DistrictId = 80,
                 },
-                new Office { Id = 101,Url= "https://stay-concierge.img-ikyu.com/concierge/wp-content/uploads/2019/11/00000620_201911_lounge_ec.jpg?auto=compress,format&lossless=0&fit=clamp&w=750", Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 100, DistrictId = 80 },
-                new Office { Id = 102,Url= "https://i.pinimg.com/originals/8e/af/05/8eaf056ac29f0b7008bd1dacb48f255c.jpg", Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 100, DistrictId = 81 },
-                new Office { Id = 103, Url = "https://workplace.okamura.co.jp/works/case/151001/img/twinbird_06_executive08.jpg", Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 100, DistrictId = 81 }); ; ;
+                new Office { Id = 101,Title="La guarida",Url= "https://stay-concierge.img-ikyu.com/concierge/wp-content/uploads/2019/11/00000620_201911_lounge_ec.jpg?auto=compress,format&lossless=0&fit=clamp&w=750", Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99, Description = "Oficina grande", Price = 80, Status = true, AccountId = 100, DistrictId = 80 },
+                new Office { Id = 102,Title="La resistencia",Url= "https://i.pinimg.com/originals/8e/af/05/8eaf056ac29f0b7008bd1dacb48f255c.jpg", Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 100, DistrictId = 81 },
+                new Office { Id = 103,Title="El espacio ideal" ,Url = "https://workplace.okamura.co.jp/works/case/151001/img/twinbird_06_executive08.jpg", Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 100, DistrictId = 81 }); ; ;
 
             //builder.Entity<Office>()
             //  .HasOne(p => p.Publication);   //en duda
