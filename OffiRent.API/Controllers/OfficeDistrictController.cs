@@ -13,7 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
-    [Route("api/offices")]
+    [Route("api/")]
     [ApiController]
     public class OfficeDistrictController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace OffiRent.API.Controllers
             Tags =new[] {"Offices"}
         )]
         [SwaggerResponse(200, "List of Offices within the District with entered DistrictId", typeof(OfficeServiceResource))]
-        [HttpGet("{districtId}")]
+        [HttpGet("districts/{districtId}/offices")]
         public async Task<IEnumerable<OfficeServiceResource>> GetAllByDistrictId(int districtId)
         {
             var offices = await _officeService.ListByDistrictIdAsync(districtId);

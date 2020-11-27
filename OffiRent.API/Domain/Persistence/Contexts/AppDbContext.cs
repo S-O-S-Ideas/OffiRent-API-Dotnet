@@ -188,11 +188,11 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     DistrictId = 80,
                 },
                 new Office { Id = 101,Title="La guarida",Url= "https://stay-concierge.img-ikyu.com/concierge/wp-content/uploads/2019/11/00000620_201911_lounge_ec.jpg?auto=compress,format&lossless=0&fit=clamp&w=750", Address = "calle Jazmines", Floor = 1, Capacity = 3, AllowResource = true, Score = 99,
-                    Description = "San Isidro, un centro de negocios moderno en la capital histórica de Perú, es una plataforma de lanzamiento para el éxito, y nuestro espacio de coworking en la Avenida Jorge Basadre ayuda a impulsar una mayor innovación. Con ocho pisos de espacios de trabajo creativos, ofrece a los equipos de todos los tamaños un lugar donde prosperar: conoce a un nuevo cliente en nuestras salas de estar llenas de arte, comienza un nuevo proyecto en una sala de reuniones moderna y luego ponte en contacto con tu equipo en una Oficina Privada elegante. Viajar al trabajo todos los días es sencillo con el metro en la Avenida Camino Real y la Avenida Javier Prado que se encuentran a poca distancia a pie; la cercanía a los hogares y escuelas de Lince se suma a la comodidad. Rodeado de sedes bancarias, embajadas internacionales y lugares de interés cultural, estarás en buena compañía en nuestro espacio de oficina en Av Jorge Basadre 349. Programa una visita hoy mismo.", Price = 80, Status = true, AccountId = 200, DistrictId = 80 },
+                    Description = "San Isidro, un centro de negocios moderno en la capital histórica de Perú, es una plataforma de lanzamiento para el éxito, y nuestro espacio de coworking en la Avenida Jorge Basadre ayuda a impulsar una mayor innovación. Con ocho pisos de espacios de trabajo creativos, ofrece a los equipos de todos los tamaños un lugar donde prosperar: conoce a un nuevo cliente en nuestras salas de estar llenas de arte, comienza un nuevo proyecto en una sala de reuniones moderna y luego ponte en contacto con tu equipo en una Oficina Privada elegante. Viajar al trabajo todos los días es sencillo con el metro en la Avenida Camino Real y la Avenida Javier Prado que se encuentran a poca distancia a pie; la cercanía a los hogares y escuelas de Lince se suma a la comodidad. Rodeado de sedes bancarias, embajadas internacionales y lugares de interés cultural, estarás en buena compañía en nuestro espacio de oficina en Av Jorge Basadre 349. Programa una visita hoy mismo.", Price = 80, Status = true, AccountId = 200, DistrictId = 81 },
                 new Office { Id = 102,Title="La resistencia",Url= "https://i.pinimg.com/originals/8e/af/05/8eaf056ac29f0b7008bd1dacb48f255c.jpg", Address = "calle Girasol", Floor = 1, Capacity = 5, AllowResource = true, Score = 12, 
-                    Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 100, DistrictId = 81 },
+                    Description = "Oficina con wifi y pcs incluidos", Price = 120, Status = true, AccountId = 100, DistrictId = 82 },
                 new Office { Id = 103,Title="El espacio ideal" ,Url = "https://workplace.okamura.co.jp/works/case/151001/img/twinbird_06_executive08.jpg", Address = "calle Caceres", Floor = 2, Capacity = 3, AllowResource = true, Score = 55, 
-                    Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 81 }); ; ;
+                    Description = "Oficina espaciosa con proyector", Price = 150, Status = true, AccountId = 300, DistrictId = 83 }); ; ;
 
             //builder.Entity<Office>()
             //  .HasOne(p => p.Publication);   //en duda
@@ -215,10 +215,10 @@ namespace OffiRent.API.Domain.Persistence.Contexts
 
 
             builder.Entity<District>().HasData(
-                new District { Id = 100, Name = "San Isidro", DepartamentId = 90 },
-                new District { Id = 101, Name = "Miraflores", DepartamentId = 90 },
-                new District { Id = 102, Name = "Junin", DepartamentId = 92 },
-                new District { Id = 103, Name = "Mercedes", DepartamentId = 92 });
+                new District { Id = 80, Name = "San Isidro", DepartamentId = 90 },
+                new District { Id = 81, Name = "Miraflores", DepartamentId = 90 },
+                new District { Id = 82, Name = "Junin", DepartamentId = 92 },
+                new District { Id = 83, Name = "Mercedes", DepartamentId = 92 });
 
 
             builder.Entity<District>()
