@@ -94,7 +94,9 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     LastName = "Cadena",
                     PhoneNumber = "920837182",
                     IsPremium = true,
-                });
+                },
+                new Account {Id=200, Email="alberto@gmail.com", Password="1234",Identification="87654321",FirstName="Alberto",LastName="Diaz",PhoneNumber="998761977",IsPremium=true }
+                );
 
 
 
@@ -424,7 +426,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Active",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 100
                 },
                 new Reservation
@@ -433,7 +435,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Pending",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 101
                 },
                 new Reservation
@@ -442,7 +444,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Canceled",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 102
                 },
                 new Reservation
@@ -451,7 +453,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Finished",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 103
                 },
                 new Reservation
@@ -460,7 +462,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Active",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 103
                 },
                 new Reservation
@@ -469,7 +471,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Pending",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 100
                 },
                 new Reservation
@@ -478,7 +480,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Canceled",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 100
                 },
                 new Reservation
@@ -487,7 +489,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
                     Status = "Finished",
-                    AccountId = 100,
+                    AccountId = 200,
                     OfficeId = 100
                 }
                 );
