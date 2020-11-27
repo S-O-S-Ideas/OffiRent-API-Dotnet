@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI.Common;
@@ -16,6 +17,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
+    [Authorize]
     [Route("api/Offices")]
     [ApiController]
     public class OfficesReservationsController : ControllerBase

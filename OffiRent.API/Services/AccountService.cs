@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Repositories;
 using OffiRent.API.Domain.Services;
 using OffiRent.API.Domain.Services.Communications;
+using OffiRent.API.Settings;
 
 namespace OffiRent.API.Services
 {
@@ -14,12 +20,45 @@ namespace OffiRent.API.Services
         private readonly IAccountPaymentMethodRepository _accountPaymentMethodRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountService(IAccountRepository accountRepository, IAccountPaymentMethodRepository accountPaymentMethodRepository, IUnitOfWork unitOfWork)
+        private readonly AppSettings _appSettings;
+
+        public AccountService(IAccountRepository accountRepository, IAccountPaymentMethodRepository accountPaymentMethodRepository, IUnitOfWork unitOfWork, IOptions<AppSettings> appSettings)
         {
             _accountRepository = accountRepository;
             _accountPaymentMethodRepository = accountPaymentMethodRepository;
             _unitOfWork = unitOfWork;
+            _appSettings = appSettings.Value;
         }
+
+        private string GenerateJwtToken(Account account)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] 
+                {
+                    new Claim(ClaimTypes.Name, account.Id.ToString())
+                } ),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        public AuthenticationResponse Authenticate(AuthenticationRequest request)
+        {
+            var account = _accountRepository.GetByEmailAndPasswordAsync(request.Email, request.Password);
+
+            if (account == null) return null;
+
+            var token = GenerateJwtToken(account.Result);
+            return new AuthenticationResponse(account.Result, token);
+        }
+
 
         public async Task AddAsync(Account account)
         {
@@ -144,6 +183,6 @@ namespace OffiRent.API.Services
             }
         }
 
-
+        
     }
 }

@@ -8,6 +8,7 @@ namespace OffiRent.API.Domain.Services
 {
     public interface IAccountService 
     {
+        AuthenticationResponse Authenticate(AuthenticationRequest request);
         Task<IEnumerable<Account>> ListAsync();
         Task<AccountResponse> GetBySingleIdAsync(int id);
         Task<AccountResponse> GetBySinglePhoneNumberAsync(string phoneNumber);

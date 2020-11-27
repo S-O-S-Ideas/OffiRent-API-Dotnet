@@ -14,9 +14,17 @@ namespace OffiRent.API.Persistence.Repositories
         public AccountRepository(AppDbContext context) : base(context)
         {
         }
+
+
+
         public async Task AddAsync(Account account)
         {
             await _context.Accounts.AddAsync(account);
+        }
+
+        public async Task<Account> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.Email == email && a.Password == password);
         }
 
         public async Task<Account> GetByEmailAsync(string email)

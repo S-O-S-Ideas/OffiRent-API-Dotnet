@@ -9,7 +9,6 @@
     <Folder Include="Domain\Persistence\Contexts\" />
     <Folder Include="Mapping\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Domain\Services\Communications\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />

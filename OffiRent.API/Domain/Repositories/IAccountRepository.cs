@@ -11,6 +11,7 @@ namespace OffiRent.API.Domain.Repositories
         Task<Account> GetSingleByIdAsync(int accountId);
         Task<Account> GetByPhoneNumerAsync(string phoneNumber);
         Task<Account> GetByEmailAsync(string email);
+        Task<Account> GetByEmailAndPasswordAsync(string email, string password);  // para token
         Task AddAsync(Account account);
         void Remove(Account account);
         void Update(Account account);

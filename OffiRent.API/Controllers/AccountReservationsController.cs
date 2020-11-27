@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OffiRent.API.Domain.Models;
@@ -13,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
+    [Authorize]
     [Route("api")]
     [ApiController]
     public class AccountReservationsController : ControllerBase

@@ -9,10 +9,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OffiRent.API.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 
@@ -36,10 +37,10 @@ namespace OffiRent.API.Controllers
         )]
 
         [SwaggerResponse(200, "Delete a reservation made by OffiUser ", typeof(ReservationResource))]
-        [HttpDelete("id")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        [HttpDelete("{reservationId}")]
+        public async Task<IActionResult> DeleteAsync(int reservationId)
         {
-            var result = await _reservationService.DeleteAsync(id);
+            var result = await _reservationService.DeleteAsync(reservationId);
 
             if (!result.Success)
                 return BadRequest(result.Message);
@@ -112,7 +113,7 @@ namespace OffiRent.API.Controllers
 
         )]
         [SwaggerResponse(200, "Details of a Reservation", typeof(ReservationResource))]
-        [HttpGet("id")]
+        [HttpGet("{reservationid}")]
         public async Task<IActionResult> GetByIdAsync(int reservationId)
         {
             var result = await _reservationService.GetByIdAsync(reservationId);

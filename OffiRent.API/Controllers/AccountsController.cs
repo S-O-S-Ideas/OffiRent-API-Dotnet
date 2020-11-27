@@ -1,7 +1,9 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OffiRent.API.Domain.Models;
 using OffiRent.API.Domain.Services;
+using OffiRent.API.Domain.Services.Communications;
 using OffiRent.API.Extensions;
 using OffiRent.API.Resources.Account;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -79,6 +82,24 @@ namespace OffiRent.API.Controllers
 
 
         [SwaggerOperation(
+           Summary = "Authenticate user session",
+           Description = "Authenticate the login of an existing user when entering their credentials",
+           Tags = new[] { "Accounts" }
+        )]
+        [SwaggerResponse(200, "Login credentials", typeof(AuthenticationResponse))]
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]AuthenticationRequest request)
+        {
+            var response = _accountService.Authenticate(request);
+
+            if (response == null)
+                return BadRequest(new { message = "Invalid Username Or Password" });
+
+            return Ok(response);
+        }
+
+        [SwaggerOperation(
             Summary = "Register Account",
             Description = "Register a new account.",
             OperationId = "RegisterNewAccount",
@@ -86,6 +107,7 @@ namespace OffiRent.API.Controllers
             )]
         [SwaggerResponse(200, "New account registered", typeof(IEnumerable<AccountResource>))]
         [ProducesResponseType(typeof(IEnumerable<AccountResource>), 200)]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource)
         {
