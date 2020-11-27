@@ -444,7 +444,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     Id = 102,
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
-                    Status = "Canceled",
+                    Status = "Pending",
                     AccountId = 100,
                     OfficeId = 100
                 },
@@ -453,7 +453,7 @@ namespace OffiRent.API.Domain.Persistence.Contexts
                     Id = 103,
                     InitialDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-03-15 12:49:23",
                     FinishDate = new DateTime(2021, 03, 15, 12, 49, 23),//"2021-23-15 12:49:23",
-                    Status = "Finished",
+                    Status = "Pending",
                     AccountId = 100,
                     OfficeId = 101
                 },
