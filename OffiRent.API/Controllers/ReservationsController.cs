@@ -74,7 +74,7 @@ namespace OffiRent.API.Controllers
            )]
         [SwaggerResponse(200, "List of Reservations", typeof(IEnumerable<ReservationResource>))]
         [ProducesResponseType(typeof(IEnumerable<ReservationResource>), 200)]
-        [HttpGet("{accountId}")]
+        [HttpGet("account/{accountId}")]
         public async Task<IEnumerable<ReservationResource>> GetAllReservationsByOffiUserIdAsync(int accountId, [Optional][FromQuery(Name ="status")] string status)
         {
             var reservations = await _reservationService.ListByAccountIdAsync(accountId, status);
