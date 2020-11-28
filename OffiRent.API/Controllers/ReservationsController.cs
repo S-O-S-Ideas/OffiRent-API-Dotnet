@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OffiRent.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 

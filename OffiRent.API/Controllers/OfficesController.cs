@@ -83,7 +83,6 @@ namespace OffiRent.API.Controllers
             Description = "Add an office given its properties. Non-premium accounts cannot have more than one office at the same time. But" +
             "premium accounts can have up to 15 offices.")]
         [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeServiceResource))]
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOfficeServiceResource resource)
         {
@@ -108,7 +107,6 @@ namespace OffiRent.API.Controllers
             Summary = "Delete a reservation",
             Description = "Remove a reservation given its id")]
         [SwaggerResponse(200, "Delete an office by its id", typeof(OfficeServiceResource))]
-        [Authorize]
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -129,7 +127,6 @@ namespace OffiRent.API.Controllers
 
         [SwaggerResponse(200, "List of Offices", typeof(IEnumerable<OfficeServiceResource>))]
         [ProducesResponseType(typeof(IEnumerable<OfficeServiceResource>), 200)]
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveOfficeServiceResource resource)
         {
@@ -153,7 +150,6 @@ namespace OffiRent.API.Controllers
             )]
         [SwaggerResponse(200, "Status from a Office changed", typeof(IEnumerable<OfficeServiceResource>))]
         [ProducesResponseType(typeof(IEnumerable<OfficeServiceResource>), 200)]
-        [Authorize]
         [HttpPatch("{providerId}/{id}")]
         public async Task<IActionResult> PutActiveOfficeAsync(int providerid, int id)
         {
@@ -173,7 +169,6 @@ namespace OffiRent.API.Controllers
             )]
         [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<OfficeServiceResource>))]
         [ProducesResponseType(typeof(IEnumerable<OfficeServiceResource>), 200)]
-        [Authorize]
         [HttpPatch("{officeId}")]
         public async Task<IActionResult> PutScoreAsync(int accountId, int officeId, [FromBody] SaveOfficeServiceResource resource)
         {

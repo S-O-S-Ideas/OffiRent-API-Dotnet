@@ -15,7 +15,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace OffiRent.API.Controllers
 {
-    [Authorize]
     [Route("api")]
     [ApiController]
     public class AccountReservationsController : ControllerBase

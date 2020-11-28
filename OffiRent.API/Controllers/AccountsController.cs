@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace OffiRent.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -87,7 +86,6 @@ namespace OffiRent.API.Controllers
            Tags = new[] { "Accounts" }
         )]
         [SwaggerResponse(200, "Login credentials", typeof(AuthenticationResponse))]
-        [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticationRequest request)
         {
@@ -107,7 +105,6 @@ namespace OffiRent.API.Controllers
             )]
         [SwaggerResponse(200, "New account registered", typeof(IEnumerable<AccountResource>))]
         [ProducesResponseType(typeof(IEnumerable<AccountResource>), 200)]
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource)
         {
